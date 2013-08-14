@@ -1,0 +1,16 @@
+* TODO As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
+AC:
+- [ ] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
+- [ ] removing unused files
+* TODO As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
+AC:
+- [ ] a standard org file ist loaded (liveflow.org)
+- [ ] liveflow.org is located at ~/.livewookie/liveflow.org
+- [ ] It is opened with the start of the program
+* TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
+- [ ] Saving the notes after focus is lost
+- [ ] Saving the notes after 5 seconds without activity
+- [ ] Saving should not interfere with the typing or other user actions
+
+* TODO As a note keeper I want a agenda view for today, that shows me all tasks I have for today
+- [ ] Agenda View is based on Org-Mode's
