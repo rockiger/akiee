@@ -1,6 +1,6 @@
 * TODO As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
 AC:
-- [ ] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
+- [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [ ] removing unused files
 * TODO As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
 AC:
