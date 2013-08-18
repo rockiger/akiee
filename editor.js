@@ -8,6 +8,8 @@ var gui = require("nw.gui");
 var fs = require("fs");
 var clipboard = gui.Clipboard.get();
 
+var startup = require("./startup")
+
 function handleDocumentChange(title) {
   var mode = "javascript";
   var modeName = "JavaScript";
@@ -161,7 +163,9 @@ onload = function() {
       }
     });
 
-  newFile();
+    //newFile();
+    var startupFile = startup.getTaskFiles();    
+    onChosenFileToOpen(startupFile);
   onresize();
 
   gui.Window.get().show();

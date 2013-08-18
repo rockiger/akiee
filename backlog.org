@@ -7,11 +7,11 @@ AC:
 - [ ] Write a view sample testcases
 - [X] Write user tests for existing features
 - [ ] Install the chrome-driver for node-webkit
-* TODO As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
-- [ ] a standard org file ist loaded (liveflow.org)
-- [ ] liveflow.org is located at ~/.livewookie/liveflow.org
-- [ ] liveflow.org doesn't exists it should be created   
-- [ ] It is opened with the start of the program
+* DONE As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
+- [X] a standard org file ist loaded (liveflow.org)
+- [X] liveflow.org is located at ~/.livewookie/liveflow.org
+- [X] liveflow.org doesn't exists it should be created   
+- [X] It is opened with the start of the program
 * TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
 - [ ] Saving the notes after focus is lost
 - [ ] Saving the notes after 5 seconds without activity
