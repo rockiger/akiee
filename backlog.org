@@ -2,10 +2,10 @@
 AC:
 - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [X] removing unused files
-* TODO As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
+* DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
 - [X] Install Mocha to the projecct
 - [ ] Write a view sample testcases
-- [ ] Write user tests for existing features
+- [X] Write user tests for existing features
 - [ ] Install the chrome-driver for node-webkit
 * TODO As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
 - [ ] a standard org file ist loaded (liveflow.org)
