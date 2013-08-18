@@ -3,14 +3,14 @@ AC:
 - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [X] removing unused files
 * TODO As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
-- [ ] Install the chrome-driver for node-webkit
-- [ ] Write user tests for existing features
-- [ ] Install Mocha to the projecct
+- [X] Install Mocha to the projecct
 - [ ] Write a view sample testcases
+- [ ] Write user tests for existing features
+- [ ] Install the chrome-driver for node-webkit
 * TODO As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
-AC:
 - [ ] a standard org file ist loaded (liveflow.org)
 - [ ] liveflow.org is located at ~/.livewookie/liveflow.org
+- [ ] liveflow.org doesn't exists it should be created   
 - [ ] It is opened with the start of the program
 * TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
 - [ ] Saving the notes after focus is lost
