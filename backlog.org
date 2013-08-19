@@ -12,10 +12,10 @@ AC:
 - [X] liveflow.org is located at ~/.livewookie/liveflow.org
 - [X] liveflow.org doesn't exists it should be created   
 - [X] It is opened with the start of the program
-* TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
-- [ ] Saving the notes after focus is lost
-- [ ] Saving the notes after 5 seconds without activity
-- [ ] Saving should not interfere with the typing or other user actions
+* DONE As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
+- [X] Saving the notes after focus is lost
+- [X] Saving should not interfere with the typing or other user actions
+- [X] Saving should only be done, if there are any changes to the file
 
 * TODO As a note keeper I want a agenda view for today, that shows me all tasks I have for today
 - [ ] Agenda View is based on Org-Mode's

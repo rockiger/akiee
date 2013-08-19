@@ -3,12 +3,13 @@ var editor;
 var menu;
 var fileEntry;
 var hasWriteAccess;
+var hasChanged = false;
 
 var gui = require("nw.gui");
 var fs = require("fs");
 var clipboard = gui.Clipboard.get();
 
-var startup = require("./startup")
+var util = require("./util");
 
 function handleDocumentChange(title) {
   var mode = "javascript";
@@ -132,6 +133,12 @@ function initContextMenu() {
   });
 }
 
+function onBlur(taskFiles) {
+    if (hasChanged === true) {
+        writeEditorToFile(taskFiles);
+        hasChanged = false;
+    }
+}
 
 onload = function() {
   initContextMenu();
@@ -157,18 +164,30 @@ onload = function() {
       mode: {name: "javascript", json: true },
       lineNumbers: true,
       theme: "lesser-dark",
+        autofocus: true,
       extraKeys: {
         "Cmd-S": function(instance) { handleSaveButton() },
         "Ctrl-S": function(instance) { handleSaveButton() },
+      },
+      onChange: function(){
+          hasChanged = true;
+          console.log(hasChanged);
       }
     });
 
-    //newFile();
-    var startupFile = startup.getTaskFiles();    
-    onChosenFileToOpen(startupFile);
-  onresize();
 
-  gui.Window.get().show();
+    //newFile();
+    var startupFile = util.getTaskFiles();    
+    onChosenFileToOpen(startupFile);
+    onresize();
+
+    var win = gui.Window.get();
+    
+    win.on('blur', function() {
+        onBlur(startupFile);
+    });
+
+    win.show();
 };
 
 onresize = function() {

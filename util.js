@@ -1,6 +1,6 @@
-var process = require("process")
-var fs = require("fs")
-var path = require("path")
+var process = require("process");
+var fs = require("fs");
+var path = require("path");
 
 function getTaskFiles() {
     var userHome = getUserHome();
@@ -15,7 +15,7 @@ function getUserHome() {
 function getLiveflow(userHome) {
     var confFolder = path.join(userHome + "/.livewookiee/");
     console.log(confFolder);
-    var liveFlowPath = path.join(confFolder, "liveflow.org")
+    var liveFlowPath = path.join(confFolder, "liveflow.org");
     if (fs.existsSync(confFolder)) {
         if (fs.existsSync(liveFlowPath)) {
             return liveFlowPath;
