@@ -163,7 +163,7 @@ onload = function() {
     {
       mode: {name: "javascript", json: true },
       lineNumbers: true,
-      theme: "lesser-dark",
+      theme: "solarized dark",
         autofocus: true,
       extraKeys: {
         "Cmd-S": function(instance) { handleSaveButton() },

@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>CodeMirror: Theme Demo</title>
     <link rel="stylesheet" href="../lib/codemirror.css">
     <script src="../lib/codemirror.js"></script>
@@ -14,13 +15,24 @@
     <link rel="stylesheet" href="../theme/rubyblue.css">
     <link rel="stylesheet" href="../theme/lesser-dark.css">
     <link rel="stylesheet" href="../theme/xq-dark.css">
+    <link rel="stylesheet" href="../theme/xq-light.css">
     <link rel="stylesheet" href="../theme/ambiance.css">
     <link rel="stylesheet" href="../theme/blackboard.css">
+    <link rel="stylesheet" href="../theme/vibrant-ink.css">
+    <link rel="stylesheet" href="../theme/solarized.css">
+    <link rel="stylesheet" href="../theme/twilight.css">
+    <link rel="stylesheet" href="../theme/midnight.css">
+    <link rel="stylesheet" href="../theme/3024-day.css">
+    <link rel="stylesheet" href="../theme/3024-night.css">
+    <link rel="stylesheet" href="../theme/base16-light.css">
+    <link rel="stylesheet" href="../theme/base16-dark.css">
+    <link rel="stylesheet" href="../theme/tomorrow-night-eighties.css">
     <script src="../mode/javascript/javascript.js"></script>
+    <script src="../keymap/extra.js"></script>
     <link rel="stylesheet" href="../doc/docs.css">
 
     <style type="text/css">
-      .CodeMirror {border: 1px solid black;}
+      .CodeMirror {border: 1px solid black; font-size:13px}
     </style>
   </head>
   <body>
@@ -42,18 +54,29 @@ function findSequence(goal) {
 
 <p>Select a theme: <select onchange="selectTheme()" id=select>
     <option selected>default</option>
+    <option>3024-day</option>
+    <option>3024-night</option>
     <option>ambiance</option>
+    <option>base16-dark</option>
+    <option>base16-light</option>
     <option>blackboard</option>
     <option>cobalt</option>
     <option>eclipse</option>
     <option>elegant</option>
     <option>erlang-dark</option>
     <option>lesser-dark</option>
+    <option>midnight</option>
     <option>monokai</option>
     <option>neat</option>
     <option>night</option>
     <option>rubyblue</option>
+    <option>solarized dark</option>
+    <option>solarized light</option>
+    <option>tomorrow-night-eighties</option>
+    <option>twilight</option>
+    <option>vibrant-ink</option>
     <option>xq-dark</option>
+    <option>xq-light</option>
 </select>
 </p>
 
@@ -66,7 +89,8 @@ function findSequence(goal) {
     var theme = input.options[input.selectedIndex].innerHTML;
     editor.setOption("theme", theme);
   }
-  var choice = document.location.search && document.location.search.slice(1);
+  var choice = document.location.search &&
+               decodeURIComponent(document.location.search.slice(1));
   if (choice) {
     input.value = choice;
     editor.setOption("theme", choice);

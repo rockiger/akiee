@@ -1,9 +1,11 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>CodeMirror: Erlang mode</title>
     <link rel="stylesheet" href="../../lib/codemirror.css">
     <script src="../../lib/codemirror.js"></script>
+    <script src="../../addon/edit/matchbrackets.js"></script>
     <script src="erlang.js"></script>
     <link rel="stylesheet" href="../../theme/erlang-dark.css">
     <style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
@@ -52,6 +54,7 @@ expand_recs(_,Term) ->
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
         matchBrackets: true,
+        extraKeys: {"Tab":  "indentAuto"},
         theme: "erlang-dark"
       });
     </script>
