@@ -259,12 +259,11 @@ if(!window.appLoad) {
             });
         }
         function saveFileFN() {
-            if (/*hasChanged &&*/ currentFile !== "Untitled") {
-                var data = editor.getSession().getValue(); //.replace(/\n/g,"\r\n");
-                if(currentFile == "Untitled"){
-                    saveasDialog('#saveasDialog');
-                }else{
+            if (currentFile !== "Untitled") {
+                if (hasChanged) {
+                    var data = editor.getSession().getValue(); //.replace(/\n/g,"\r\n");
                     fs.writeFileSync(currentFile, data, "utf8");
+                    console.log("Saved " + currentFile);
                     $("title").text(currentFile);
                     hasChanged = false;
                 }
@@ -384,17 +383,22 @@ if(!window.appLoad) {
         $("[data-mode='"+detectedMode+"']").parent().addClass("active");
             
         win.on('close', function() {
-            function disp_confirm() {
-                var r = confirm("Press a button!");
-                if (r === true) {
-                    alert("You pressed OK!");
-                }
-                else {
-                    this.close(true);
-                }
-            }
+            saveFileFN();
             win.close(true);
         });
+        
+        win.on('blur', function() {
+            saveFileFN();
+        });
+
+        editor.on('blur', function() {
+            saveFileFN();
+        });
+
+        editor.on('change', function() {
+            hasChanged = true;
+            console.log("Editor changed");
+        })
     
         $("#windowClose").click(function() {
             win.close();
