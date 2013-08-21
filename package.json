@@ -1,10 +1,10 @@
 {
-    "name": "Ace File Editor",
+    "name": "Live Wookiee",
     "main": "index.html",
     "window": {
-        "title": "File Editor",
+        "title": "Your Life organized by a Wookiee",
         "toolbar": false,
-        "position": "center",
+        "position": "left",
         "width": 800,
         "height": 700,
         "resizable": true,
