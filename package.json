@@ -1,13 +1,14 @@
 {
-  "name": "LiveWookie",
-  "version": "0.1",
-  "description": "A very small code editor.",
-  "main": "main.html",
-  "window": {
-    "width": 400,
-    "height": 520,
-    "show": false,
-    "title": "Live Wookiee",
-    "toolbar": false
-  }
+    "name": "Ace File Editor",
+    "main": "index.html",
+    "window": {
+        "title": "File Editor",
+        "toolbar": false,
+        "position": "center",
+        "width": 800,
+        "height": 700,
+        "resizable": true,
+        "show": false,
+	    "frame": true
+    }
 }
