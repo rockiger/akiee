@@ -1,19 +1,18 @@
-if(!window.appLoad){
+if(!window.appLoad) {
     var appconfig = require("./package.json");
-    window.appLoad = function(gui) {
-        
+    window.appLoad = function(gui) {        
+
         var ace = window.ace;
-        
         var detectedMode;
-        
-        var Range = ace.require("ace/range").Range;
-        var jsbeautify = require("./jsbeautify/jsbeautify.js");
-        
         var win = gui.Window.get(); 
         win.show();
+    
+        var Range = ace.require("ace/range").Range;
+        var jsbeautify = require("./jsbeautify/jsbeautify.js");
+        var util = require("./util");
         var fs = require("fs");
         var Path = require("path");
-    
+        
         if(!window.global.OpenerLoaded){
             window.global.OpenerLoaded = true;
             gui.App.on("open",function(filename){
@@ -190,6 +189,7 @@ if(!window.appLoad){
         
     
         var hasChanged = false;
+        win.currentFile = util.getTaskFiles();
         var currentFile = 
                 win.currentFile ? 
                 win.currentFile :
