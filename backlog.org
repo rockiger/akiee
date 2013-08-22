@@ -16,6 +16,12 @@ AC:
 - [X] Saving the notes after focus is lost
 - [X] Saving should not interfere with the typing or other user actions
 - [X] Saving should only be done, if there are any changes to the file
+* TODO As a note keeper I want a proper theme for my org file, that I can quickly navigate through them and use ace features for text movement
+- [ ] Proper Styling for an org-file
+- [ ] Move Parts of the Structure around via Keyboard
+- [ ] Open/Close on code folding via Keyboard
 
 * TODO As a note keeper I want a agenda view for today, that shows me all tasks I have for today
 - [ ] Agenda View is based on Org-Mode's
+  
+

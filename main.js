@@ -398,7 +398,7 @@ if(!window.appLoad) {
         editor.on('change', function() {
             hasChanged = true;
             console.log("Editor changed");
-        })
+        });
     
         $("#windowClose").click(function() {
             win.close();
