@@ -16,11 +16,11 @@ AC:
 - [X] Saving the notes after focus is lost
 - [X] Saving should not interfere with the typing or other user actions
 - [X] Saving should only be done, if there are any changes to the file
-* TODO As a note keeper I want to use markdown files as the basis for my list and outlines proper theme for my org file, that I can quickly navigate through them and use ace features for text movement
-- [ ] use a markdown file as standard file instead of org-file
-- [ ] Proper Styling for an markdown-file
-- [ ] Move Parts of the Structure around via Keyboard
-- [ ] Open/Close on code folding via Keyboard
+* DONE As a note keeper I want to use markdown files as the basis for my list and outlines proper theme for my org file, that I can quickly navigate through them and use ace features for text movement
+- [X] use a markdown file as standard file instead of org-file
+- [X] Proper Styling for an markdown-file
+- [X] Open/Close on code folding via Keyboard (Alt-Shift-9/Alt-0)
+- [X] Move Parts of the Structure around via Keyboard, if it's folded (Alt-Up/-Down )
 
 * TODO As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
 - [ ] TODO and DONE are recognised by the markdown theme
