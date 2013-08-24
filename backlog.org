@@ -23,7 +23,7 @@ AC:
 - [X] Move Parts of the Structure around via Keyboard, if it's folded (Alt-Up/-Down )
 
 * TODO As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
-- [ ] TODO and DONE are recognised by the markdown theme
+- [X] TODO and DONE are recognised by the markdown theme
 
 * TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
