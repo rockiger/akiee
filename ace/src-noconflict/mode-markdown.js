@@ -2180,6 +2180,15 @@ var MarkdownHighlightRules = function() {
         }, { // code span `
             token : "support.function",
             regex : "(`+)(.*?[^`])(\\1)"
+        }, { // TODO
+            token : "keyword.control",
+            regex : "\\bTODO\\b"
+        }, { // DONE
+            token : "keyword.operator",
+            regex : "\\bDONE\\b"
+        }, { // FIX
+            token : "keyword.other",
+            regex : "\\bFIX\\b"
         }, { // reference
             token : ["text", "constant", "text", "url", "string", "text"],
             regex : "^([ ]{0,3}\\[)([^\\]]+)(\\]:\\s*)([^ ]+)(\\s*(?:[\"][^\"]+[\"])?(\\s*))$"

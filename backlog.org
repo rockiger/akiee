@@ -22,7 +22,7 @@ AC:
 - [X] Open/Close on code folding via Keyboard (Alt-Shift-9/Alt-0)
 - [X] Move Parts of the Structure around via Keyboard, if it's folded (Alt-Up/-Down )
 
-* TODO As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
+* DONE As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
 - [X] TODO and DONE are recognised by the markdown theme
 
 * TODO As a task planner I want to add due markers to a task, that I know when I have to finish them

@@ -26,6 +26,8 @@ if(!window.appLoad) {
         }
         
         var editor = ace.edit("editor");
+
+        document.getElementById('editor').style.fontSize='16px'
         
         editor.commands.addCommand({
             name: 'beautify',
