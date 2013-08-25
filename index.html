@@ -1,89 +1,24 @@
 <html>  
-    <head>
-		<title>Ace Editor</title>
-		<style>
-		  #editor { 
-			position: absolute;
-			top: 26px;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			}
-		</style>
-		<script src="ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    	<script src="jquery.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        
-	</head>
-	<body style="-webkit-user-select: none; -webkit-app-region: drag">
-		<div class="navbar navbar-inverse navbar-static-top">
-    		<div class="navbar-inner">
-				<ul class="nav">
-					<li class="dropdown">
-    					<a class="dropdown-toggle" data-toggle="dropdown" href="#">File</a>
-						<ul class="dropdown-menu">
-							<li><a id="newFile" href="#">New</a></li>
-							<li><a id="openFile" href="#">Open</a></li>
-							<li><a id="saveFile" href="#">Save</a></li>
-							<li><a id="saveasFile" href="#">Save As</a></li>
-							<li><a id="windowClose" href="#">Close</a></li>
-						</ul>
-					</li>
-                    <li class="dropdown">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Theme</a>
-						<ul class="dropdown-menu">
-                            <li><a id="setTheme" href="#" data-theme="ambiance">ambiance</a></li>
-                            <li><a id="setTheme" href="#" data-theme="chaos">chaos</a></li>
-                            <li><a id="setTheme" href="#" data-theme="chrome">chrome</a></li>
-                            <li><a id="setTheme" href="#" data-theme="clouds">clouds</a></li>
-                            <li><a id="setTheme" href="#" data-theme="clouds_midnight">clouds_midnight</a></li>
-                            <li><a id="setTheme" href="#" data-theme="cobalt">cobalt</a></li>
-                            <li><a id="setTheme" href="#" data-theme="crimson_editfor">crimson_editor</a></li>
-                            <li><a id="setTheme" href="#" data-theme="dawn">dawn</a></li>
-                            <li><a id="setTheme" href="#" data-theme="dreamweaver">dreamweaver</a></li>
-                            <li><a id="setTheme" href="#" data-theme="eclipse">eclipse</a></li>
-                            <li><a id="setTheme" href="#" data-theme="github">github</a></li>
-                            <li><a id="setTheme" href="#" data-theme="idle_fingers">idle_fingers</a></li>
-                            <li><a id="setTheme" href="#" data-theme="kr_theme">kr_theme</a></li>
-                            <li><a id="setTheme" href="#" data-theme="merbivore">merbivore</a></li>
-                            <li><a id="setTheme" href="#" data-theme="merbivore_soft">merbivore_soft</a></li>
-                            <li><a id="setTheme" href="#" data-theme="mono_industrial">mono_industrial</a></li>
-                            <li><a id="setTheme" href="#" data-theme="monokai">monokai</a></li>
-                            <li><a id="setTheme" href="#" data-theme="pastel_on_dark">pastel_on_dark</a></li>
-                            <li><a id="setTheme" href="#" data-theme="solarized_dark">solarized_dark</a></li>
-                            <li><a id="setTheme" href="#" data-theme="solarized_light">solarized_light</a></li>
-                            <li><a id="setTheme" href="#" data-theme="textmate">textmate</a></li>
-                            <li><a id="setTheme" href="#" data-theme="tomorrow">tomorrow</a></li>
-                            <li><a id="setTheme" href="#" data-theme="tomorrow_night">tomorrow_night</a></li>
-                            <li><a id="setTheme" href="#" data-theme="tomorrow_night_blue">tomorrow_night_blue</a></li>
-                            <li><a id="setTheme" href="#" data-theme="tomorrow_night_bright">tomorrow_night_bright</a></li>
-                            <li><a id="setTheme" href="#" data-theme="tomorrow_night_eighties">tomorrow_night_eighties</a></li>
-                            <li><a id="setTheme" href="#" data-theme="twilight">twilight</a></li>
-                            <li><a id="setTheme" href="#" data-theme="vibrant_ink">vibrant_ink</a></li>
-                            <li><a id="setTheme" href="#" data-theme="xcode">xcode</a></li>
-						</ul>
-					</li>
-                    <li class="dropdown">
-        				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Syntax</a>
-						<ul class="dropdown-menu" id="syntaxMenu">
-                            
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div id="editor"></div>
-        <script src="main.js"></script>
-        <script>
-            (function(){
-                var gui = require('nw.gui');
-                window.appLoad(gui);
-            })();
-        </script>
-        <input style="display:none;" id="openfileDialog" type="file"/>
-        <input style="display:none;" id="saveasDialog"  type="file" nwsaveas />
-	</body>
+  <head>
+	<title>Ace Editor</title>
+	<style>
+	  #editor { 
+	  position: absolute;
+	  top: 0px;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	  }
+	</style>
+	<script src="ace/src-noconflict/ace.js" type="text/javascript"
+		    charset="utf-8"></script>
+    <script src="jquery.js"></script>
+    <script src="main.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body style="-webkit-user-select: none; -webkit-app-region: drag">
+	<div id="editor"></div>
+    <input style="display:none;" id="openfileDialog" type="file"/>
+    <input style="display:none;" id="saveasDialog"  type="file" nwsaveas />
+  </body>
 </html>
