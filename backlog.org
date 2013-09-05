@@ -3,11 +3,12 @@ AC:
 - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [X] removing unused files
 * DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
+  Aborted, because of problems between node-webkit and standard testing
 - [X] Install Mocha to the projecct
 - [ ] Write a view sample testcases
 - [X] Write user tests for existing features
 - [ ] Install the chrome-driver for node-webkit
-* DONE As a user i want to see my notes, when I open live wookiee, that I see my notes instantly.
+* DONE As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
 - [X] a standard org file ist loaded (liveflow.org)
 - [X] liveflow.org is located at ~/.livewookie/liveflow.org
 - [X] liveflow.org doesn't exists it should be created   
@@ -30,6 +31,8 @@ AC:
 - [X] DEADLINE: <2013-08-24 Sa 11:00>
 
 * TODO As a note keeper I want a agenda view for today, that shows me all tasks I have for today
+- [ ] Agenda View show all Todos
+- [ ] There is a menMenü entry for Agenda Views
 - [ ] Agenda View is based on Org-Mode's
 
 * TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.

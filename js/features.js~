@@ -1,0 +1,9 @@
+"use strict";
+
+var gui = require('nw.gui');
+
+function setupAce() {
+    console.log("setupAce called");
+}
+
+module.exports = setupAce;

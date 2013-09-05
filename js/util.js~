@@ -3,7 +3,7 @@ var fs = require("fs");
 var path = require("path");
 
 function getTaskFiles() {
-    var userHome = getUserHome();
+    var userHome = getUser	Home();
     console.log(userHome);
     return getLiveflow(userHome);
 }

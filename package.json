@@ -3,7 +3,7 @@
     "main": "index.html",
     "window": {
         "title": "Your Life organized by a Wookiee",
-        "toolbar": false,
+        "toolbar": true,
         "position": "left",
         "width": 800,
         "height": 700,

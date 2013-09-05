@@ -1,0 +1,7 @@
+
+function setupAce(ace) {
+    editor = ace;
+    editorSession = editor.getSession();
+}
+
+exports.setupAce = setupAce;

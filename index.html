@@ -1,24 +1,31 @@
-<html>  
+<!DOCTYPE html>
+<html ng-app="x">
   <head>
-	<title>Ace Editor</title>
-	<style>
-	  #editor { 
-	  position: absolute;
-	  top: 0px;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  }
-	</style>
-	<script src="ace/src-noconflict/ace.js" type="text/javascript"
-		    charset="utf-8"></script>
-    <script src="jquery.js"></script>
-    <script src="main.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>LiveWookie </title>
+    <!-- Le css -->
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script>
+      /**
+      * Needed to load node-webkit functionality.
+      */
+      if (typeof window.require != 'undefined') {
+      window.gui = require('nw.gui');
+      var clipboard = window.gui.Clipboard.get();
+      var win =window.gui.Window.get();
+      win.show();
+      }
+    </script>
   </head>
-  <body style="-webkit-user-select: none; -webkit-app-region: drag">
-	<div id="editor"></div>
-    <input style="display:none;" id="openfileDialog" type="file"/>
-    <input style="display:none;" id="saveasDialog"  type="file" nwsaveas />
+  <body>
+    <!-- Le content... -->
+    <section ng-controller="AceCtrl">
+      <div ui-ace="aceOption" ng-model="aceModel"></div>
+    </section>
+    <!-- Le vendor... -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/ace/src-noconflict/ace.js"></script>
+    <script src="lib/ui-ace.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
