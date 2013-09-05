@@ -1,5 +1,9 @@
 body {margin:0;}
-.ace_editor  {
-    position: absolute;
-    height: 200px;
-}
+#editor { 
+        margin: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }

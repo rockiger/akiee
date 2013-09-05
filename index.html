@@ -2,7 +2,7 @@
 <html ng-app="x">
   <head>
     <meta charset="utf-8" />
-    <title>LiveWookie </title>
+    <title>LiveWookie</title>
     <!-- Le css -->
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <script>
@@ -12,7 +12,7 @@
       if (typeof window.require != 'undefined') {
       window.gui = require('nw.gui');
       var clipboard = window.gui.Clipboard.get();
-      var win =window.gui.Window.get();
+      var win = window.gui.Window.get();
       win.show();
       }
     </script>
@@ -20,7 +20,7 @@
   <body>
     <!-- Le content... -->
     <section ng-controller="AceCtrl">
-      <div ui-ace="aceOption" ng-model="aceModel"></div>
+      <div id="editor" ui-ace="aceOption" ng-model="aceModel"></div>
     </section>
     <!-- Le vendor... -->
     <script src="lib/angular.min.js"></script>

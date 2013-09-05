@@ -11,6 +11,9 @@ function setupAce(ace) {
     var win = window.gui.Window.get();
     
     currentFile = util.getTaskFiles();
+
+    // Because 16px is easier on the eyes
+    editor.setFontSize(16);
    
      // Listener         
     editorSession.on("change", function() {
