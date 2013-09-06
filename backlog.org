@@ -31,8 +31,8 @@ AC:
 - [X] DEADLINE: <2013-08-24 Sa 11:00>
 
 * TODO As a note keeper I want a agenda view for today, that shows me all tasks I have for today
+- [ ] There is a Menü entry for Agenda Views
 - [ ] Agenda View show all Todos
-- [ ] There is a menMenü entry for Agenda Views
 - [ ] Agenda View is based on Org-Mode's
 
 * TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
