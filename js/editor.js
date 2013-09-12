@@ -6,55 +6,57 @@ var hasChanged = false;
 var currentFile;
 
 function setupAce(ace) {
-    var editor = ace;
-    var editorSession = editor.getSession();
-    var win = window.gui.Window.get();
-    
-    currentFile = util.getTaskFiles();
 
-    // Because 16px is easier on the eyes
-    editor.setFontSize(16);
-   
-     // Listener         
-    editorSession.on("change", function() {
-        if (currentFile) {
-            hasChanged = true;
-            console.log("HasChanged: " + hasChanged);
-        }
-    });
+  var editor = ace;
+  window.LW.editor = editor;
+  var editorSession = editor.getSession();
+  var win = window.gui.Window.get();
 
-    win.on('close', function() {
-        saveFile(editor);
-        win.close(true);
-    });
-    
-    win.on('blur', function() {
-        saveFile(editor);
-    });
+  currentFile = util.getTaskFiles();
 
-    editor.on('blur', function() {
-        saveFile(editor);
-    });
+  // Because 16px is easier on the eyes
+  editor.setFontSize(16);
+
+  // Listener
+  editorSession.on("change", function() {
+    if (currentFile) {
+      hasChanged = true;
+      console.log("HasChanged: " + hasChanged);
+    }
+  });
+
+  win.on('close', function() {
+    saveFile(editor);
+    win.close(true);
+  });
+
+  win.on('blur', function() {
+    saveFile(editor);
+  });
+
+  editor.on('blur', function() {
+    saveFile(editor);
+  });
 }
 
 function openFile(editor, filePath) {
-        if (fs.existsSync(filePath)) {
-            hasChanged = false;
-            editor.getSession().setValue(fs.readFileSync(filePath, "utf8"));
-            currentFile = filePath;
-        }
-    }
+  if (fs.existsSync(filePath)) {
+    hasChanged = false;
+    editor.getSession().setValue(fs.readFileSync(filePath, "utf8"));
+    currentFile = filePath;
+  }
+}
 
 function saveFile(editor, filePath) {
-    filePath = typeof filePath !== 'undefined' ? filePath :  currentFile;
-    if (filePath) {
-        if (hasChanged) {
-            var data = editor.getSession().getValue(); //.replace(/\n/g,"\r\n");
-            fs.writeFileSync(filePath, data, "utf8");
-            console.log("Saved " + filePath);
-            hasChanged = false;
-        }
+  filePath = typeof filePath !== 'undefined' ? filePath :  currentFile;
+  if (filePath) {
+    if (hasChanged) {
+      var data = editor.getSession().getValue(); //.replace(/\n/g,"\r\n");
+      fs.writeFileSync(filePath, data, "utf8");
+      console.log("Saved " + filePath);
+      hasChanged = false;
     }
+  }
 }
 
 

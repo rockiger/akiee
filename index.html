@@ -13,7 +13,7 @@
       <div ng-show="aceShow" id="editor" ui-ace="aceOption"
       ng-model="aceModel"></div>
       <div ng-show="agendaShow">
-        fasdkfjsdkjf
+        {{agenda}}
       </div>
     </section>
     <!-- Le vendor... -->
@@ -25,6 +25,8 @@
       /**
       * Needed to load node-webkit functionality.
       */
+
+      var LW = {}; // To have a global namespace
       if (typeof window.require != 'undefined') {
       window.gui = require('nw.gui');
       var clipboard = window.gui.Clipboard.get();
