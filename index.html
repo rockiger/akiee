@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html ng-app="x">
-  <head ng-app>
+  <head ng-appgb>
     <meta charset="utf-8" />
     <title>LiveWookie</title>
     <!-- Le css -->
     <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head>
+  <body>
+    <!-- Le content... -->
+    <section ng-controller="AceCtrl">
+      <button ng-click='toggleEditor()'>Toggle Menu</button>
+      <div ng-show="aceShow" id="editor" ui-ace="aceOption"
+      ng-model="aceModel"></div>
+      <div ng-show="agendaShow">
+        fasdkfjsdkjf
+      </div>
+    </section>
+    <!-- Le vendor... -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/ace/src-noconflict/ace.js"></script>
+    <script src="lib/ui-ace.js"></script>
+    <script src="app.js"></script>
     <script>
       /**
       * Needed to load node-webkit functionality.
@@ -13,19 +29,10 @@
       window.gui = require('nw.gui');
       var clipboard = window.gui.Clipboard.get();
       var win = window.gui.Window.get();
+
+      win.focus();
       win.show();
       }
     </script>
-  </head>
-  <body>
-    <!-- Le content... -->
-    <section ng-controller="AceCtrl">
-      <div id="editor" ui-ace="aceOption" ng-model="aceModel"></div>
-    </section>
-    <!-- Le vendor... -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/ace/src-noconflict/ace.js"></script>
-    <script src="lib/ui-ace.js"></script>
-    <script src="app.js"></script>
   </body>
 </html>
