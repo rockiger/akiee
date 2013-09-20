@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html ng-app="x">
-  <head ng-appgb>
+<html ng-app="myApp">
+  <head>
     <meta charset="utf-8" />
     <title>LiveWookie</title>
     <!-- Le css -->
@@ -13,14 +13,12 @@
       <div ng-show="aceShow" id="editor" ui-ace="aceOption"
       ng-model="aceModel"></div>
       <div ng-show="agendaShow">
-        {{agenda}}
+        <div ng-repeat="item in agenda">
+          <h1>{{item.level}} {{item.todo}}  {{item.headline}}</h1>
+        </div>
       </div>
     </section>
     <!-- Le vendor... -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/ace/src-noconflict/ace.js"></script>
-    <script src="lib/ui-ace.js"></script>
-    <script src="app.js"></script>
     <script>
       /**
       * Needed to load node-webkit functionality.
@@ -36,5 +34,11 @@
       win.show();
       }
     </script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/ace/src-noconflict/ace.js"></script>
+    <script src="lib/ui-ace.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
   </body>
 </html>

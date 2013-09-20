@@ -33,7 +33,8 @@ AC:
 - [X] DEADLINE: <2013-08-24 Sa 11:00>
 
 * TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
-- [ ] Agenda View shows all Todos 
+- [ ] Agenda View shows all Todos
+  - [X] Define Model, based on org-mode-parser-nodes
 - [ ] Agenda View shows a Timetable for Today
 - [ ] Agenda View is based on Org-Mode's
 - [ ] Toggle Button should be Bootstrap, for nice design
