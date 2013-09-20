@@ -1,15 +1,18 @@
-"use strict";
-var app = angular.module('x', ['ui.ace']);
+'use strict';
+
 var gui = require('nw.gui');
 var util = require("./js/util");
 var fs = require("fs");
 var Path = require("path");
 var editor = require("./js/editor");
 
-function AceCtrl($scope) {
+function AceCtrl($scope, Nodelist) {
 
   var hasChanged = false;
   var currentFile;
+
+//  console.dir(nodelist);
+ // console.info(nodelist);
 
   createMenu();
 
@@ -32,7 +35,7 @@ function AceCtrl($scope) {
     $scope.aceShow = !$scope.aceShow;
     $scope.agendaShow = !$scope.aceShow;
     if ($scope.agendaShow) {
-      $scope.agenda = "This is the Agendaview";
+      $scope.agenda = Nodelist;
     }
   };
 
