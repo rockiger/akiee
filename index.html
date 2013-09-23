@@ -12,9 +12,19 @@
       <button ng-click='toggleEditor()'>Toggle Menu</button>
       <div ng-show="aceShow" id="editor" ui-ace="aceOption"
       ng-model="aceModel"></div>
-      <div ng-show="agendaShow">
-        <div ng-repeat="item in agenda">
-          <h1>{{item.level}} {{item.todo}}  {{item.headline}}</h1>
+      <div ng-show="agendaShow">    
+        <select ng-model="query.todo">
+            <option value=""></option>
+            <option value="todo">TODO</option>
+            <option value="done">DONE</option>
+        </select>
+        <div ng-repeat="item in agenda | filter:query" ng-switch="item.level">
+          <h1 ng-switch-when="1">{{item.level}} {{item.todo}}  {{item.headline}}</h1>
+          <h2 ng-switch-when="2">{{item.level}} {{item.todo}}  {{item.headline}}</h2>
+          <h3 ng-switch-when="3">{{item.level}} {{item.todo}}  {{item.headline}}</h3>
+          <h4 ng-switch-when="4">{{item.level}} {{item.todo}}  {{item.headline}}</h4>
+          <h5 ng-switch-when="5">{{item.level}} {{item.todo}}  {{item.headline}}</h5>
+          <h6 ng-switch-when="6">{{item.level}} {{item.todo}}  {{item.headline}}</h6>
         </div>
       </div>
     </section>
