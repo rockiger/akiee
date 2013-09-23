@@ -8,7 +8,7 @@ var currentFile;
 function setupAce(ace) {
 
   var editor = ace;
-  window.LW.editor = editor;
+  window.LW.editor = editor; // To have a global object for the editor
   var editorSession = editor.getSession();
   var win = window.gui.Window.get();
 
