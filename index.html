@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <title>LiveWookie</title>
     <!-- Le css -->
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
   </head>
   <body>
     <!-- Le content... -->
     <section ng-controller="AceCtrl">
-      <button ng-click='toggleEditor()'>Toggle Menu</button>
+      <button class="btn btn-primary" ng-click='toggleEditor()'>Toggle Menu</button>
       <div ng-show="aceShow" id="editor" ui-ace="aceOption"
       ng-model="aceModel"></div>
       <div ng-show="agendaShow">    
@@ -47,6 +48,7 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/ace/src-noconflict/ace.js"></script>
     <script src="lib/ui-ace.js"></script>
+    <script src="lib/ui-bootstrap.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
