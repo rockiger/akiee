@@ -10,11 +10,11 @@
   <body>
     <!-- Le content... -->
     <section ng-controller="AceCtrl">
-      <button class="btn btn-primary" ng-click='toggleEditor()'>Toggle Menu</button>
+      <button class="btn btn-primary" ng-click='toggleEditor()' btn-checkbox-true="0" btn-checkbox-false="1">Toggle Menu</button>
       <div ng-show="aceShow" id="editor" ui-ace="aceOption"
       ng-model="aceModel"></div>
       <div ng-show="agendaShow">    
-        <select ng-model="query.todo">
+        <select class="input-sm" ng-model="query.todo">
             <option value=""></option>
             <option value="todo">TODO</option>
             <option value="done">DONE</option>

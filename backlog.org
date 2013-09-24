@@ -37,7 +37,7 @@ AC:
   - [X] Define Model, based on org-mode-parser-nodes
 - [ ] Agenda View shows a Timetable for Today
 - [ ] Agenda View is based on Org-Mode's
-- [ ] Toggle Button should be Bootstrap, for nice design
+- [X] Toggle Button should be Bootstrap, for nice design
 - [ ] Editor should have focus after it is shown
 - [ ] There is a Menu entry for Agenda Views
 - [ ] There is a Shortcut for the Agenda View
