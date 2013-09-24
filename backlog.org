@@ -41,7 +41,7 @@ AC:
 - [ ] Editor should have focus after it is shown
 - [ ] There is a Menu entry for Agenda Views
 - [ ] There is a Shortcut for the Agenda View
-- [ ] Agenda-View should always update when it's shown
+- [X] Agenda-View should always update when it's shown
 
 * TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
 * TODO As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.

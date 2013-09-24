@@ -6,7 +6,7 @@ var fs = require("fs");
 var Path = require("path");
 var editor = require("./js/editor");
 
-function AceCtrl($scope, Nodelist) {
+function AceCtrl($scope, Nodes) {
 
   var hasChanged = false;
   var currentFile;
@@ -35,7 +35,7 @@ function AceCtrl($scope, Nodelist) {
     $scope.aceShow = !$scope.aceShow;
     $scope.agendaShow = !$scope.aceShow;
     if ($scope.agendaShow) {
-      $scope.agenda = Nodelist;
+      $scope.agenda = Nodes.getNodes();
     }
   };
 
