@@ -14,7 +14,7 @@ function getUserHome() {
 
 function getLiveflow(userHome) {
     var confFolder = path.join(userHome + "/.livewookiee/");
-    var filename = "liveflow.md"
+    var filename = "liveflow.md";
     console.log(confFolder);
     var liveFlowPath = path.join(confFolder, filename);
     if (fs.existsSync(confFolder)) {

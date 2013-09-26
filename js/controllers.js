@@ -37,6 +37,9 @@ function AceCtrl($scope, Nodes) {
     if ($scope.agendaShow) {
       $scope.agenda = Nodes.getNodes();
     }
+    else {
+        window.LW.editor.focus(); // here function to set focus on editor
+    }
   };
 
   currentFile = util.getTaskFiles();

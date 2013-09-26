@@ -1,6 +1,6 @@
 var org = require('./lib/markdown-org-mode-parser');
 var util = require("./js/util");
-var fs = require("fs")
+var fs = require("fs");
 
 
 angular.module('myApp').factory('Nodes',  function() {

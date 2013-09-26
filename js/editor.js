@@ -14,6 +14,9 @@ function setupAce(ace) {
 
   currentFile = util.getTaskFiles();
 
+  // Because people want to edit right away
+  window.LW.editor.focus();
+
   // Because 16px is easier on the eyes
   editor.setFontSize(16);
 
