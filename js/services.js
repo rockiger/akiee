@@ -3,7 +3,7 @@ var util = require("./js/util");
 var fs = require("fs");
 
 
-angular.module('myApp').factory('Nodes',  function() {
+angular.module('LW').factory('Nodes',  function() {
   
   var nodeService = {};
   
@@ -14,5 +14,10 @@ angular.module('myApp').factory('Nodes',  function() {
     nodes = org.parseBigString(data);
     return nodes;
   };
-  return nodeService
+  return nodeService;
+});
+
+angular.module('LW').factory('ace',  function() {
+  console.log("ace called");
+  return ace.edit("editor");
 });

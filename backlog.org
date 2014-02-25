@@ -1,6 +1,6 @@
 -*- mode: org ; mode: visual-line; -*- -*
 
-* DONE As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
+* TODO As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
 AC:
 - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [X] removing unused files
@@ -10,25 +10,26 @@ AC:
 - [ ] Write a view sample testcases
 - [X] Write user tests for existing features
 - [ ] Install the chrome-driver for node-webkit
-* DONE As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
+* TODO As a programmer I want to use a testing framework that works like racket, that I can easily transelate the knowledge I gained.
+* TODO As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
 - [X] a standard org file ist loaded (liveflow.org)
 - [X] liveflow.org is located at ~/.livewookie/liveflow.org
 - [X] liveflow.org doesn't exists it should be created   
 - [X] It is opened with the start of the program
-* DONE As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
+* TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
 - [X] Saving the notes after focus is lost
 - [X] Saving should not interfere with the typing or other user actions
 - [X] Saving should only be done, if there are any changes to the file
-* DONE As a note keeper I want to use markdown files as the basis for my list and outlines proper theme for my org file, that I can quickly navigate through them and use ace features for text movement
+* TODO As a note keeper I want to use markdown files as the basis for my list and outlines proper theme for my org file, that I can quickly navigate through them and use ace features for text movement
 - [X] use a markdown file as standard file instead of org-file
 - [X] Proper Styling for an markdown-file
 - [X] Open/Close on code folding via Keyboard (Alt-Shift-9/Alt-0)
 - [X] Move Parts of the Structure around via Keyboard, if it's folded (Alt-Up/-Down )
 
-* DONE As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
+* TODO As a task planner I want to add state keywords to headings and list, that I can mark them as tasks
 - [X] TODO and DONE are recognised by the markdown theme
 
-* DONE As a task planner I want to add due markers to a task, that I know when I have to finish them
+* TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [X] Due Mark is recognised by the markdown theme and based on org-modes
 - [X] DEADLINE: <2013-08-24 Sa 11:00>
 

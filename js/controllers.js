@@ -6,7 +6,8 @@ var fs = require("fs");
 var Path = require("path");
 var editor = require("./js/editor");
 
-function AceCtrl($scope, Nodes) {
+function AppCtrl($scope, Nodes) {
+
 
   var hasChanged = false;
   var currentFile;
@@ -18,6 +19,11 @@ function AceCtrl($scope, Nodes) {
 
   $scope.aceShow = true;
   $scope.agendaShow = false;
+
+  currentFile = util.getTaskFiles();
+  openFile(currentFile);
+  util.print_r($scope.uiAce);
+  setupKeys();
 
   // The ui-ace option
   $scope.aceOption = {
@@ -41,10 +47,8 @@ function AceCtrl($scope, Nodes) {
         window.LW.editor.focus(); // here function to set focus on editor
     }
   };
-
-  currentFile = util.getTaskFiles();
-  openFile(currentFile);
-  util.print_r($scope.uiAce);
+  window.LW.toggleEditor = $scope.toggleEditor;
+//  console.log(window.LW.toggleEditor);
 
   function openFile(path) {
     if (path) {
@@ -68,4 +72,35 @@ function AceCtrl($scope, Nodes) {
     //assign the menubar to window menu
     win.menu = menubar;
   }
+    function setupKeys() {
+      var KEY = {};
+      // create key map A - Z
+      for (var i = 65; i <= 90; i++) {
+        KEY[String.fromCharCode(i).toUpperCase()] = i;
+      }
+
+      function handleKeys(event) {
+
+        // ESC
+        if (event.keyCode === 27) {
+          applyEvent('escape', event);
+          return;
+        }
+
+        if (!event.metaKey && !event.ctrlKey) {
+          return;
+        }
+
+        if (event.keyCode === KEY.T) {
+          window.LW.toggleEditor();
+          console.log(window.LW.toggleEditor);
+          return;
+        }
+      }
+      document.addEventListener('keydown', handleKeys );
+    }
+}
+
+function EditorCtrl($scope, ace) {
+  console.log("EditorCtrl called");
 }

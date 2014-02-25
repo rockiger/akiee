@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>LiveWookie</title>
@@ -7,29 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
   </head>
-  <body>
-    <!-- Le content... -->
-    <section ng-controller="AceCtrl">
-      <button class="btn btn-primary" ng-click='toggleEditor()' btn-checkbox-true="0" btn-checkbox-false="1">Toggle Menu</button>
-      <div ng-show="aceShow" id="editor" ui-ace="aceOption"
-      ng-model="aceModel"></div>
-      <div ng-show="agendaShow">    
-        <select class="input-sm" ng-model="query.todo">
-            <option value=""></option>
-            <option value="todo">TODO</option>
-            <option value="done">DONE</option>
-        </select>
-        <div ng-repeat="item in agenda | filter:query" ng-switch="item.level">
-          <h1 ng-switch-when="1">{{item.level}} {{item.todo}}  {{item.headline}}</h1>
-          <h2 ng-switch-when="2">{{item.level}} {{item.todo}}  {{item.headline}}</h2>
-          <h3 ng-switch-when="3">{{item.level}} {{item.todo}}  {{item.headline}}</h3>
-          <h4 ng-switch-when="4">{{item.level}} {{item.todo}}  {{item.headline}}</h4>
-          <h5 ng-switch-when="5">{{item.level}} {{item.todo}}  {{item.headline}}</h5>
-          <h6 ng-switch-when="6">{{item.level}} {{item.todo}}  {{item.headline}}</h6>
-        </div>
-      </div>
-    </section>
-    <!-- Le vendor... -->
+  <body >
+    <div id="editor">function foo(items) {
+    var x = "All this is syntax highlighted";
+    return x;
+}</div>
     <script>
       /**
       * Needed to load node-webkit functionality.
@@ -45,12 +27,8 @@
       win.show();
       }
     </script>
-    <script src="lib/angular.min.js"></script>
+   
     <script src="lib/ace/src-noconflict/ace.js"></script>
-    <script src="lib/ui-ace.js"></script>
-    <script src="lib/ui-bootstrap.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
   </body>
 </html>
