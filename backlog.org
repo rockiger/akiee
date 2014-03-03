@@ -11,7 +11,7 @@
 AC:
 - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
 - [X] removing unused files (angular, zepto ...)
-* TODO As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
+* DONE As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
 - [X] a standard org file ist loaded (liveflow.md)
 - [X] liveflow.org is located at ~/.livewookie/liveflow.md
 - [X] liveflow.org doesn't exists it should be created   

@@ -74,9 +74,8 @@
         editor.getSession().setUseWrapMode(true);
         // Because people want to edit right away
         editor.focus();
-    
         currentFile = util.getTaskFiles();
-    
+        openFile(editor, currentFile)
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
       
