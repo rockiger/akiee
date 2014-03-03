@@ -3,6 +3,7 @@
     "use strict";
     var fs = require("fs");
     var util = require("./js/util");
+    var org = require('./lib/markdown-org-mode-parser');
 
     /*
      * Wookie - a  Markdown alternative to Emacs Org-mode
@@ -69,21 +70,52 @@
     function setupAce(element) {
     
         var editor = ace.edit(element);
+        var content;
         editor.setTheme("ace/theme/tomorrow_night_blue");
         editor.getSession().setMode("ace/mode/markdown");
         editor.getSession().setUseWrapMode(true);
         // Because people want to edit right away
         editor.focus();
         currentFile = util.getTaskFiles();
-        openFile(editor, currentFile)
+        content = openFile(editor, currentFile)
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
+        
+        
+        insertHtml(makeTodoList(getNodes(content)), "list");
       
-      return editor
+      return editor;
     }
 
+    /**
+     * String -> ListOfNodes
+     * Produces a list of nodes with in a string with markdown content md
+     */
+    checkExpect("","", getNodes, "getNodes");
+    function getNodes(md) {
+        var node = org.parseBigString(md);
+        return node;
+    }
 
-
+    /* ListOfNodes -> String
+     * produces the HTML from a ListOfNodes lon
+     */
+    checkExpect("","", makeTodoList, "makeTodoList");
+    function makeTodoList(lon) {
+        if (lon.length === 0) {
+            return "";
+        } else {
+        return (("<h2>"+lon[0].todo +" " + lon[0].headline + "</h2>") + makeTodoList(lon.slice(1)));
+        }
+    }
+    
+    /* String -> undefined
+     * insert the html in the el
+     */
+    function insertHtml(html, el) {
+        var tag = document.getElementById(el);
+        tag.innerHTML = html;
+    }
     // change as time goes by (nearly all do)	on-tick
     // display something (nearly all do)	to-draw
     // change in response to key presses	on-key
@@ -110,6 +142,8 @@
       }
     }
 
+    
+    
     /* Editor String -> String
      * saves the content of Editor editor to the String filepath and
      * produces the filepath or false if saving failed
@@ -161,6 +195,4 @@
     }
     
     main();
-    
-    
 })();
