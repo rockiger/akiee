@@ -1,19 +1,19 @@
 -*- mode: org ; mode: visual-line; -*- -*
 
-* TODO As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
-AC:
-- [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
-- [X] removing unused files
 * DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
   Aborted, because of problems between node-webkit and standard testing
 - [X] Install Mocha to the projecct
 - [ ] Write a view sample testcases
 - [X] Write user tests for existing features
 - [ ] Install the chrome-driver for node-webkit
-* TODO As a programmer I want to use a testing framework that works like racket, that I can easily transelate the knowledge I gained.
+* DONE As a programmer I want to use a testing framework that works like racket, that I can easily transelate the knowledge I gained.
+* DONE As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
+AC:
+- [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
+- [X] removing unused files (angular, zepto ...)
 * TODO As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
-- [X] a standard org file ist loaded (liveflow.org)
-- [X] liveflow.org is located at ~/.livewookie/liveflow.org
+- [X] a standard org file ist loaded (liveflow.md)
+- [X] liveflow.org is located at ~/.livewookie/liveflow.md
 - [X] liveflow.org doesn't exists it should be created   
 - [X] It is opened with the start of the program
 * TODO As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
