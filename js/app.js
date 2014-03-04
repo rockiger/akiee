@@ -65,6 +65,12 @@
         
         var taskButton = document.getElementById("show-tasks");
         taskButton.onclick = toggleTasks
+        
+        document.addEventListener('keyup', function (e) {
+            if (e.keyCode == 32 && e.ctrlKey) {
+                toggleTasks();
+            }
+        }); 
     }
     
     /*
@@ -133,6 +139,7 @@
             list.style.display = "block";
         } else {
             editor.style.display = "block";
+            ED.focus();
             list.style.display = "none";
         }
     }
