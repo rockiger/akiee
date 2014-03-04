@@ -17,6 +17,7 @@
     var WIN = window.gui.Window.get();
     var ED = setupAce("editor");
     var ES = ED.getSession();
+    var DOC = document;
     
     /*
      * ==========
@@ -37,7 +38,7 @@
      */
     
     /*
-     * Sting -> ListOfString  ???
+     * String -> ListOfString  ???
      * consumes the name of the html element the editor should get atttached to 'main ("editor");'
      */
     function main (element) {    
@@ -61,6 +62,9 @@
         ED.on('blur', function() {
           saveFile(ED);
         });
+        
+        var taskButton = document.getElementById("show-tasks");
+        taskButton.onclick = toggleTasks
     }
     
     /*
@@ -80,11 +84,7 @@
         content = openFile(editor, currentFile)
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
-        
-        
-        insertHtml(makeTodoList(getNodes(content)), "list");
-      
-      return editor;
+        return editor;
     }
 
     /**
@@ -101,6 +101,8 @@
      * produces the HTML from a ListOfNodes lon
      */
     checkExpect("","", makeTodoList, "makeTodoList");
+    var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}];
+    checkExpect(makeTodoList(LON), "<h2>TODO Bla bla bla</h2><h2>DONE Blub blub blub</h2>", makeTodoList, "makeTodoList");
     function makeTodoList(lon) {
         if (lon.length === 0) {
             return "";
@@ -115,6 +117,24 @@
     function insertHtml(html, el) {
         var tag = document.getElementById(el);
         tag.innerHTML = html;
+    }
+    
+    /*  ->
+     *  Toggles between the editor and the todo list
+     *  !!!
+     */
+    function toggleTasks() {
+        var editor = document.getElementById("editor");
+        var list   = document.getElementById("list");
+        if (editor.style.display !== "none") {
+            editor.style.display = "none";
+            var content = ED.getSession().getValue();
+            insertHtml(makeTodoList(getNodes(content)), "list");
+            list.style.display = "block";
+        } else {
+            editor.style.display = "block";
+            list.style.display = "none";
+        }
     }
     // change as time goes by (nearly all do)	on-tick
     // display something (nearly all do)	to-draw
