@@ -108,12 +108,12 @@
      */
     checkExpect("","", makeTodoList, "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}];
-    checkExpect(makeTodoList(LON), "<h2>TODO Bla bla bla</h2><h2>DONE Blub blub blub</h2>", makeTodoList, "makeTodoList");
+    checkExpect(makeTodoList(LON), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr>", makeTodoList, "makeTodoList");
     function makeTodoList(lon) {
         if (lon.length === 0) {
             return "";
         } else {
-        return (("<h2>"+lon[0].todo +" " + lon[0].headline + "</h2>") + makeTodoList(lon.slice(1)));
+        return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1)));
         }
     }
     
