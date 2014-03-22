@@ -80,9 +80,18 @@
         editorButton.onclick = showEditor;
         
         document.addEventListener('keyup', function (e) {
-            if (e.keyCode == 32 && e.ctrlKey) { // CTRL + Space
+            if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
                 toggleTasks();
+            } else if ((e.keyCode === 49 || e.keyCode === 97 ) && e.ctrlKey) {  // CTRL + 1
+                showTodo();
+            } else if ((e.keyCode === 50 || e.keyCode === 98 ) && e.ctrlKey) {  // CTRL + 2
+                showDone();
+            } else if ((e.keyCode === 51 || e.keyCode === 99 ) && e.ctrlKey) {  // CTRL + 3
+                showAll();
+            } else if ((e.keyCode === 52 || e.keyCode === 100) && e.ctrlKey) { // CTRL + 4
+                showEditor();
             }
+            console.log(e.keyCode);
         }); 
     }
     
@@ -158,14 +167,9 @@
         var editor = document.getElementById("editor");
         var list   = document.getElementById("list");
         if (editor.style.display !== "none") {
-            editor.style.display = "none";
-            var content = ED.getSession().getValue();
-            insertHtml(makeTodoList(getNodes(content), ALL), "list");
-            list.style.display = "block";
+            showTodo();
         } else {
-            list.style.display = "none";
-            editor.style.display = "block";
-            ED.focus();
+            showEditor();
         }
     }
     
