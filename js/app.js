@@ -18,6 +18,10 @@
     var ED = setupAce("editor");
     var ES = ED.getSession();
     var DOC = document;
+    var TODO = "TODO";
+    var DONE = "DONE";
+    var ALL = "ALL";;
+    var DOING = "DOING";
     
     /*
      * ==========
@@ -64,10 +68,19 @@
         });
         
         var taskButton = document.getElementById("show-tasks");
-        taskButton.onclick = toggleTasks
+        taskButton.onclick = showAll;
+        
+        var todoButton = document.getElementById("show-todo");
+        todoButton.onclick = showTodo;
+        
+        var doneButton = document.getElementById("show-done");
+        doneButton.onclick = showDone;
+        
+        var editorButton = document.getElementById("show-editor");
+        editorButton.onclick = showEditor;
         
         document.addEventListener('keyup', function (e) {
-            if (e.keyCode == 32 && e.ctrlKey) {
+            if (e.keyCode == 32 && e.ctrlKey) { // CTRL + Space
                 toggleTasks();
             }
         }); 
@@ -107,14 +120,26 @@
      * produces the HTML from a ListOfNodes lon
      */
     checkExpect("","", makeTodoList, "makeTodoList");
-    var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}];
-    checkExpect(makeTodoList(LON), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr>", makeTodoList, "makeTodoList");
-    function makeTodoList(lon) {
+    var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}];
+    checkExpect(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", makeTodoList, "makeTodoList");
+    checkExpect(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", makeTodoList, "makeTodoList");
+    checkExpect(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", makeTodoList, "makeTodoList");
+    function makeTodoList(lon, state) {
         if (lon.length === 0) {
             return "";
-        } else {
-        return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1)));
         }
+        if (state === ALL) {
+        return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));
+        }
+        else {
+            if (lon[0].todo === state) {
+                return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));    
+            } else {
+                return makeTodoList(lon.slice(1), state);
+            }
+            
+        }
+        
     }
     
     /* String -> undefined
@@ -135,13 +160,57 @@
         if (editor.style.display !== "none") {
             editor.style.display = "none";
             var content = ED.getSession().getValue();
-            insertHtml(makeTodoList(getNodes(content)), "list");
+            insertHtml(makeTodoList(getNodes(content), ALL), "list");
             list.style.display = "block";
         } else {
+            list.style.display = "none";
             editor.style.display = "block";
             ED.focus();
-            list.style.display = "none";
         }
+    }
+    
+    /*  ->
+     *  shows the editor
+     */
+    function showEditor() {
+        var editor = document.getElementById("editor");
+        var list   = document.getElementById("list");
+        list.style.display = "none";
+        editor.style.display = "block";
+        ED.focus();
+    }
+    
+    /* ->
+     * shows a list of the todos
+     */
+    function showTodo() {
+        showTask(TODO);
+    }
+    
+    /* ->
+     * shows a list of the done tasks
+     */
+    function showDone() {
+        showTask(DONE);
+    }
+    
+    /* ->
+     * shows a list of all tasks
+     */
+    function showAll() {
+        showTask(ALL);
+    }
+    
+    /* ->
+     * consumes a task state s and shows a list of the done tasks
+     */
+    function showTask(state) {
+        var editor = document.getElementById("editor");
+        var list = document.getElementById("list");
+        editor.style.display = "none";
+        var content = ED.getSession().getValue();
+        insertHtml(makeTodoList(getNodes(content), state), "list");
+        list.style.display = "block";
     }
     // change as time goes by (nearly all do)	on-tick
     // display something (nearly all do)	to-draw
