@@ -36,6 +36,24 @@
      * Data definitions:
      */
     
+    /* TaskState is one of:
+     * - "TODO"
+     * - "DONE"
+     * - "DOING"
+     *
+     *
+     *        
+        function fnForTaskState(ts) {
+            if (ts === "DONE") {
+                //code  
+            } else if (ts === "DONE") {
+                //code  
+            } else if (ts === "DOING") {
+                //code
+            }
+        }
+     */
+    
     /*
      * ==========
      * Functions:
