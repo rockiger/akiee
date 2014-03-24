@@ -1,5 +1,4 @@
-# Wookiee
-## TODO As the user I want to see all my todo's after livewookie is started, that I can begin with my work instantly.
+# Akiee
 ## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
@@ -22,6 +21,7 @@
 ## As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
 
+## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 ## DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
   Aborted, because of problems between node-webkit and standard testing
 - [X] Install Mocha to the projecct

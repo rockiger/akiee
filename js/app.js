@@ -63,7 +63,7 @@
      * String -> ListOfString  ???
      * consumes the name of the html element the editor should get atttached to 'main ("editor");'
      */
-    function main (element) {    
+    function main (element) {
         // Listener
         ES.on("change", function() {
           if (currentFile) {
@@ -91,6 +91,9 @@
         var todoButton = document.getElementById("show-todo");
         todoButton.onclick = showTodo;
         
+        var doneButton = document.getElementById("show-doing");
+        doneButton.onclick = showDoing;
+        
         var doneButton = document.getElementById("show-done");
         doneButton.onclick = showDone;
         
@@ -103,14 +106,17 @@
             } else if ((e.keyCode === 49 || e.keyCode === 97 ) && e.ctrlKey) {  // CTRL + 1
                 showTodo();
             } else if ((e.keyCode === 50 || e.keyCode === 98 ) && e.ctrlKey) {  // CTRL + 2
-                showDone();
+                showDoing();
             } else if ((e.keyCode === 51 || e.keyCode === 99 ) && e.ctrlKey) {  // CTRL + 3
-                showAll();
+                showDone();
             } else if ((e.keyCode === 52 || e.keyCode === 100) && e.ctrlKey) { // CTRL + 4
+                showAll();
+            } else if ((e.keyCode === 53 || e.keyCode === 101) && e.ctrlKey) { // CTRL + 5
                 showEditor();
             }
             console.log(e.keyCode);
-        }); 
+        });    
+    
     }
     
     /*
@@ -147,10 +153,11 @@
      * produces the HTML from a ListOfNodes lon
      */
     checkExpect("","", makeTodoList, "makeTodoList");
-    var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}];
-    checkExpect(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", makeTodoList, "makeTodoList");
+    var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
+    checkExpect(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", makeTodoList, "makeTodoList");
     checkExpect(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", makeTodoList, "makeTodoList");
     checkExpect(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", makeTodoList, "makeTodoList");
+    checkExpect(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", makeTodoList, "makeTodoList");
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
             return "";
@@ -185,7 +192,7 @@
         var editor = document.getElementById("editor");
         var list   = document.getElementById("list");
         if (editor.style.display !== "none") {
-            showTodo();
+            showDoing();
         } else {
             showEditor();
         }
@@ -207,6 +214,13 @@
      */
     function showTodo() {
         showTask(TODO);
+    }
+    
+    /* ->
+     * shows a list of the done tasks
+     */
+    function showDoing() {
+        showTask(DOING);
     }
     
     /* ->
@@ -312,5 +326,6 @@
         }
     }
     
-    main();
+    main();    
+    window.setTimeout(showDoing,20);
 })();
