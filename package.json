@@ -5,10 +5,10 @@
         "title": "Your Life organized by a Wookiee",
         "toolbar": true,
         "position": "left",
-        "width": 700,
+        "width": 800,
         "height": 600,
         "resizable": true,
         "show": false,
-	    "frame": true
+	"frame": true
     }
 }
