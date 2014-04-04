@@ -2,11 +2,12 @@
 {
     "use strict";
     var fs = require("fs");
+    var assert = require("assert");
     var util = require("./js/util");
     var org = require('./lib/markdown-org-mode-parser');
 
     /*
-     * Wookie - a  Markdown alternative to Emacs Org-mode
+     * Akiee - a  Markdown alternative to Emacs Org-mode
      */
     
     /*
@@ -17,6 +18,8 @@
     var WIN = window.gui.Window.get();
     var ED = setupAce("editor");
     var ES = ED.getSession();
+    LW.ES = ES;
+    LW.ED = ED;
     var DOC = document;
     var TODO = "TODO";
     var DONE = "DONE";
@@ -40,8 +43,6 @@
      * - "TODO"
      * - "DONE"
      * - "DOING"
-     *
-     *
      *        
         function fnForTaskState(ts) {
             if (ts === "DONE") {
@@ -145,21 +146,22 @@
      * String -> ListOfNodes
      * Produces a list of nodes with in a string with markdown content md
      */
-    checkExpect("","", getNodes, "getNodes");
+    assert.deepEqual("","", "getNodes");
     function getNodes(md) {
-        var node = org.parseBigString(md);
-        return node;
+        var nodes = org.parseBigString(md);
+        return nodes;
     }
 
     /* ListOfNodes -> String
      * produces the HTML from a ListOfNodes lon
      */
-    checkExpect("","", makeTodoList, "makeTodoList");
+    assert.deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    checkExpect(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", makeTodoList, "makeTodoList");
-    checkExpect(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", makeTodoList, "makeTodoList");
-    checkExpect(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", makeTodoList, "makeTodoList");
-    checkExpect(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", makeTodoList, "makeTodoList");
+    assert.deepEqual(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    assert.deepEqual(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
+    assert.deepEqual(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
+    assert.deepEqual(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
             return "";
@@ -250,6 +252,24 @@
         insertHtml(makeTodoList(getNodes(content), state), "list");
         list.style.display = "block";
     }
+    
+    
+    /* String TaskState -> Bool
+     * Changes the TaskState of a certain task headline th to TaskState ts. Produces true if succesfull
+     */
+    // TODO
+    function changeTaskState(th, ts) {} //stub
+    
+    //    LW.ED.find("DOING As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
+    //Range {start: Object, end: Object, isEqual: function, toString: function, contains: function…}
+    //var r = LW.ED.find("DOING As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
+    //undefined
+    //LW.ES.replace(r, "TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
+    //HasChanged: true app.js:73
+    //HasChanged: true app.js:73
+    //Object {row: 1, column: 162}
+
+
     // change as time goes by (nearly all do)	on-tick
     // display something (nearly all do)	to-draw
     // change in response to key presses	on-key
@@ -310,22 +330,6 @@
       } else {
         return false;
       }
-    }
-    
-    // Test for checkExpect
-    checkExpect(test(10), 10, "test", test);
-    function test(i) {
-        return 10;
-    }
-    
-    // Object Object -> Boolean
-    // compares two objects a, b and returns true if the have the same value
-    function checkExpect(a, b, functionName, fn) {
-        if (a === b) {
-            console.log('Test for ' + functionName + ' passed');
-        } else {
-            throw 'Test for ' + functionName + ' failed. Expected "' + b + '", got "' + a + '"\n\n' + fn;
-        }
     }
     
     main();
