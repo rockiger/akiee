@@ -30,7 +30,7 @@
      * ==========
      * Globals:
      */
-    
+    var deepEqual = assert.deepEqual;
     var hasChanged = false;
     var currentFile;
     
@@ -146,7 +146,7 @@
      * String -> ListOfNodes
      * Produces a list of nodes with in a string with markdown content md
      */
-    assert.deepEqual("","", "getNodes");
+    deepEqual("","", "getNodes");
     function getNodes(md) {
         var nodes = org.parseBigString(md);
         return nodes;
@@ -155,12 +155,12 @@
     /* ListOfNodes -> String
      * produces the HTML from a ListOfNodes lon
      */
-    assert.deepEqual("","", "makeTodoList");
+    deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    assert.deepEqual(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
-    assert.deepEqual(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
-    assert.deepEqual(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
-    assert.deepEqual(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
     
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
