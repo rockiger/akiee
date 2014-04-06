@@ -23,6 +23,13 @@
 ## TODO Find a better solution to the workaraund for the loading problem in main()
 ## TODO As A User I want the the details of a task when I klick on it, that I can see notes I did to finish it.
 - [ ] Two possibilities 1. New Window,Tab with Deteils. 2. Preview like in Geary, tbd.
+## TODO As a user I want that the filter buttons have the same color as the states, that I can make a connection between them.
+
+acc:
+- [ ] green for doing
+- [ ] blue for todo
+- [ ] grey for done
+
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 ## DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
   Aborted, because of problems between node-webkit and standard testing
