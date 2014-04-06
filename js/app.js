@@ -25,6 +25,7 @@
     var DONE = "DONE";
     var ALL = "ALL";;
     var DOING = "DOING";
+    LW.DEBUG = true;
     
     /*
      * ==========
@@ -33,6 +34,7 @@
     var deepEqual = assert.deepEqual;
     var hasChanged = false;
     var currentFile;
+    LW.onClickTableRow = onClickTableRow;
     
     /*
      * ==========
@@ -45,11 +47,27 @@
      * - "DOING"
      *        
         function fnForTaskState(ts) {
-            if (ts === "DONE") {
+            if (ts === "TODO") {
                 //code  
             } else if (ts === "DONE") {
                 //code  
             } else if (ts === "DOING") {
+                //code
+            }
+        }
+     */
+    
+    /* ClassName is one of:
+     * - "todo"
+     * - "doing"
+     * - "dono"
+     * 
+        function fnForClassName(cn) {
+            if (cn === "todo") {
+                //code  
+            } else if (cn === "doing") {
+                //code  
+            } else if (ts === "done") {
                 //code
             }
         }
@@ -136,7 +154,7 @@
         // Because people want to edit right away
         editor.focus();
         currentFile = util.getTaskFiles();
-        content = openFile(editor, currentFile)
+        content = openFile(editor, currentFile);
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
         return editor;
@@ -157,21 +175,21 @@
      */
     deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    deepEqual(makeTodoList(LON, ALL), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>DONE</td><td>Blub blub blub</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr><tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, TODO), "<tr><td>TODO</td><td>Bla bla bla</td></tr><tr><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DONE), "<tr><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DOING), "<tr><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, TODO), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DONE), "<tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
     
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
             return "";
         }
         if (state === ALL) {
-        return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));
+        return (("<tr onclick='LW.onClickTableRow(this);'><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));
         }
         else {
             if (lon[0].todo === state) {
-                return (("<tr><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));    
+                return (("<tr onclick='LW.onClickTableRow(this);'><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));    
             } else {
                 return makeTodoList(lon.slice(1), state);
             }
@@ -181,7 +199,7 @@
     }
     
     /* String -> undefined
-     * insert the html in the el
+     * insert the html in the elautomatic semicolon intellij
      */
     function insertHtml(html, el) {
         var tag = document.getElementById(el);
@@ -254,11 +272,111 @@
     }
     
     
-    /* String TaskState -> Bool
-     * Changes the TaskState of a certain task headline th to TaskState ts. Produces true if succesfull
+    /* Element -> Void
+     * Reacts to single clicks on a row
+     */
+    function onClickTableRow(e) {
+        if (LW.DEBUG === true) {LW.row = e ;}
+        var state = e.children[0].innerHTML;
+        var headline = e.children[1].innerHTML;
+        changeStateInTable(e, state);
+        changeStateInFile(headline, state);
+    }
+    
+    /* DOMElement(tr) TaskState -> DOMElement
+     * 
+     * Changes the Taskstate state of a DOMElement row and sets the right class 
+     * and then returns that element
+     * 
+     * @param {DOMElement} row
+     * @param {TaskState} state
+     * @returns {DOMElement}
+     */
+    deepEqual(equalNode(changeStateInTable(
+            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"), 
+            createTrElement('<tr class="doing"><td>DOING</td><td>Test Headline</td></tr>')), true);
+    deepEqual(equalNode(changeStateInTable(
+            createTrElement('<tr class="todo"><td>TODO</td><td>Test Headline</td></tr>'), "TODO"), 
+            createTrElement('<tr class="doing"><td>DOING</td><td>Test Headline</td></tr>')), true);   
+    
+    function changeStateInTable(row, state) {
+        return changeStateClass(changeStateInTd(row,state),state);
+    }
+    
+    /* Element TaskState -> String
+     * 
+     * Changes the class of a row, to match it's new state
+     * 
+     * @param {Element} row - The table row to change
+     * @param {TaskState} state - The current state of the task 
+     * @returns {RowClass} - The class name of a row, that has been set
+     */
+    deepEqual(equalNode(changeStateInTd(
+            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"), 
+            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInTd(
+            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>"), "DOING"), 
+            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInTd(
+            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>"), "DONE"), 
+            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInTd(
+            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>"), "TODO"), 
+            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>")), true);
+            
+    function changeStateInTd(row, state) {
+        if (state === "TODO") {
+            row.childNodes[0].innerHTML = "DOING";
+        } else if (state === "DOING") {
+            row.childNodes[0].innerHTML = "DONE";
+        } else if (state === "DONE") {
+            row.childNodes[0].innerHTML = "TODO";
+        }
+            return row;
+    }    
+    
+    /* DOMElement Classname -> DOMElement
+     * 
+     * Changes the TaskState of a row, to match it's new state
+     * 
+     * @param {Element} row - The table row to change
+     * @param {TaskState} state - The current state of the task 
+     * @returns {ClassName} - The ClassName of a row, that has been set
+     */
+    deepEqual(equalNode(changeStateClass(
+            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"), 
+            createTrElement('<tr class="doing"><td>TODO</td><td>Test Headline</td></tr>')), true);
+    deepEqual(equalNode(changeStateClass(
+            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>"), "DOING"), 
+            createTrElement('<tr class="done"><td>DOING</td><td>Test Headline</td></tr>')), true);
+    deepEqual(equalNode(changeStateClass(
+            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "DONE"), 
+            createTrElement('<tr class="todo"><td>TODO</td><td>Test Headline</td></tr>')), true);
+    
+    function changeStateClass(row, state) {
+        if (state === "TODO") {
+            row.className = "doing";
+            return row;
+        } else if (state === "DOING") {
+            row.className = "done";
+        } else if (state === "DONE") {
+            row.className = "todo";
+        }
+        return row;
+    }
+    
+    /* String TaskState -> Boolean
+     * 
+     * Changes the state of a task in the current file.
+     * 
+     * @param {String} headline - The headline of the task
+     * @param {TaskState} state - The current state of the task
+     * @returns {Boolean} - true if state could be changed, else false
      */
     // TODO
-    function changeTaskState(th, ts) {} //stub
+    function changeStateInFile(headline, state) {
+        // stub
+    }
     
     //    LW.ED.find("DOING As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
     //Range {start: Object, end: Object, isEqual: function, toString: function, contains: function…}
@@ -332,6 +450,21 @@
       }
     }
     
+    /* String -> DOMElement
+     * Produces an DOMElemen from a String with HTML html 
+     */
+    function createTrElement(html) {
+        var wrapper = document.createElement('tbody');
+        wrapper.innerHTML = html;
+        return wrapper.firstChild;
+    }
+    
+    /* DOMElement DOMElement -> Boolean
+     * Checks if to DOMElements are equal
+     */
+    function equalNode(el1, el2) {
+        return el1.isEqualNode(el2);
+    } 
     main();
     
 })();

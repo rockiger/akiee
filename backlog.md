@@ -1,5 +1,10 @@
 # Akiee
 ## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
+
+- [X] Change the color of the task to according to it's state
+- [X] Change the state of the task in the table row
+- [ ] Change the state of the task in editor
+
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>

@@ -9,3 +9,7 @@ body {margin:0;}
     }
 
 .nav, .pagination, .carousel a { cursor: pointer; }
+
+.todo td{background-color: lightblue !important;}
+.done td {background-color: lightgray !important;}
+.doing td {background-color: lightgreen !important;}
