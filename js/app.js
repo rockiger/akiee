@@ -135,7 +135,7 @@
             } else if ((e.keyCode === 53 || e.keyCode === 101) && e.ctrlKey) { // CTRL + 5
                 showEditor();
             }
-            console.log(e.keyCode);
+            //console.log(e.keyCode);
         });    
     
     }
@@ -229,6 +229,7 @@
         list.style.display = "none";
         editor.style.display = "block";
         ED.focus();
+        ED.renderer.updateFull()
     }
     
     /* ->
@@ -365,7 +366,7 @@
         return row;
     }
     
-    /* String TaskState -> Boolean
+    /* String TaskState -> Void
      * 
      * Changes the state of a task in the current file.
      * 
@@ -374,32 +375,31 @@
      * @returns {Boolean} - true if state could be changed, else false
      */
     // TODO
-    function changeStateInFile(headline, state) {
-        // stub
+    function changeStateInFile(headline, oldState) {
+        if (oldState === "TODO") {
+                var newState = 'DOING';
+            } else if (oldState === "DONE") {
+                var newState = 'TODO';  
+            } else if (oldState === "DOING") {
+                var newState = 'DONE';
+            }
+        // find range
+        var range = ED.find(headline, {wrap:true, range: null}, false);
+        // create Range from start of line to start of headline in row
+        var end = range.start.column;
+        range.start.column = 0;
+        range.end.column = end;
+        // replace current state with new state
+        
+        var options = {needle: oldState, range: range, start: range, wrap: true};
+        ED.replace(newState, options);
+        saveFile(ED);
     }
-    
-    //    LW.ED.find("DOING As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
-    //Range {start: Object, end: Object, isEqual: function, toString: function, contains: function…}
-    //var r = LW.ED.find("DOING As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
-    //undefined
-    //LW.ES.replace(r, "TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.");
-    //HasChanged: true app.js:73
-    //HasChanged: true app.js:73
-    //Object {row: 1, column: 162}
-
-
-    // change as time goes by (nearly all do)	on-tick
-    // display something (nearly all do)	to-draw
-    // change in response to key presses	on-key
-    // change in response to mouse activity	on-mouse
-    // stop automatically	                stop-when
     
     /* Editor String -> Bool
      * consumes an editor and a filepath and loads the file in editor,
      * produces the content of the file or false if file could not be loaded
      */
-    // checkExpect(openFile("", ""), false, "openFile", openFile);
-    // checkExpect(openFile(ED, "./test.txt"), "This is a test for livewookie.\n", "openFile", openFile); 
     
     function openFile(editor, filePath) {
       if (fs.existsSync(filePath)) {
@@ -413,19 +413,12 @@
         return false;
       }
     }
-
-    
     
     /* Editor String -> String
      * saves the content of Editor editor to the String filepath and
      * produces the filepath or false if saving failed
      * assumes that the file exists
      */
-    
-    // needs way to test
-    // checkExpect(saveFile(testEditor, "/root/writeTest.txt"), false, "saveFile", saveFile);
-    // checkExpect(saveFile(testEditor, "./writeTest.txt"), "./writeTest.txt", "saveFile", saveFile);
-    // checkExpect(saveFile(testEditor, "./notHere.txt"), false, "saveFile", saveFile);
     
     function saveFile(editor, filePath) {
       filePath = typeof filePath !== 'undefined' ? filePath :  currentFile;
