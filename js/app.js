@@ -83,8 +83,8 @@
      * consumes the name of the html element the editor should get atttached to 'main ("editor");'
      */
     function main (element) {
-        // Workaround otherwise the editor doesn't load fully, with right size and markdown mode
-        window.setTimeout(showDoing,50); 
+        
+        showDoing(); 
         // Listener
         ES.on("change", function() {
           if (currentFile) {
