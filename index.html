@@ -31,7 +31,7 @@
       */
 
       var LW = {}; // To have a global namespace
-      if (typeof window.require != 'undefined') {
+      if (typeof window.require !== 'undefined') {
       window.gui = require('nw.gui');
       var clipboard = window.gui.Clipboard.get();
       var win = window.gui.Window.get();
