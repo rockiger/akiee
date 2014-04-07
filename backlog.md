@@ -28,9 +28,11 @@
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 ## As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
-## TODO Find a better solution to the workaraund for the loading problem in main()
+
 ## TODO As A User I want the the details of a task when I klick on it, that I can see notes I did to finish it.
+
 - [ ] Two possibilities 1. New Window,Tab with Deteils. 2. Preview like in Geary, tbd.
+
 ## TODO As a user I want that the filter buttons have the same color as the states, that I can make a connection between them.
 
 acc:
@@ -39,8 +41,10 @@ acc:
 - [ ] grey for done
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
+
 ## DONE As a programmer I want to learn how to use mocha in node-webkit, to satisfy my personal quality needs.
   Aborted, because of problems between node-webkit and standard testing
+
 - [X] Install Mocha to the projecct
 - [ ] Write a view sample testcases
 - [X] Write user tests for existing features
@@ -74,10 +78,14 @@ AC:
 - [X] TODO and DONE are recognised by the markdown theme
 
 ## DONE As a programmer I want to use a testing framework that works like racket, that I can easily transelate the knowledge I gained.
+
 ## DONE As lw developer I want to change the mini-code-edit base to fit my needs, that it is becoming my project and I can learn the things that I need are most valuable to me
     AC:
     - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
     - [X] removing unused files (angular, zepto ...)
+
 ## DONE A a user I want to see my notes, when I open live wookiee, that I see my notes instantly. DEADLINE: <2013-08-24 Sa 11:00> 
 
 ## DONE As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.
+
+## DONE Find a better solution to the workaraund for the loading problem in main()
