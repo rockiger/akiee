@@ -2,8 +2,13 @@
 ## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
 
 - [X] Change the color of the task to according to it's state
+-- [ ] User the right colors for changed taskstates from bootstrap as with panel titles
 - [X] Change the state of the task in the table row
 - [ ] Change the state of the task in editor
+
+## TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+
+## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
@@ -20,8 +25,6 @@
 - [ ] There is a Shortcut for the Agenda View
 - [ ] Agenda-View should always updated when it's shown
 
-## TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
-## TODO As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 ## As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
@@ -76,3 +79,5 @@ AC:
     - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
     - [X] removing unused files (angular, zepto ...)
 ## DONE A a user I want to see my notes, when I open live wookiee, that I see my notes instantly. DEADLINE: <2013-08-24 Sa 11:00> 
+
+## DONE As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.
