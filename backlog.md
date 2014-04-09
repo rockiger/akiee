@@ -1,10 +1,4 @@
 # Akiee
-## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
-
-- [X] Change the color of the task to according to it's state
--- [X] User the right colors for changed taskstates from bootstrap as with panel titles
-- [X] Change the state of the task in the table row
-- [X] Change the state of the task in editor
 
 ## TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
 
@@ -39,6 +33,14 @@ acc:
 - [ ] green for doing
 - [ ] blue for todo
 - [ ] grey for done
+
+## TODO As a user I want akie appiering in a the suitable to my operating system, that it feels like a native app:
+
+acc:
+
+- [ ] Ubuntu Ambiance on Ubuntu
+- [ ] Some Mac Theme on MAC
+- [ ] Windows 8 Theme on Windows
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 
@@ -89,3 +91,10 @@ AC:
 ## DONE As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.
 
 ## DONE Find a better solution to the workaraund for the loading problem in main()
+
+## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
+
+- [X] Change the color of the task to according to it's state
+-- [X] User the right colors for changed taskstates from bootstrap as with panel titles
+- [X] Change the state of the task in the table row
+- [X] Change the state of the task in editor
