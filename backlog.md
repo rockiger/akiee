@@ -1,7 +1,12 @@
 # Akiee
 
-## TODO As a task planner I want to add TODO/DONE via shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
 
+acceptance criteria:
+
+- [ ] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
+- [ ] `right`/`left`/`space`/`shift`+`space` cycle through states
+- [ ] Shortcuts are added to `shortcuts.md`
 ## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
