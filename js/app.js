@@ -137,7 +137,6 @@
             }
             //console.log(e.keyCode);
         });    
-    
     }
     
     /*
@@ -229,7 +228,7 @@
         list.style.display = "none";
         editor.style.display = "block";
         ED.focus();
-        ED.renderer.updateFull()
+        ED.renderer.updateFull();
     }
     
     /* ->
@@ -426,7 +425,7 @@
         if (hasChanged) {
           var data = editor.getSession().getValue(); //.replace(/\n/g,"\r\n");
           try {
-            fs.writeFileSync(filePath, data, "utf8")
+            fs.writeFileSync(filePath, data, "utf8");
           } catch(e) {
             alert("Couldn't write to path: " + filePath);
             return false;
