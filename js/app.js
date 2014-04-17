@@ -134,9 +134,13 @@
                 showAll();
             } else if ((e.keyCode === 53 || e.keyCode === 101) && e.ctrlKey) { // CTRL + 5
                 showEditor();
+            } else if ((e.keyCode === 40 || e.keyCode === 74) ) { // DOWN / J
+                selectNext();
+            } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
+                selectPrevious();
             }
-            //console.log(e.keyCode);
-        });    
+            console.log(e.keyCode);
+        });
     }
     
     /*
@@ -271,6 +275,54 @@
         list.style.display = "block";
     }
     
+     /* Void -> Void
+     * Selects the next Element in the "list" table
+     */
+    function selectNext() {
+        var list = document.getElementById("list");
+        markNextTableRow(list);
+    }
+
+    /* DOMElement -> DOMElement
+     * Moves the "selected" class to the next row in the table, 
+     * if non present it add "selected" to the class fo the first table row
+     */
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    function markNextTableRow(list) {
+            if (list.style.display !== "none") {
+            var currentRows = list.getElementsByClassName("selected");
+            var currentRow = currentRows[0];
+            if (currentRows.length === 0) {
+                currentRow = list.children[0].children[0];
+            } else if (currentRow.nextElementSibling === null) {
+                currentRow.className = "";
+                currentRow = list.children[0].children[0];
+            }
+            else {
+                currentRow.className = "";
+                currentRow = currentRow.nextElementSibling;
+            }
+            currentRow.className = "selected";
+            console.log(currentRow);
+        }
+        return list;
+    } 
+    
+    /* Void -> Void
+     * Selects the previous Element in the table
+     */
+    function selectPrevious(e) {} //stub
     
     /* Element -> Void
      * Reacts to single clicks on a row
@@ -303,13 +355,13 @@
         return changeStateClass(changeStateInTd(row,state),state);
     }
     
-    /* Element TaskState -> String
+    /* DOMElement TaskState -> DOMElement
      * 
      * Changes the class of a row, to match it's new state
      * 
      * @param {Element} row - The table row to change
      * @param {TaskState} state - The current state of the task 
-     * @returns {RowClass} - The class name of a row, that has been set
+     * @returns {Row} - The class name of a row, that has been set
      */
     deepEqual(equalNode(changeStateInTd(
             createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"), 
@@ -443,10 +495,17 @@
     }
     
     /* String -> DOMElement
-     * Produces an DOMElemen from a String with HTML html 
+     * Produces an TR-DOMElemen from a String with HTML html 
      */
     function createTrElement(html) {
-        var wrapper = document.createElement('tbody');
+        return createElement(html, 'tbody');
+    }
+    
+    /* String String -> DOMElement
+     * Produces an DOMElemen from a String with HTML html and the parent element
+     */
+    function createElement(html, parent) {
+        var wrapper = document.createElement(parent);
         wrapper.innerHTML = html;
         return wrapper.firstChild;
     }
