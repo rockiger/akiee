@@ -12,6 +12,8 @@ body {margin:0;}
 
 table, tbody, tr {width: 100%;}
 
+#list tr:hover {cursor: pointer;}
+
 .todo td {background-color: #d9edf7 !important; color: #31708f}
 .done td {color: #777; text-decoration: line-through;}
 .doing td {background-color: #dff0d8 !important; color: #3c763d}

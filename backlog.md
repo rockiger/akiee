@@ -4,7 +4,7 @@
 
 acceptance criteria:
 
-- [ ] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
+- [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
 - [ ] `right`/`left`/`space`/`shift`+`space` cycle through states
 - [ ] Shortcuts are added to `shortcuts.md`
 ## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
