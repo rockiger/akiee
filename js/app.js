@@ -280,7 +280,9 @@
      */
     function selectNext() {
         var list = document.getElementById("list");
-        markNextTableRow(list);
+        if (list.style.display !== "none") {
+            markNextTableRow(list);;
+        }
     }
 
     /* DOMElement -> DOMElement
@@ -300,29 +302,66 @@
                         createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
                         ), true);
     function markNextTableRow(list) {
-            if (list.style.display !== "none") {
-            var currentRows = list.getElementsByClassName("selected");
-            var currentRow = currentRows[0];
-            if (currentRows.length === 0) {
-                currentRow = list.children[0].children[0];
-            } else if (currentRow.nextElementSibling === null) {
-                currentRow.className = "";
-                currentRow = list.children[0].children[0];
-            }
-            else {
-                currentRow.className = "";
-                currentRow = currentRow.nextElementSibling;
-            }
-            currentRow.className = "selected";
-            console.log(currentRow);
+        var currentRows = list.getElementsByClassName("selected");
+        var currentRow = currentRows[0];
+        if (currentRows.length === 0) {
+            currentRow = list.children[0].children[0];
+        } else if (currentRow.nextElementSibling === null) {
+            currentRow.className = "";
+            currentRow = list.children[0].children[0];
         }
+        else {
+            currentRow.className = "";
+            currentRow = currentRow.nextElementSibling;
+        }
+        currentRow.className = "selected";
+        console.log(currentRow);
         return list;
     } 
     
     /* Void -> Void
      * Selects the previous Element in the table
      */
-    function selectPrevious(e) {} //stub
+    function selectPrevious(e) {        
+        var list = document.getElementById("list");
+        if (list.style.display !== "none") {
+            markPreviousTableRow(list);
+        }
+    }   
+    
+    /* DOMElement -> DOMElement
+     * Moves the "selected" class to the next row in the table, 
+     * if non present it add "selected" to the class fo the first table row
+     */
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);    
+    function markPreviousTableRow(list) {
+        var currentRows = list.getElementsByClassName("selected");
+        var currentRow = currentRows[0];
+        if (currentRows.length === 0) {
+            currentRow = list.children[0].children[list.children[0].children.length - 1]; //get last item in the list
+        } else if (currentRow.previousElementSibling === null) {
+            currentRow.className = "";
+            currentRow = list.children[0].children[list.children[0].children.length - 1];
+        }
+        else {
+            currentRow.className = "";
+            currentRow = currentRow.previousElementSibling;
+        }
+        currentRow.className = "selected";
+        console.log(currentRow);
+        return list;
+    }
     
     /* Element -> Void
      * Reacts to single clicks on a row
