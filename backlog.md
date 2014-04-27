@@ -7,7 +7,14 @@ acceptance criteria:
 - [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
 - [ ] `right`/`left`/`space`/`shift`+`space` cycle through states
 - [ ] Shortcuts are added to `shortcuts.md`
+
 ## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
+
+## TODO As a task planner I want to order my tasks, that I work with them in the right sequence and I don't have to invent rankings via prioritys.
+
+acceptance criteria:
+
+- [ ] order is assigned by a atomar ranking system. A ranking has only one task and a task has one ranking only.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
