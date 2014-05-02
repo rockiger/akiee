@@ -8,13 +8,16 @@ acceptance criteria:
 
 - [ ] order is assigned by a atomar ranking system. A ranking has only one task and a task has one ranking only.
 
-## TODO As a task planner I want to order my tasks, that I work with them in the right sequence and I don't have to invent rankings via prioritys.
-
-acceptance criteria:
-
-- [ ] order is assigned by a atomar ranking system. A ranking has only one task and a task has one ranking only.
-
 ## BUG Task-Change throws Error, if Task has an URL in it's headline
+
+## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance them, that I feel Akiee is good integrated in the operating system.
+
+acceptance criteria
+
+- [ ] The menu bar of Akie should be user Ambiance Colors in Ubuntu
+- [ ] The font for the task view should be Ubuntu
+- [ ] The font for the editor should be Ubuntu Mono
+- [ ] The menu bar should be fixed
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
