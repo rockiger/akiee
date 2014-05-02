@@ -10,6 +10,12 @@ body {margin:0;}
 
 .nav, .pagination, .carousel a { cursor: pointer; }
 
-.todo td{background-color: #d9edf7 !important; color: #31708f}
-.done td {background-color: #f5f5f5 !important; color: #777; text-decoration: line-through;}
+table, tbody, tr {width: 100%;}
+
+#list tr:hover {cursor: pointer;}
+
+.todo td {background-color: #d9edf7 !important; color: #31708f}
+.done td {color: #777; text-decoration: line-through;}
 .doing td {background-color: #dff0d8 !important; color: #3c763d}
+
+.selected {background-color: #f5f5f5}

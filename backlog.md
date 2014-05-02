@@ -1,14 +1,12 @@
 # Akiee
 
-## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
+
+## TODO As a task planner I want to order my tasks, that I work with them in the right sequence and I don't have to invent rankings via prioritys.
 
 acceptance criteria:
 
-- [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
-- [ ] `right`/`left`/`space`/`shift`+`space` cycle through states
-- [ ] Shortcuts are added to `shortcuts.md`
-
-## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
+- [ ] order is assigned by a atomar ranking system. A ranking has only one task and a task has one ranking only.
 
 ## TODO As a task planner I want to order my tasks, that I work with them in the right sequence and I don't have to invent rankings via prioritys.
 
@@ -106,9 +104,19 @@ AC:
 
 ## DONE Find a better solution to the workaraund for the loading problem in main()
 
-## TODO As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
+## DONE As a user I want to change the state of a task with a simple action, that I can easyly check my task without switching to the editor and breaking my flow.
 
 - [X] Change the color of the task to according to it's state
 -- [X] User the right colors for changed taskstates from bootstrap as with panel titles
 - [X] Change the state of the task in the table row
 - [X] Change the state of the task in editor
+
+## DONE As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+
+acceptance criteria:
+
+- [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
+- ~~[ ] `right`/`left`/`space`/`shift`+`space` cycle through states~~
+- [X] `d`->DONE, `t`->DOING, `shift`+`t`->TODO
+- [X] Shortcuts are added to `shortcuts.md`
+

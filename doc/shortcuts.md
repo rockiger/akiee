@@ -1,5 +1,17 @@
 #Default Keyboard Shortcuts
 
+## Whole Application
+
+| PC (Windows/Linux)             | Mac                            | action                         |
+|:-------------------------------|:-------------------------------|:-------------------------------|
+| Ctrl-1 | Command-1| Show Todo's |
+| Ctrl-2 | Command-2| Show Doing's |
+| Ctrl-3 | Command-3| Show Dones's |
+| Ctrl-4 | Command-4| Show All tasks |
+| Ctrl-5 | Command-5| Show Editor |
+
+## Editor
+
 | PC (Windows/Linux)             | Mac                            | action                         |
 |:-------------------------------|:-------------------------------|:-------------------------------|
 | Ctrl-, | Command-, | Show the settings menu |
@@ -80,3 +92,15 @@
 | Alt-Shift-L, Ctrl-Shift-F1 | Command-Option-Shift-L, Command-Shift-F1 | unfold |
 | Alt-Shift-0 | Command-Option-Shift-0 | unfold all |
 | Ctrl-Enter | Command-Enter | enter full screen |
+
+
+## Task-View
+
+| PC (Windows/Linux)             | Mac                            | action                         |
+|:-------------------------------|:-------------------------------|:-------------------------------|
+| Down | Down | select next line |
+| Up | Up | select previous line |
+| D | D | mark selected task as DONE |
+| T | T | mark selected task as DOING |
+| Shift-T | Shift-T | mark selected task as TODO |
+| Left-Click | Left-Click | advance task to the next state, e.g. from DOING -> DONE |

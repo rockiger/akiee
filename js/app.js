@@ -1,5 +1,4 @@
-(function()
-{
+(function () {
     "use strict";
     var fs = require("fs");
     var assert = require("assert");
@@ -134,9 +133,20 @@
                 showAll();
             } else if ((e.keyCode === 53 || e.keyCode === 101) && e.ctrlKey) { // CTRL + 5
                 showEditor();
+            } else if ((e.keyCode === 40 || e.keyCode === 74) ) { // DOWN / J
+                selectNext();
+            } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
+                selectPrevious();
+            } else if (e.keyCode === 68 ) { // D
+                doneState(); 
+            } else if (e.keyCode === 84 && e.shiftKey) { // SHIFT + T
+                console.log("todoState()");
+                todoState();
+            }else if (e.keyCode === 84 ) { // T
+                doingState();
             }
-            //console.log(e.keyCode);
-        });    
+            console.log(e.keyCode);
+        });
     }
     
     /*
@@ -271,6 +281,93 @@
         list.style.display = "block";
     }
     
+     /* Void -> Void
+     * Selects the next Element in the "list" table
+     */
+    function selectNext() {
+        var list = document.getElementById("list");
+        if (list.style.display !== "none") {
+            markNextTableRow(list);;
+        }
+    }
+
+    /* DOMElement -> DOMElement
+     * Moves the "selected" class to the next row in the table, 
+     * if non present it add "selected" to the class fo the first table row
+     */
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markNextTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    function markNextTableRow(list) {
+        var currentRows = list.getElementsByClassName("selected");
+        var currentRow = currentRows[0];
+        if (currentRows.length === 0) {
+            currentRow = list.children[0].children[0];
+        } else if (currentRow.nextElementSibling === null) {
+            currentRow.className = "";
+            currentRow = list.children[0].children[0];
+        }
+        else {
+            currentRow.className = "";
+            currentRow = currentRow.nextElementSibling;
+        }
+        currentRow.className = "selected";
+        console.log(currentRow);
+        return list;
+    } 
+    
+    /* Void -> Void
+     * Selects the previous Element in the table
+     */
+    function selectPrevious(e) {        
+        var list = document.getElementById("list");
+        if (list.style.display !== "none") {
+            markPreviousTableRow(list);
+        }
+    }   
+    
+    /* DOMElement -> DOMElement
+     * Moves the "selected" class to the next row in the table, 
+     * if non present it add "selected" to the class fo the first table row
+     */
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);
+    deepEqual(equalNode(
+                        markPreviousTableRow(createElement('<table><tbody><tr class=""><td>DOING</td><td>Mails beantworten</td></tr><tr class="selected"><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')),
+                        createElement('<table><tbody><tr class="selected"><td>DOING</td><td>Mails beantworten</td></tr><tr class=""><td>DOING</td><td>Nochmal nachlesen, wie man ich am besten meine Anlage aufteilen</td></tr></tbody></table>', 'body')
+                        ), true);    
+    function markPreviousTableRow(list) {
+        var currentRows = list.getElementsByClassName("selected");
+        var currentRow = currentRows[0];
+        if (currentRows.length === 0) {
+            currentRow = list.children[0].children[list.children[0].children.length - 1]; //get last item in the list
+        } else if (currentRow.previousElementSibling === null) {
+            currentRow.className = "";
+            currentRow = list.children[0].children[list.children[0].children.length - 1];
+        }
+        else {
+            currentRow.className = "";
+            currentRow = currentRow.previousElementSibling;
+        }
+        currentRow.className = "selected";
+        console.log(currentRow);
+        return list;
+    }
     
     /* Element -> Void
      * Reacts to single clicks on a row
@@ -280,7 +377,52 @@
         var state = e.children[0].innerHTML;
         var headline = e.children[1].innerHTML;
         changeStateInTable(e, state);
-        changeStateInFile(headline, state);
+        advanceStateInFile(headline, state);
+    }
+    
+    /* Void -> Void## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+
+acceptance criteria:
+
+- [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
+- ~~[ ] `right`/`left`/`space`/`shift`+`space` cycle through states~~
+- [X] `d`->DONE, `t`->DOING, `shift`+`t`->TODO
+- [X] Shortcuts are added to `shortcuts.md`
+
+
+     * changes the state of the selected row to DONE
+     */
+    function doneState() {
+        changeState('DOING', 'DONE'); // DOING because DONE is the state after DOING
+    }
+    
+    /* Void -> Void
+     * changes the state of the selected row to DOING
+     */
+    function doingState() {
+        changeState('TODO','DOING'); // TODO because DOING is the state after TODO
+    }
+    
+    /* Void -> Void
+     * changes the state of the selected row to TODO
+     */
+    function todoState() {
+        changeState('DONE', 'TODO'); // DONE because TODO is the state after DONE
+    }
+    
+    /* State State-> Void
+     * changes the state of the selected row to the newState after the given fakeState must be given because of changeStateInTable()
+     */
+    function changeState(fakeState, newState) {
+        var rows = document.getElementsByClassName("selected");
+        var row = rows[0];
+        if (rows.length > 0) {
+            var headline = row.children[1].innerHTML;
+            var oldState = row.children[0].innerHTML;
+            console.log(headline);
+            changeStateInTable(row, fakeState);
+            changeStateInFile(headline, oldState, newState);
+        }
     }
     
     /* DOMElement(tr) TaskState -> DOMElement
@@ -303,13 +445,13 @@
         return changeStateClass(changeStateInTd(row,state),state);
     }
     
-    /* Element TaskState -> String
+    /* DOMElement TaskState -> DOMElement
      * 
      * Changes the class of a row, to match it's new state
      * 
      * @param {Element} row - The table row to change
      * @param {TaskState} state - The current state of the task 
-     * @returns {RowClass} - The class name of a row, that has been set
+     * @returns {Row} - The class name of a row, that has been set
      */
     deepEqual(equalNode(changeStateInTd(
             createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"), 
@@ -356,7 +498,6 @@
     function changeStateClass(row, state) {
         if (state === "TODO") {
             row.className = "doing";
-            return row;
         } else if (state === "DOING") {
             row.className = "done";
         } else if (state === "DONE") {
@@ -374,7 +515,7 @@
      * @returns {Boolean} - true if state could be changed, else false
      */
     // TODO
-    function changeStateInFile(headline, oldState) {
+    function advanceStateInFile(headline, oldState) {
         if (oldState === "TODO") {
                 var newState = 'DOING';
             } else if (oldState === "DONE") {
@@ -382,6 +523,18 @@
             } else if (oldState === "DOING") {
                 var newState = 'DONE';
             }
+        changeStateInFile(headline, oldState, newState);
+    }
+     /* String TaskState -> Void
+     * 
+     * Changes the state of a task in the current file.
+     * 
+     * @param {String} headline - The headline of the task
+     * @param {TaskState} oldState - The current state of the task
+     * @param {TaskState} newState - The new state of the task
+     * @returns {Boolean} - true if state could be changed, else false
+     */
+    function changeStateInFile(headline, oldState, newState) {
         // find range
         var range = ED.find(headline, {wrap:true, range: null}, false);
         // create Range from start of line to start of headline in row
@@ -443,10 +596,17 @@
     }
     
     /* String -> DOMElement
-     * Produces an DOMElemen from a String with HTML html 
+     * Produces an TR-DOMElemen from a String with HTML html 
      */
     function createTrElement(html) {
-        var wrapper = document.createElement('tbody');
+        return createElement(html, 'tbody');
+    }
+    
+    /* String String -> DOMElement
+     * Produces an DOMElemen from a String with HTML html and the parent element
+     */
+    function createElement(html, parent) {
+        var wrapper = document.createElement(parent);
         wrapper.innerHTML = html;
         return wrapper.firstChild;
     }
