@@ -1,5 +1,4 @@
-(function()
-{
+(function () {
     "use strict";
     var fs = require("fs");
     var assert = require("assert");
@@ -138,6 +137,13 @@
                 selectNext();
             } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
                 selectPrevious();
+            } else if (e.keyCode === 68 ) { // D
+                doneState(); 
+            } else if (e.keyCode === 84 && e.shiftKey) { // SHIFT + T
+                console.log("todoState()");
+                todoState();
+            }else if (e.keyCode === 84 ) { // T
+                doingState();
             }
             console.log(e.keyCode);
         });
@@ -371,7 +377,52 @@
         var state = e.children[0].innerHTML;
         var headline = e.children[1].innerHTML;
         changeStateInTable(e, state);
-        changeStateInFile(headline, state);
+        advanceStateInFile(headline, state);
+    }
+    
+    /* Void -> Void## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
+
+acceptance criteria:
+
+- [X] `up`/`down`/`j`/`k` for selecting tasks, if no task already selected, first one will be selected
+- ~~[ ] `right`/`left`/`space`/`shift`+`space` cycle through states~~
+- [X] `d`->DONE, `t`->DOING, `shift`+`t`->TODO
+- [X] Shortcuts are added to `shortcuts.md`
+
+
+     * changes the state of the selected row to DONE
+     */
+    function doneState() {
+        changeState('DOING', 'DONE'); // DOING because DONE is the state after DOING
+    }
+    
+    /* Void -> Void
+     * changes the state of the selected row to DOING
+     */
+    function doingState() {
+        changeState('TODO','DOING'); // TODO because DOING is the state after TODO
+    }
+    
+    /* Void -> Void
+     * changes the state of the selected row to TODO
+     */
+    function todoState() {
+        changeState('DONE', 'TODO'); // DONE because TODO is the state after DONE
+    }
+    
+    /* State State-> Void
+     * changes the state of the selected row to the newState after the given fakeState must be given because of changeStateInTable()
+     */
+    function changeState(fakeState, newState) {
+        var rows = document.getElementsByClassName("selected");
+        var row = rows[0];
+        if (rows.length > 0) {
+            var headline = row.children[1].innerHTML;
+            var oldState = row.children[0].innerHTML;
+            console.log(headline);
+            changeStateInTable(row, fakeState);
+            changeStateInFile(headline, oldState, newState);
+        }
     }
     
     /* DOMElement(tr) TaskState -> DOMElement
@@ -447,7 +498,6 @@
     function changeStateClass(row, state) {
         if (state === "TODO") {
             row.className = "doing";
-            return row;
         } else if (state === "DOING") {
             row.className = "done";
         } else if (state === "DONE") {
@@ -465,7 +515,7 @@
      * @returns {Boolean} - true if state could be changed, else false
      */
     // TODO
-    function changeStateInFile(headline, oldState) {
+    function advanceStateInFile(headline, oldState) {
         if (oldState === "TODO") {
                 var newState = 'DOING';
             } else if (oldState === "DONE") {
@@ -473,6 +523,18 @@
             } else if (oldState === "DOING") {
                 var newState = 'DONE';
             }
+        changeStateInFile(headline, oldState, newState);
+    }
+     /* String TaskState -> Void
+     * 
+     * Changes the state of a task in the current file.
+     * 
+     * @param {String} headline - The headline of the task
+     * @param {TaskState} oldState - The current state of the task
+     * @param {TaskState} newState - The new state of the task
+     * @returns {Boolean} - true if state could be changed, else false
+     */
+    function changeStateInFile(headline, oldState, newState) {
         // find range
         var range = ED.find(headline, {wrap:true, range: null}, false);
         // create Range from start of line to start of headline in row
