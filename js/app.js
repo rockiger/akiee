@@ -3,6 +3,7 @@
     var fs = require("fs");
     var assert = require("assert");
     var util = require("./js/util");
+    var enterTask = require("./js/enterTask");
     var org = require('./lib/markdown-org-mode-parser');
 
     /*
@@ -120,6 +121,9 @@
         var editorButton = document.getElementById("show-editor");
         editorButton.onclick = showEditor;
         
+        var enterTaskButton = document.getElementById("show-enterTask");
+        enterTaskButton.onclick = function () {enterTask.openTaskEntry($);};
+        
         document.addEventListener('keyup', function (e) {
             if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
                 toggleTasks();
@@ -137,13 +141,15 @@
                 selectNext();
             } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
                 selectPrevious();
-            } else if (e.keyCode === 68 ) { // D
+            } else if (e.keyCode === 68 ) { // Dtesttest
                 doneState(); 
             } else if (e.keyCode === 84 && e.shiftKey) { // SHIFT + T
                 console.log("todoState()");
                 todoState();
-            }else if (e.keyCode === 84 ) { // T
+            } else if (e.keyCode === 84 ) { // T
                 doingState();
+            } else if (e.keyCode === 13 && e.ctrlKey) {
+                enterTask.openTaskEntry($);
             }
             console.log(e.keyCode);
         });
@@ -287,7 +293,7 @@
     function selectNext() {
         var list = document.getElementById("list");
         if (list.style.display !== "none") {
-            markNextTableRow(list);;
+            markNextTableRow(list);
         }
     }
 
