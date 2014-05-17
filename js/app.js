@@ -122,7 +122,18 @@
         editorButton.onclick = showEditor;
         
         var enterTaskButton = document.getElementById("show-enterTask");
-        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES, DOC);};
+        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES);};
+        
+        var cancelEnterTask = document.getElementById("cancel-enterTask");
+        cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);}
+        
+        var enterTaskForm = document.getElementById("enterTask");
+        enterTaskForm.addEventListener('keyup', function (e) {
+            if (e.keyCode === 27) {
+                enterTask.cancelTaskEntry($);
+                console.log("Fuck you.")
+                }
+        });
         
         document.addEventListener('keyup', function (e) {
             if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
@@ -149,7 +160,7 @@
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) {
-                enterTask.openTaskEntry($, ES, DOC);
+                enterTask.openTaskEntry($, ES);
             }
             console.log(e.keyCode);
         });

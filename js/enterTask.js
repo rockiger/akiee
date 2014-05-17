@@ -3,25 +3,18 @@
 var util = require('./util');
 var u = require('util');
 
-/* Function(jquery) -> Task
- * Consumes jquery-object and opens up an entry field to insert a new task, produces the task
+/* Function(jquery) Object Object -> Task
+ * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry($, ES, DOC) {
+function openTaskEntry($, ES) {
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTask = $('#enterTask');
-    var enterTaskForm = $('#enterTaskForm select');
+    var enterTaskForm = $('#enterTask select');
+    var enterHeadline = $('#enterHeadline');
     enterTaskForm.html("<option>Inbox</option>\n" + buildOptions(projects));
-    
-    
-    enterTask.on('shown', function () {
-        var enterHeadline = DOC.getElementById("enterHeadline");
-        enterHeadline.focus();
-        //$('#enterHeadline').focus();
-    });
-    //console.log(u.inspect($('#enterHeadline')));
-    enterTask.modal();
-    
+    enterTask.show();
+    enterHeadline.focus();
 }
 
 /* ListOfNodes -> String
@@ -35,19 +28,33 @@ function buildOptions(lon) {
     }
 }
 
+/* Function(jquery) Object -> Task
+ * Consumes jquery and closes the entry form and deletes the input
+ */
+function cancelTaskEntry($) {
+    var enterTask = $('#enterTask');
+    var enterHeadline = $('#enterHeadline');
+    
+    enterHeadline.val("");
+    enterTask.hide();
+}
+
+
 exports.openTaskEntry = openTaskEntry;
+exports.cancelTaskEntry = cancelTaskEntry;
 
 /* Basic htlm for entry form
-<form class="form-inline" role="form">
-  <div class="form-group">
-    <input type="text" class="form-control" id="enterHeadline" placeholder="Enter Headline">
-  </div>
-  <div class="form-group"><select class="form-control">
-  <option>Inbox</option>
-  <option>Akiee</option>
-</select>
-  </div>
-  <button type="submit" class="btn btn-default">Create</button>
-  <button type="button" class="btn btn-link">Cancel</button>
-</form>
+<div id="enterTask" class="row">
+      <div class="col-xs-6">
+        <input type="text" class="form-control" id="enterHeadline" placeholder="Enter Headline" autofocus>
+      </div>
+      <div class="col-xs-2">
+        <select class="form-control">
+        </select>
+      </div>
+      <div class="col-xs-3">
+        <button type="submit" class="btn btn-default">Create</button>
+          <button type="button" class="btn btn-link">Cancel</button>
+      </div>
+    </div>
 */
