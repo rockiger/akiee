@@ -21,4 +21,6 @@ table, tbody, tr {width: 100%;}
 
 .selected {background-color: #f5f5f5}
 
+#enterTaskDiv {margin-top: -10px; margin-bottom: 10px;}
 #enterTask {display: none;}
+#enterTask div {padding-right: 0;}
