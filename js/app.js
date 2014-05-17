@@ -122,7 +122,7 @@
         editorButton.onclick = showEditor;
         
         var enterTaskButton = document.getElementById("show-enterTask");
-        enterTaskButton.onclick = function () {enterTask.openTaskEntry($);};
+        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES, DOC);};
         
         document.addEventListener('keyup', function (e) {
             if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
@@ -149,7 +149,7 @@
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) {
-                enterTask.openTaskEntry($);
+                enterTask.openTaskEntry($, ES, DOC);
             }
             console.log(e.keyCode);
         });
@@ -173,16 +173,6 @@
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
         return editor;
-    }
-
-    /**
-     * String -> ListOfNodes
-     * Produces a list of nodes with in a string with markdown content md
-     */
-    deepEqual("","", "getNodes");
-    function getNodes(md) {
-        var nodes = org.parseBigString(md);
-        return nodes;
     }
 
     /* ListOfNodes -> String
@@ -283,7 +273,7 @@
         var list = document.getElementById("list");
         editor.style.display = "none";
         var content = ED.getSession().getValue();
-        insertHtml(makeTodoList(getNodes(content), state), "list");
+        insertHtml(makeTodoList(util.getNodes(content), state), "list");
         list.style.display = "block";
     }
     

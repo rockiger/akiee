@@ -1,12 +1,38 @@
 /* This module deals with entering a task via a special entry field */
 
+var util = require('./util');
+var u = require('util');
+
 /* Function(jquery) -> Task
  * Consumes jquery-object and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry($) {
-    //TODO Add project to form with jquery
-    $('#enterTask').modal();
-    console.log("openTaskEntry");
+function openTaskEntry($, ES, DOC) {
+    var content = ES.getValue();
+    var projects = util.getProjects(util.getNodes(content));
+    var enterTask = $('#enterTask');
+    var enterTaskForm = $('#enterTaskForm select');
+    enterTaskForm.html("<option>Inbox</option>\n" + buildOptions(projects));
+    
+    
+    enterTask.on('shown', function () {
+        var enterHeadline = DOC.getElementById("enterHeadline");
+        enterHeadline.focus();
+        //$('#enterHeadline').focus();
+    });
+    //console.log(u.inspect($('#enterHeadline')));
+    enterTask.modal();
+    
+}
+
+/* ListOfNodes -> String
+ * Consumes a list of nodes and produces a option list
+ */
+function buildOptions(lon) {
+    if (lon.length === 0) {
+        return "";
+    } else {
+        return "<option>" + lon[0].headline + "</option>\n" + buildOptions(lon.slice(1));
+    }
 }
 
 exports.openTaskEntry = openTaskEntry;
