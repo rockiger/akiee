@@ -74,7 +74,7 @@ function print_r(obj) {
     /**
      * ListOfNodes -> ListOfNodes
      * Consumes a list of nodes and produces a ListOfNodes that are first order headlines
-     * filters the "Inbox" hproject
+     * filters the "Inbox" project
      */
     function getProjects(lon) {
 	if (lon.length === 0) {

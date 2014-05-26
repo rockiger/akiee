@@ -10,7 +10,7 @@ function openTaskEntry($, ES) {
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTask = $('#enterTask');
-    var enterTaskForm = $('#enterTask select');
+    var enterTaskForm = $('#enterTaskProject');
     var enterHeadline = $('#enterHeadline');
     enterTaskForm.html("<option>Inbox</option>\n" + buildOptions(projects));
     enterTask.show();

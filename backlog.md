@@ -4,7 +4,7 @@
 
 acceptance criteria
 
-- [ ] entry field gets opened by `ctrl`+`enter` or click on blue "New" button
+- [X] entry field gets opened by `ctrl`+`enter` or click on blue "New" button
 - [ ] events for underlying tables get caught
 - [ ] default project is "Inbox", if "Inbox" not presen, it gets created at end of file, fill project options with first order headlines (#)
 - [ ] Task gets inserted as last entry under it's project
