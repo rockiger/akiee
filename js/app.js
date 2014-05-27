@@ -131,7 +131,6 @@
         enterTaskForm.addEventListener('keyup', function (e) {
             if (e.keyCode === 27) {
                 enterTask.cancelTaskEntry($);
-                console.log("Fuck you.")
                 }
         });
         
@@ -159,7 +158,7 @@
                 todoState();
             } else if (e.keyCode === 84 ) { // T
                 doingState();
-            } else if (e.keyCode === 13 && e.ctrlKey) {
+            } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
                 enterTask.openTaskEntry($, ES);
             }
             console.log(e.keyCode);
