@@ -53,8 +53,22 @@ function submitTask(e) {
     var taskStatus = j(this).find('#enterTaskStatus').val();
     
     
+    //findProject()
+    var project = findProject(taskProject);
+    //findEndOfProject();
+    //writeTask()
+    //updateTaskList()
+    
+    
     cancelTaskEntry(j);
     return false; //prevent form from redirect.
+}
+
+/* String -> Position
+ * Consumes a projectname and produces the position of that project
+ */
+function findProject(project) {
+    //code
 }
 
 
