@@ -2,13 +2,15 @@
 
 var util = require('./util');
 var u = require('util');
-var j;
+var $;
+var ES
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry($, ES) {
-    j = $;
+function openTaskEntry(jquery, editorSession) {
+    $ = jquery;
+    ES = editorSession
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTask = $('#enterTask');
@@ -47,10 +49,10 @@ function cancelTaskEntry($) {
  * consumes the form and is reponsible for the handling of a submited task
  */
 function submitTask(e) {
-    //code
-    var taskProject = j(this).find('#enterTaskProject').val();
-    var taskHeadline = j(this).find('#enterHeadline').val();
-    var taskStatus = j(this).find('#enterTaskStatus').val();
+    
+    var taskProject = $(this).find('#enterTaskProject').val();
+    var taskHeadline = $(this).find('#enterHeadline').val();
+    var taskStatus = $(this).find('#enterTaskStatus').val();
     
     
     //findProject()
@@ -60,7 +62,7 @@ function submitTask(e) {
     //updateTaskList()
     
     
-    cancelTaskEntry(j);
+    cancelTaskEntry($);
     return false; //prevent form from redirect.
 }
 
