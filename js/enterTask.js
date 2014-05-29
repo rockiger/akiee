@@ -3,14 +3,16 @@
 var util = require('./util');
 var u = require('util');
 var $;
-var ES
+var ES;
+var ED;
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry(jquery, editorSession) {
+function openTaskEntry(jquery, editorSession, editor) {
     $ = jquery;
     ES = editorSession
+    ED = editor;
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTask = $('#enterTask');
@@ -56,7 +58,9 @@ function submitTask(e) {
     
     
     //findProject()
+    console.log(taskProject);
     var project = findProject(taskProject);
+    console.log(u.inspect(project, {showHidden: false, depth: null}));
     //findEndOfProject();
     //writeTask()
     //updateTaskList()
@@ -66,13 +70,32 @@ function submitTask(e) {
     return false; //prevent form from redirect.
 }
 
-/* String -> Position
+/* String -> Range
  * Consumes a projectname and produces the position of that project
  */
 function findProject(project) {
-    //code
+    // find range
+    var result = ED.find("# " + project, {wrap:true, range: null}, false);
+    if (result === undefined && project === "Inbox") {
+        return createInbox();
+    } else {
+        return result;
+    }
 }
 
+/* Void -> Range
+ * Creates a Inbox in taskfile and producese the range of that Inbox
+ */
+function createInbox() {
+    console.log("createInbox()")
+    ED.navigateFileEnd();
+    var doc = ES.getDocument();
+    var pos = ED.getCursorPosition();
+    var newLine = doc.getNewLineCharacter();
+    console.log(u.inspect(pos));
+    ES.insert(pos, newLine + "# Inbox");
+    return findProject("Inbox");
+}
 
 exports.openTaskEntry = openTaskEntry;
 exports.cancelTaskEntry = cancelTaskEntry;

@@ -159,7 +159,7 @@ var APP = (function () {
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
-                enterTask.openTaskEntry($, ES);
+                enterTask.openTaskEntry($, ES, ED);
             }
             console.log(e.keyCode);
         });
