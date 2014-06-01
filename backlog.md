@@ -5,7 +5,7 @@
 acceptance criteria
 
 - [X] entry field gets opened by `ctrl`+`enter` or click on blue "New" button
-- [ ] events for underlying tables get caught
+- [X] events for underlying tables get caught
 - [X] default project is "Inbox", if "Inbox" not present, it gets created at end of file, fill project options with first order headlines (#)
 - [X] task gets inserted as last entry under it's project
 - [X] if taskstate of new task is the curren shown taskstate, task get's added to shown tasklist

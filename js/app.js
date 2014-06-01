@@ -35,6 +35,7 @@ var APP = (function () {
     var hasChanged = false;
     var currentFile;
     LW.onClickTableRow = onClickTableRow;
+    var shownTaskState = "DOING";
     
     /*
      * ==========
@@ -122,7 +123,7 @@ var APP = (function () {
         editorButton.onclick = showEditor;
         
         var enterTaskButton = document.getElementById("show-enterTask");
-        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES);};
+        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES, ED, shownTaskState);};
         
         var cancelEnterTask = document.getElementById("cancel-enterTask");
         cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);}
@@ -132,6 +133,7 @@ var APP = (function () {
             if (e.keyCode === 27) {
                 enterTask.cancelTaskEntry($);
                 }
+            e.stopPropagation();
         });
         
         document.addEventListener('keyup', function (e) {
@@ -159,7 +161,7 @@ var APP = (function () {
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
-                enterTask.openTaskEntry($, ES, ED);
+                enterTask.openTaskEntry($, ES, ED, shownTaskState);
             }
             console.log(e.keyCode);
         });
@@ -276,7 +278,7 @@ var APP = (function () {
     }
     
     /* ->
-     * consumes a task state s and shows a list of the done tasks
+     * consumes a task state s and shows a list of the done tasks and set's global state of shown tasks
      */
     function showTask(state) {
         var editor = document.getElementById("editor");
@@ -285,6 +287,7 @@ var APP = (function () {
         var content = ED.getSession().getValue();
         insertHtml(makeTodoList(util.getNodes(content), state), "list");
         list.style.display = "block";
+        shownTaskState = state;
     }
     
      /* Void -> Void
