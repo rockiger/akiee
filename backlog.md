@@ -8,7 +8,7 @@ acceptance criteria
 - [ ] events for underlying tables get caught
 - [X] default project is "Inbox", if "Inbox" not present, it gets created at end of file, fill project options with first order headlines (#)
 - [X] task gets inserted as last entry under it's project
-- [ ] if taskstate of new task is the curren shown taskstate, task get's added to shown tasklist
+- [X] if taskstate of new task is the curren shown taskstate, task get's added to shown tasklist
 
 ## TODO As a task planner I want to order my tasks, that I work with them in the right sequence and I don't have to invent rankings via prioritys.
 

@@ -5,16 +5,18 @@ var u = require('util');
 var $;
 var ES;
 var ED;
-var NLC
+var NLC;
+var shownTaskState;
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry(jquery, editorSession, editor) {
+function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     $ = jquery;
     ES = editorSession
     ED = editor;
     NLC = ES.getDocument().getNewLineCharacter();
+    shownTaskState = currentTaskState;
     
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
@@ -63,6 +65,7 @@ function submitTask(e) {
         var project = findProject(taskProject);
         var endOfProject = findEndOfProject(project);
         writeTask(endOfProject, taskStatus, taskHeadline);
+        addTaskToList(taskStatus, taskHeadline);
     }
     
     cancelTaskEntry($);
@@ -131,6 +134,14 @@ function getFileEndPosition() {
     }
  }
  
+ /* TaskState String -> Void
+  * Consumes Taskstate and adds the task to the current task list if the state matches the curren shown task state
+  */
+ function addTaskToList(taskState, headline) {
+    if (taskState === shownTaskState) {
+        $("#list").append("<tr onclick='LW.onClickTableRow(this);'><td>"+ taskState +"</td><td>" + headline + "</td></tr>")
+    }
+ }
 
 
 exports.openTaskEntry = openTaskEntry;
