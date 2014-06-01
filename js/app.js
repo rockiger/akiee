@@ -1,8 +1,9 @@
-(function () {
+var APP = (function () {
     "use strict";
     var fs = require("fs");
     var assert = require("assert");
     var util = require("./js/util");
+    var enterTask = require("./js/enterTask");
     var org = require('./lib/markdown-org-mode-parser');
 
     /*
@@ -34,6 +35,7 @@
     var hasChanged = false;
     var currentFile;
     LW.onClickTableRow = onClickTableRow;
+    var shownTaskState = "DOING";
     
     /*
      * ==========
@@ -120,6 +122,20 @@
         var editorButton = document.getElementById("show-editor");
         editorButton.onclick = showEditor;
         
+        var enterTaskButton = document.getElementById("show-enterTask");
+        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES, ED, shownTaskState);};
+        
+        var cancelEnterTask = document.getElementById("cancel-enterTask");
+        cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);}
+        
+        var enterTaskForm = document.getElementById("enterTask");
+        enterTaskForm.addEventListener('keyup', function (e) {
+            if (e.keyCode === 27) {
+                enterTask.cancelTaskEntry($);
+                }
+            e.stopPropagation();
+        });
+        
         document.addEventListener('keyup', function (e) {
             if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
                 toggleTasks();
@@ -137,13 +153,15 @@
                 selectNext();
             } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
                 selectPrevious();
-            } else if (e.keyCode === 68 ) { // D
+            } else if (e.keyCode === 68 ) { // Dtesttest
                 doneState(); 
             } else if (e.keyCode === 84 && e.shiftKey) { // SHIFT + T
                 console.log("todoState()");
                 todoState();
-            }else if (e.keyCode === 84 ) { // T
+            } else if (e.keyCode === 84 ) { // T
                 doingState();
+            } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
+                enterTask.openTaskEntry($, ES, ED, shownTaskState);
             }
             console.log(e.keyCode);
         });
@@ -167,16 +185,6 @@
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
         return editor;
-    }
-
-    /**
-     * String -> ListOfNodes
-     * Produces a list of nodes with in a string with markdown content md
-     */
-    deepEqual("","", "getNodes");
-    function getNodes(md) {
-        var nodes = org.parseBigString(md);
-        return nodes;
     }
 
     /* ListOfNodes -> String
@@ -270,15 +278,16 @@
     }
     
     /* ->
-     * consumes a task state s and shows a list of the done tasks
+     * consumes a task state s and shows a list of the done tasks and set's global state of shown tasks
      */
     function showTask(state) {
         var editor = document.getElementById("editor");
         var list = document.getElementById("list");
         editor.style.display = "none";
         var content = ED.getSession().getValue();
-        insertHtml(makeTodoList(getNodes(content), state), "list");
+        insertHtml(makeTodoList(util.getNodes(content), state), "list");
         list.style.display = "block";
+        shownTaskState = state;
     }
     
      /* Void -> Void
@@ -287,7 +296,7 @@
     function selectNext() {
         var list = document.getElementById("list");
         if (list.style.display !== "none") {
-            markNextTableRow(list);;
+            markNextTableRow(list);
         }
     }
 

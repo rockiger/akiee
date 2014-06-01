@@ -9,6 +9,7 @@
 | Ctrl-3 | Command-3| Show Dones's |
 | Ctrl-4 | Command-4| Show All tasks |
 | Ctrl-5 | Command-5| Show Editor |
+| Ctrl-Enter | Command-Enter | Show Task Entry |
 
 ## Editor
 
@@ -104,3 +105,10 @@
 | T | T | mark selected task as DOING |
 | Shift-T | Shift-T | mark selected task as TODO |
 | Left-Click | Left-Click | advance task to the next state, e.g. from DOING -> DONE |
+
+## Task Entry
+
+| PC (Windows/Linux)             | Mac                            | action                         |
+|:-------------------------------|:-------------------------------|:-------------------------------|
+| Enter | Enter | Submit Task |
+| Esc | Esc | Close Task Entry |
