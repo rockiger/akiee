@@ -5,6 +5,7 @@ var u = require('util');
 var $;
 var ES;
 var ED;
+var NLC
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
@@ -13,6 +14,8 @@ function openTaskEntry(jquery, editorSession, editor) {
     $ = jquery;
     ES = editorSession
     ED = editor;
+    NLC = ES.getDocument().getNewLineCharacter();
+    
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTask = $('#enterTask');
@@ -56,15 +59,11 @@ function submitTask(e) {
     var taskHeadline = $(this).find('#enterHeadline').val();
     var taskStatus = $(this).find('#enterTaskStatus').val();
     
-    
-    //findProject()
-    console.log(taskProject);
-    var project = findProject(taskProject);
-    console.log(u.inspect(project, {showHidden: false, depth: null}));
-    //findEndOfProject();
-    //writeTask()
-    //updateTaskList()
-    
+    if (taskHeadline !== '') {
+        var project = findProject(taskProject);
+        var endOfProject = findEndOfProject(project);
+        writeTask(endOfProject, taskStatus, taskHeadline);
+    }
     
     cancelTaskEntry($);
     return false; //prevent form from redirect.
@@ -87,31 +86,52 @@ function findProject(project) {
  * Creates a Inbox in taskfile and producese the range of that Inbox
  */
 function createInbox() {
-    console.log("createInbox()")
-    ED.navigateFileEnd();
-    var doc = ES.getDocument();
-    var pos = ED.getCursorPosition();
-    var newLine = doc.getNewLineCharacter();
-    console.log(u.inspect(pos));
-    ES.insert(pos, newLine + "# Inbox");
+    var pos = getFileEndPosition();
+    ES.insert(pos, NLC + "# Inbox");
     return findProject("Inbox");
 }
 
+/* Range -> Position
+ * consumes the range of the project headline and produces the position of end of the project
+ */
+function findEndOfProject(startRange) {
+    var position;
+    var doc = ES.getDocument();
+    var result = ED.find(NLC + "# ", {wrap:false, range: null, start: startRange, skipCurrent: false}, false);
+    if (result === undefined) {
+        position = getFileEndPosition();
+        ES.insert(position, NLC);
+        return getFileEndPosition();
+    }
+    position = result.end;
+    position.column = 0
+    return position;
+}
+
+/* Void -> Position
+ * Produces the position of the end of the file
+ */
+function getFileEndPosition() {
+    ED.navigateFileEnd();
+    return ED.getCursorPosition();
+}
+
+/* Position, String String -> Void
+ * Consumes position, status and headline of a new task and produces an entry in the editor
+ */
+ function writeTask(pos, status, headline) {
+    ES.insert(pos, "## " + status + " " + headline);
+    var currentPos = ED.getCursorPosition();
+    var endOfFile = getFileEndPosition();
+    if (JSON.stringify(currentPos) === JSON.stringify(endOfFile)) {
+        return;
+    } else {
+        currentPos.column = currentPos.column - 2;
+        ES.insert(currentPos, NLC);
+    }
+ }
+ 
+
+
 exports.openTaskEntry = openTaskEntry;
 exports.cancelTaskEntry = cancelTaskEntry;
-
-/* Basic htlm for entry form
-<div id="enterTask" class="row">
-      <div class="col-xs-6">
-        <input type="text" class="form-control" id="enterHeadline" placeholder="Enter Headline" autofocus>
-      </div>
-      <div class="col-xs-2">
-        <select class="form-control">
-        </select>
-      </div>
-      <div class="col-xs-3">
-        <button type="submit" class="btn btn-default">Create</button>
-          <button type="button" class="btn btn-link">Cancel</button>
-      </div>
-    </div>
-*/
