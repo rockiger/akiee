@@ -16,7 +16,8 @@ acceptance criteria
 - [ ] The font for the task view should be Ubuntu
 - [ ] The font for the editor should be Ubuntu Mono
 - [ ] The menu bar should be fixed
-- [ ] The buttons should show the current state of Akiee (TODO, Editor, ALL, etc.)
+
+## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
@@ -33,7 +34,7 @@ acceptance criteria
 - [ ] There is a Shortcut for the Agenda View
 - [ ] Agenda-View should always updated when it's shown
 
-## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
+
 ## As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
 
