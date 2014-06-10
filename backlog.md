@@ -17,6 +17,7 @@ acceptance criteria
 - [ ] The font for the editor should be Ubuntu Mono
 - [ ] The menu bar should be fixed
 
+## As a usre I want to know the parent node of a task, that 
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
