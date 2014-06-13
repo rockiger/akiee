@@ -8,7 +8,7 @@ acceptance criteria:
 
 ## BUG Task-Change throws Error, if Task has an URL in it's headline
 
-## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance them, that I feel Akiee is good integrated in the operating system.
+## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance theme, that I feel Akiee is good integrated in the operating system (Look out for GTK widget factory to view elements of Ambiance theme; "twf" at the cmd).
 
 acceptance criteria
 
@@ -17,7 +17,8 @@ acceptance criteria
 - [ ] The font for the editor should be Ubuntu Mono
 - [ ] The menu bar should be fixed
 
-## As a usre I want to know the parent node of a task, that 
+## TODO As a user I want to know the parent node of a task, that I know to whick project this task belongs.
+
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
