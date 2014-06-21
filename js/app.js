@@ -39,43 +39,6 @@ var APP = (function () {
     
     /*
      * ==========
-     * Data definitions:
-     */
-    
-    /* TaskState is one of:
-     * - "TODO"
-     * - "DONE"
-     * - "DOING"
-     *        
-        function fnForTaskState(ts) {
-            if (ts === "TODO") {
-                //code  
-            } else if (ts === "DONE") {
-                //code  
-            } else if (ts === "DOING") {
-                //code
-            }
-        }
-     */
-    
-    /* ClassName is one of:
-     * - "todo"
-     * - "doing"
-     * - "dono"
-     * 
-        function fnForClassName(cn) {
-            if (cn === "todo") {
-                //code  
-            } else if (cn === "doing") {
-                //code  
-            } else if (ts === "done") {
-                //code
-            }
-        }
-     */
-    
-    /*
-     * ==========
      * Functions:
      */
     
@@ -285,7 +248,7 @@ var APP = (function () {
         var list = document.getElementById("list");
         editor.style.display = "none";
         var content = ED.getSession().getValue();
-        insertHtml(makeTodoList(util.getNodes(content), state), "list");
+        insertHtml(makeTodoList(util.orderNodesByRank(util.getNodes(content)), state), "list");
         list.style.display = "block";
         shownTaskState = state;
     }
