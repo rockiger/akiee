@@ -43,24 +43,6 @@ function print_r(obj) {
     }
 }
 
-    /*
-     * ==========
-     * Data definitions:
-     */
-    
-    /* ListOfNodes is one of:
-     * - []
-     * - ListOfNodes.push(node)
-     *
-        function fnForTaskState(lon) {
-            if (lon.length === 0) {
-                //code  
-            } else {
-                //code
-            }
-        }
-    */
-
     /**
      * String -> ListOfNodes
      * Produces a list of nodes with in a string with markdown content md
@@ -68,6 +50,11 @@ function print_r(obj) {
     deepEqual("","", "getNodes");
     function getNodes(md) {
         var nodes = org.parseBigString(md);
+	for (var i = 0; i < nodes.length; i++) {
+	    if (nodes[i].rank) {
+		console.log(nodes[i]);
+	    }
+	}
         return nodes;
     }
     
@@ -90,6 +77,54 @@ function print_r(obj) {
 	    }
         }
     }
+    
+    /**
+     * ListOfNodes -> ListOfNodes
+     * Produces a ascending ordered list of nodes by RANK,
+     * non ranked nodes, are put at the end of the list
+     */
+    var n1 = {"headline": "Test-Node 1", "rank": 0}
+    var n2 = {"headline": "Test-Node 2", "rank": 5}
+    var n3 = {"headline": "Test-Node 3", "rank": null}
+    
+    deepEqual(orderNodesByRank([n1, n2, n3]),
+	      [n1, n2, n3], "orderNodesByRank: line 103");
+    deepEqual(orderNodesByRank([n2, n1, n3]),
+	      [n1, n2, n3], "orderNodesByRank: line 105");
+    deepEqual(orderNodesByRank([n3, n2, n1]),
+	      [n1, n2, n3], "orderNodesByRank: line 107");
+    deepEqual(orderNodesByRank([n3, n2, n1, n3]),
+	      [n1, n2, n3, n3], "orderNodesByRank: line 109");
+    deepEqual(orderNodesByRank([]),
+	      [], "orderNodesByRank: line 111");
+    
+    function orderNodesByRank(lon) {
+	return lon.sort(hasHigherRank);
+    }
+    
+    
+    /**
+     * Node Node -> Bool
+     * Determens if n2 has a higher Rank than n1
+     */
+    deepEqual(hasHigherRank(n1, n2), false);
+    deepEqual(hasHigherRank(n2, n1), true);
+    deepEqual(hasHigherRank(n1, n3), false);
+    deepEqual(hasHigherRank(n3, n1), true);
+    deepEqual(hasHigherRank(n1, n1), true);
+    deepEqual(hasHigherRank(n3, n3), true);
+    
+    function hasHigherRank(n1, n2) {
+	if (n1.rank === null) {
+	    return true;
+	} else if (n1.rank !== null && n2.rank === null) {
+	    return false;
+	} else if (n1.rank < n2.rank) {
+	    return false;
+	} else {
+	    return true;
+	}
+    }
 
 exports.getTaskFiles = getTaskFiles;
 exports.getUserHome = getUserHome;
@@ -97,3 +132,4 @@ exports.getLiveflow = getLiveflow;
 exports.print_r = print_r;
 exports.getNodes = getNodes;
 exports.getProjects = getProjects;
+exports.orderNodesByRank = orderNodesByRank;

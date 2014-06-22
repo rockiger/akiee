@@ -96,7 +96,6 @@
    var lon2 = lon1.unshift(n);
    
    function fnForLon(lon) {
-    //code
     if (lon.length === 0) {     //BASE CASE
         return //CODE;
     } else {
