@@ -25,6 +25,8 @@ acceptance criteria
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>
 
+## TODO As a user I want to be able to search for a task in a certain task view, that I can find task that I entered a while ago.
+
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
 - [ ] Agenda View shows all Todos
   - [ ] Define Model, based on org-mode-parser-nodes
