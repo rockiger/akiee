@@ -5,8 +5,8 @@
 acceptance criteria:
 
 - [X] RANK: [n] where n is an integer and a rank is lower rank comes first
-- [ ] If rank is null, Task comes last
-- [ ] If rank of two task is the same, these two tasks won't be sorted
+- [X] If rank is null, Task comes last
+- [X] If rank of two task is the same, these two tasks won't be sorted
 - [ ] When new task is created, it gets a rank n+1
 - [X] order is assigned by a atomar ranking system. 
 - [ ] A ranking should have only one task and a task should have one ranking only.

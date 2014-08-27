@@ -112,3 +112,25 @@
     - self-reference: (rest los) is ListOfString
 */
 
+/* Rank is one of:
+ * - Integer [1, ...]
+ * - null
+ * - interp. as the ranking of a task
+ * - should be an int > 0
+ * - null equals infinity
+ * - should be atomar
+ *
+ Examples:
+ var node1 = {};
+ var node2 = {};
+ node1.rank = 10;
+ node2.rank = null;
+ 
+ function fnForRank(rank) {
+    if (rank === null) {
+        return //CODE;
+    } else if (parseInt(rank, 10) > 0) {
+        return //CODE;
+    }
+ }
+*/
