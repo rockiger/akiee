@@ -4,7 +4,13 @@
 
 acceptance criteria:
 
-- [ ] order is assigned by a atomar ranking system. A ranking has only one task and a task has one ranking only.
+- [X] RANK: [n] where n is an integer and a rank is lower rank comes first
+- [ ] If rank is null, Task comes last
+- [ ] If rank of two task is the same, these two tasks won't be sorted
+- [ ] When new task is created, it gets a rank n+1
+- [X] order is assigned by a atomar ranking system. 
+- [ ] A ranking should have only one task and a task should have one ranking only.
+- [ ] User can change rank via gui - nothing fancy yet
 
 ## BUG Task-Change throws Error, if Task has an URL in it's headline
 
@@ -53,13 +59,20 @@ acc:
 - [ ] blue for todo
 - [ ] grey for done
 
-## TODO As a user I want akie appiering in a the suitable to my operating system, that it feels like a native app:
+## TODO As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
 acc:
 
 - [ ] Ubuntu Ambiance on Ubuntu
 - [ ] Some Mac Theme on MAC
 - [ ] Windows 8 Theme on Windows
+
+## TODO As a person who plans a FUTURE task, I want to add a DOING-date for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
+
+acceptance criteria
+
+- [ ] choose a DOING-date in the entry field
+- [ ] jumps (only) from TODO to DOING on the given date
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 

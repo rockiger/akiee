@@ -85,7 +85,9 @@ function print_r(obj) {
      */
     var n1 = {"headline": "Test-Node 1", "rank": 0}
     var n2 = {"headline": "Test-Node 2", "rank": 5}
-    var n3 = {"headline": "Test-Node 3", "rank": null}
+    var n3 = {"headline": "Test-Node 3", "rank": 11}
+    var n4 = {"headline": "Test-Node 11", "rank": null}
+    
     
     deepEqual(orderNodesByRank([n1, n2, n3]),
 	      [n1, n2, n3], "orderNodesByRank: line 103");
@@ -95,6 +97,8 @@ function print_r(obj) {
 	      [n1, n2, n3], "orderNodesByRank: line 107");
     deepEqual(orderNodesByRank([n3, n2, n1, n3]),
 	      [n1, n2, n3, n3], "orderNodesByRank: line 109");
+    deepEqual(orderNodesByRank([n3, n2, n4, n1]),
+	      [n1, n2, n3, n4], "orderNodesByRank: line 109");
     deepEqual(orderNodesByRank([]),
 	      [], "orderNodesByRank: line 111");
     
@@ -107,22 +111,23 @@ function print_r(obj) {
      * Node Node -> Bool
      * Determens if n2 has a higher Rank than n1
      */
-    deepEqual(hasHigherRank(n1, n2), false);
-    deepEqual(hasHigherRank(n2, n1), true);
-    deepEqual(hasHigherRank(n1, n3), false);
-    deepEqual(hasHigherRank(n3, n1), true);
-    deepEqual(hasHigherRank(n1, n1), true);
-    deepEqual(hasHigherRank(n3, n3), true);
+    deepEqual(hasHigherRank(n1, n2), -1);
+    deepEqual(hasHigherRank(n2, n1), 1);
+    deepEqual(hasHigherRank(n1, n3), -1);
+    deepEqual(hasHigherRank(n3, n1), 1);
+    deepEqual(hasHigherRank(n1, n1), 1);
+    deepEqual(hasHigherRank(n3, n3), 1);
     
     function hasHigherRank(n1, n2) {
 	if (n1.rank === null) {
-	    return true;
+	    return 1;
 	} else if (n1.rank !== null && n2.rank === null) {
-	    return false;
-	} else if (n1.rank < n2.rank) {
-	    return false;
+	    return -1;
+	} else if (parseInt(n1.rank, 10) < parseInt(n2.rank, 10)) {
+	    console.log("HELLO")
+	    return -1;
 	} else {
-	    return true;
+	    return 1;
 	}
     }
 
@@ -133,3 +138,4 @@ exports.print_r = print_r;
 exports.getNodes = getNodes;
 exports.getProjects = getProjects;
 exports.orderNodesByRank = orderNodesByRank;
+exports.hasHigherRank = hasHigherRank;
