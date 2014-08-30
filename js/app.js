@@ -249,9 +249,6 @@ var APP = (function () {
         editor.style.display = "none";
         var content = ED.getSession().getValue();
         var todos = util.orderNodesByRank(util.getNodes(content));
-        for (var i = 0; i < todos.length; i++) {
-            console.log(todos[i].headline + " RANK: " + todos[i].rank);
-        }
         insertHtml(makeTodoList(util.orderNodesByRank(util.getNodes(content)), state), "list");
         list.style.display = "block";
         shownTaskState = state;
