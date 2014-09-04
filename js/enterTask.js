@@ -1,7 +1,8 @@
 /* This module deals with entering a task via a special entry field */
 "use strict";
-var util = require("./util");
 var assert = require("assert");
+var util = require("./util");
+var htmlUtil = require("./htmlUtil");
 
 /*
 * ==========
@@ -148,7 +149,7 @@ function getFileEndPosition() {
   */
  function addTaskToList(taskState, headline) {
     if (taskState === shownTaskState) {
-        $("#list").append("<tr onclick='LW.onClickTableRow(this);'><td>"+ taskState +"</td><td>" + headline + "</td></tr>")
+        $("#list").append(htmlUtil.htmlForTodoListRow(taskState, headline));
     }
  }
  
