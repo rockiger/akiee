@@ -5,6 +5,8 @@ var APP = (function () {
     var util = require("./js/util");
     var enterTask = require("./js/enterTask");
     var org = require('./lib/markdown-org-mode-parser');
+    var htmlUtil = require("./js/htmlUtil");
+    var updateRank = require("./js/updateRank");
 
     /*
      * Akiee - a  Markdown alternative to Emacs Org-mode
@@ -35,6 +37,9 @@ var APP = (function () {
     var hasChanged = false;
     var currentFile;
     LW.onClickTableRow = onClickTableRow;
+    LW.onClickUpRank = updateRank.onClickUpRank;
+    LW.onClickDownRank = updateRank.onClickDownRank;
+    
     var shownTaskState = "DOING";
     
     /*
@@ -155,21 +160,21 @@ var APP = (function () {
      */
     deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, TODO), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DONE), "<tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, TODO), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DONE), "<tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
     
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
             return "";
         }
         if (state === ALL) {
-        return (("<tr onclick='LW.onClickTableRow(this);'><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));
+        return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline) + makeTodoList(lon.slice(1), state));
         }
         else {
             if (lon[0].todo === state) {
-                return (("<tr onclick='LW.onClickTableRow(this);'><td>"+lon[0].todo +"</td><td>" + lon[0].headline + "</td></tr>") + makeTodoList(lon.slice(1), state));    
+                return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline) + makeTodoList(lon.slice(1), state));    
             } else {
                 return makeTodoList(lon.slice(1), state);
             }
