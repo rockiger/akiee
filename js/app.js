@@ -25,7 +25,7 @@ var APP = (function () {
     var DOC = document;
     var TODO = "TODO";
     var DONE = "DONE";
-    var ALL = "ALL";;
+    var ALL = "ALL";
     var DOING = "DOING";
     LW.DEBUG = true;
     
@@ -37,8 +37,8 @@ var APP = (function () {
     var hasChanged = false;
     var currentFile;
     LW.onClickTableRow = onClickTableRow;
-    LW.onClickUpRank = updateRank.onClickUpRank;
-    LW.onClickDownRank = updateRank.onClickDownRank;
+    LW.onClickUpRank = onClickUpRank;
+    LW.onClickDownRank = onClickDownRank;
     
     var shownTaskState = "DOING";
     
@@ -356,6 +356,24 @@ var APP = (function () {
         var headline = e.children[1].innerHTML;
         changeStateInTable(e, state);
         advanceStateInFile(headline, state);
+    }
+    
+    /* Event Element -> Void
+     * Reacts to single clicks on a up
+     */
+    function onClickUpRank(e, el) {
+    //code
+    console.log("onClickUpRank");
+    e.stopPropagation();
+    }
+    
+    /* Event Element -> Void
+     * Reacts to single clicks on down
+     */
+    function onClickDownRank(e, el) {
+        //code
+        console.log("onClickDownRank");
+        e.stopPropagation();
     }
     
     /* Void -> Void## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
