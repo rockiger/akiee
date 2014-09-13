@@ -362,9 +362,9 @@ var APP = (function () {
      * Reacts to single clicks on a up
      */
     function onClickUpRank(e, el) {
-    //code
-    console.log("onClickUpRank");
-    e.stopPropagation();
+        console.log("onClickUpRank");
+        e.stopPropagation();
+        updateRank.upRank(el, ES, ED);
     }
     
     /* Event Element -> Void
