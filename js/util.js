@@ -50,11 +50,11 @@ function print_r(obj) {
     deepEqual("","", "getNodes");
     function getNodes(md) {
         var nodes = org.parseBigString(md);
-	for (var i = 0; i < nodes.length; i++) {
-	    if (nodes[i].rank) {
-		console.log(nodes[i]);
-	    }
-	}
+	//for (var i = 0; i < nodes.length; i++) {
+	//    if (nodes[i].rank) {
+	//	console.log(nodes[i]);
+	//    }
+	//}
         return nodes;
     }
     
@@ -124,7 +124,6 @@ function print_r(obj) {
 	} else if (n1.rank !== null && n2.rank === null) {
 	    return -1;
 	} else if (parseInt(n1.rank, 10) < parseInt(n2.rank, 10)) {
-	    console.log("HELLO")
 	    return -1;
 	} else {
 	    return 1;
