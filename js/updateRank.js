@@ -6,6 +6,7 @@ var assert = require("assert");
  * ==========
  * Constants:
  */
+var RANK = "RANK: ";
 
 /*
  * ==========
@@ -32,6 +33,17 @@ function upRank(el, ES, ED) {
     var currentRank = getRank(currentHeadline, ES, ED);
     var upperRank = getRank(upperHeadline, ES, ED);
     
+    //console.log("Current Rank: " + currentRank);
+    //console.log("Upper Rank: " + upperRank);
+    
+    
+    // get ranges of ranks between current and upper
+    var lor = getListOfRanges(upperRank, currentRank, ED, ES);
+    //console.log(lor); // sieht gut aus
+    decListOfRangesOfRank(lor, ED, ES);
+    // give current tast the new upper rank
+    //replaceRankInCurrentTask(currentRank, upperRank, ED); //... 
+    
 }
 
 function downRank(e) {
@@ -40,7 +52,7 @@ function downRank(e) {
     e.stopImmediatePropagation();
 }
 
-/* String EditorSession -> Rank
+/* String EditorSession Editor -> Rank
  * get the rank of a tass
  */
 function getRank(headline, ES, ED) {
@@ -53,6 +65,7 @@ function getRank(headline, ES, ED) {
     var beginRank = ED.find("RANK: ", {wrap:true, range: taskRange}, false);
     var endRank = ED.find("\n", {wrap:true, range: taskRange}, false);
     var rankRange = beginRank;
+    //console.log(beginRank);
     rankRange.start.column = rankRange.end.column;
     rankRange.end.column = endRank.start.column;
     
@@ -61,5 +74,68 @@ function getRank(headline, ES, ED) {
     
     return rank
 }
+
+/* Rank Rank Editor EditorSession -> void
+ * replaces all occurences of a rank, with a different
+ */
+function replaceRank(oldRank, newRank, ED, ES) {
+    //ED.$search.set({wrap:true, needle: "RANK: " + oldRank, range: null})
+    //var ranges = ED.$search.findAll(ES);
+    //
+    //if (ranges.length > 0) {
+    //    console.log("Replacing 'RANK: " + oldRank + "' with 'RANK: " + newRank + "'!");
+    //    console.log(ranges[0]);
+    //    
+    //}
+    //
+    //for (var i = 0; i < ranges.length; i++) {
+    //        ES.replace(ranges[i], "RANK: " + newRank);
+    //}
+    
+    ED.selectAll();
+    var text = ED.getCopyText();
+    console.log("Looking for " + RANK + oldRank);
+    var re = new RegExp(RANK + oldRank, "g");
+    console.log(re);
+    var newText = text.replace(re, RANK + newRank);
+    console.log(newText);
+    ED.insert(newText);
+}
+
+/* Rank Rank Editor EditorSession -> ListofRanges
+ * produce a list of rank for each rank between the two borders
+ */
+function getListOfRanges(upperRank, lowerRank, ED, ES) {
+    var lor = [];
+    for (var i = upperRank; i < lowerRank; i++) {
+        lor.unshift(getRangesOfRank(i, ED, ES));
+    }
+    return lor;
+}
+
+/* Rank Editor EditorSession -> Ranges
+ * produce all ranges of rank
+ */
+function getRangesOfRank(rank, ED, ES) {
+    ED.$search.set({wrap:true, needle: "RANK: " + rank, range: null});
+    var ranges = ED.$search.findAll(ES);
+    return {"rank": rank, "ranges": ranges};
+}
+
+/* ListOfRanges -> void
+ * decreases the ranks of ListOfRanges in the file
+ */
+function decListOfRangesOfRank(lor, ED, ES) {
+    lor.forEach(function(el) {
+                var oldRank = el.rank;
+                var newRank = el.rank + 1;
+                var ranges = el.ranges;
+                
+                ranges.forEach(function (el) {
+                   ES.replace(el, RANK + newRank); 
+                });
+            });
+}
+
 exports.upRank = upRank;
 exports.downRank = downRank;

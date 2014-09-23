@@ -58,7 +58,7 @@ var APP = (function () {
         ES.on("change", function() {
           if (currentFile) {
             hasChanged = true;
-            console.log("HasChanged: " + hasChanged);
+            //console.log("HasChanged: " + hasChanged);
           }
         });
       

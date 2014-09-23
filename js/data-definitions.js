@@ -134,3 +134,38 @@
     }
  }
 */
+
+/* RangesOfRank consist of
+ * - Int
+ * - Array
+ * interpr. as all ranges that hold the rank in a document
+ *
+ Examples:
+ {"rank": 1, "ranges": [range1, range2]}
+ 
+ function fnForRangePerRank(rpr) {
+    //code
+    rpr.rank,
+    rpr.ranges
+ }
+ */
+
+/* ListOfRpr is one of:
+ * - []
+ * - ListOfRpr.unshif(rpr)
+ * interp. as a List of rpr between two borders
+ *
+ Examples:
+ [{"rank": 1, "ranges": [range1, range2]}
+ {"rank": 2, "ranges": [range3, range4]}]
+ 
+ function fnForLor(lor) {
+    if (lor.length === 0) {     //BASE CASE
+        return //CODE;
+    } else {
+        return //code           //COMBINATION
+        lor[0]                  //NODE
+        fnForLon(lor.slice(1))  //NATURAL RECURSION          
+    }
+ }
+ */
