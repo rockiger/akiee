@@ -56,14 +56,22 @@ function downRank(e) {
  * get the rank of a tass
  */
 function getRank(headline, ES, ED) {
+    console.log(headline);
     // find range
     var headlineRange = ED.find(headline, {wrap:true, range: null}, false);
-    var endOfRange = ED.find("\n#", {wrap:true, range: null}, false);
-    var taskRange = headlineRange;
-    taskRange.end = endOfRange.start;
+    console.log("headlineRange: " + headlineRange);    
+//    console.log("Cursor-Position: " + ED.getCursorPosition().row + "," + ED.getCursorPosition().column);
+//    var endOfRange = ED.find("\A", {wrap:true, range: null}, false);
+//    console.log("endOfRange: " + endOfRange);
+//    console.log("Cursor-Position-Row: " + ED.getCursorPosition().row);
+//    var taskRange = headlineRange;
+//    taskRange.end = endOfRange.start;// \A für eof
     
-    var beginRank = ED.find("RANK: ", {wrap:true, range: taskRange}, false);
-    var endRank = ED.find("\n", {wrap:true, range: taskRange}, false);
+    var beginRank = ED.find("RANK: ", {wrap:true, range: null}, false);
+    // TODO hier gibt noch Probleme "\n" ist nur eine form von Whitespace
+    // falls Suche nicht erfolgreich ist, sollte range null sein
+    //console.log("beginRank: " + beginRank);
+    var endRank = ED.find("\s", {wrap:true, range: null}, false); 
     var rankRange = beginRank;
     //console.log(beginRank);
     rankRange.start.column = rankRange.end.column;
@@ -72,7 +80,7 @@ function getRank(headline, ES, ED) {
     var doc = ES.getDocument();
     var rank = parseInt(doc.getTextRange(rankRange));
     
-    return rank
+    return rank;
 }
 
 /* Rank Rank Editor EditorSession -> void
@@ -94,11 +102,11 @@ function replaceRank(oldRank, newRank, ED, ES) {
     
     ED.selectAll();
     var text = ED.getCopyText();
-    console.log("Looking for " + RANK + oldRank);
+    //console.log("Looking for " + RANK + oldRank);
     var re = new RegExp(RANK + oldRank, "g");
-    console.log(re);
+    //console.log(re);
     var newText = text.replace(re, RANK + newRank);
-    console.log(newText);
+    //console.log(newText);
     ED.insert(newText);
 }
 
