@@ -17,9 +17,10 @@ var deepEqual = assert.deepEqual;
 /* DomElement EditorSession -> Void
  * set the rank of el one higher
  */
-function upRank(el, ES, ED) {
+function upRank(el, ES, ED, showTask) {
     var currentRow = el.parentNode;
     var currentHeadline = currentRow.children[1].innerHTML;
+    var currentStatus = currentRow.children[0].innerHTML;
     
     var upperRow = currentRow.previousElementSibling;
     var upperHeadline = upperRow.children[1].innerHTML;
@@ -43,7 +44,9 @@ function upRank(el, ES, ED) {
     decListOfRangesOfRank(lor, ED, ES);
     // give current tast the new upper rank
     updateTaskRank(currentHeadline, currentRank, upperRank, ED, ES);
-    //replaceRankInCurrentTask(currentRank, upperRank, ED); //... 
+    
+    // update view 
+    showTask(currentStatus);
     
 }
 

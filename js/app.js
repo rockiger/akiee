@@ -364,7 +364,7 @@ var APP = (function () {
     function onClickUpRank(e, el) {
         console.log("onClickUpRank");
         e.stopPropagation();
-        updateRank.upRank(el, ES, ED);
+        updateRank.upRank(el, ES, ED, showTask);
     }
     
     /* Event Element -> Void
