@@ -42,10 +42,22 @@ function upRank(el, ES, ED) {
     //console.log(lor); // sieht gut aus
     decListOfRangesOfRank(lor, ED, ES);
     // give current tast the new upper rank
+    updateTaskRank(currentHeadline, currentRank, upperRank, ED, ES);
     //replaceRankInCurrentTask(currentRank, upperRank, ED); //... 
     
 }
 
+/* String Number Number Editor Session -> Void
+ * 
+ * @param {type} e
+ * @returns {undefined}
+ */
+function updateTaskRank(headline, oldRank, newRank, ED) {
+    var headlineRange = ED.find(headline, {wrap:true, range: null}, false);
+    var options = {wrap:true, needle: "RANK: " + oldRank, range: null, start: headlineRange};
+    ED.replace("RANK: " + newRank, options);
+    // update tasks
+}
 function downRank(e) {
     //code
     console.log("onClickDownRank");
