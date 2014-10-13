@@ -81,9 +81,6 @@ var APP = (function () {
         var todoButton = document.getElementById("show-todo");
         todoButton.onclick = showTodo;
         
-        var doneButton = document.getElementById("show-doing");
-        doneButton.onclick = showDoing;
-        
         var doneButton = document.getElementById("show-done");
         doneButton.onclick = showDone;
         
