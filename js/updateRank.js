@@ -22,9 +22,14 @@ function upRank(el, ES, ED, showTask) {
     var currentHeadline = currentRow.children[1].innerHTML;
     var currentStatus = currentRow.children[0].innerHTML;
     
-    var upperRow = currentRow.previousElementSibling;
-    var upperHeadline = upperRow.children[1].innerHTML;
-    
+    try {
+        var upperRow = currentRow.previousElementSibling;
+        var upperHeadline = upperRow.children[1].innerHTML;
+    }
+    catch (e) {
+        console.log(e);
+        return;
+    }
     //console.log("Upper row: "+ upperRow.outerHTML);
     //console.log("Upper Headline: " + upperHeadline);
     //console.log("Current row: "+ currentRow.outerHTML);
