@@ -18,28 +18,43 @@ var deepEqual = assert.deepEqual;
  * set the rank of el one higher
  */
 function upRank(el, ES, ED, showTask) {
+    moveRank(el, ES, ED, showTask, "up");    
+}
+
+function moveRank(el, ES, ED, showTask, upOrDown) {
     var currentRow = el.parentNode;
     var currentHeadline = currentRow.children[1].innerHTML;
     var currentStatus = currentRow.children[0].innerHTML;
     
-    try {
-        var upperRow = currentRow.previousElementSibling;
-        var upperHeadline = upperRow.children[1].innerHTML;
-    }
-    catch (e) {
-        console.log(e);
-        return;
+    if (upOrDown === "up") {
+        try {
+            var borderRow = currentRow.previousElementSibling;
+            var borderHeadline = borderRow.children[1].innerHTML;
+        }
+        catch (e) {
+            console.log(e);
+            return;
+        }
+    } else {
+        try {
+            var borderRow = currentRow.previousElementSibling;
+            var borderHeadline = borderRow.children[1].innerHTML;
+        }
+        catch (e) {
+            console.log(e);
+            return;
+        }
     }
     
     // get RANK
     var currentRank = getRank(currentHeadline, ES, ED);
-    var upperRank = getRank(upperHeadline, ES, ED);
+    var borderRank = getRank(borderHeadline, ES, ED);
     
     // get ranges of ranks between current and upper
-    var lor = getListOfRanges(upperRank, currentRank, ED, ES);
+    var lor = getListOfRanges(borderRank, currentRank, ED, ES);
     decListOfRangesOfRank(lor, ED, ES);
     // give current tast the new upper rank
-    updateTaskRank(currentHeadline, currentRank, upperRank, ED, ES);
+    updateTaskRank(currentHeadline, currentRank, borderRank, ED, ES);
     
     // update view 
     showTask(currentStatus);
