@@ -21,6 +21,16 @@ function upRank(el, ES, ED, showTask) {
     moveRank(el, ES, ED, showTask, "up");    
 }
 
+/* DomElement EditorSession Editor Function -> Void
+ * set the rank of el one lower
+ */
+function downRank(el, ES, ED, showTask) {
+    moveRank(el, ES, ED, showTask, "down");
+}
+
+/* DomElement EditorSession Editor Function String -> Void
+ * move the rank of el 
+ */
 function moveRank(el, ES, ED, showTask, upOrDown) {
     var currentRow = el.parentNode;
     var currentHeadline = currentRow.children[1].innerHTML;
@@ -37,7 +47,7 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
         }
     } else {
         try {
-            var borderRow = currentRow.previousElementSibling;
+            var borderRow = currentRow.nextElementSibling;
             var borderHeadline = borderRow.children[1].innerHTML;
         }
         catch (e) {
@@ -50,9 +60,14 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
     var currentRank = getRank(currentHeadline, ES, ED);
     var borderRank = getRank(borderHeadline, ES, ED);
     
-    // get ranges of ranks between current and upper
-    var lor = getListOfRanges(borderRank, currentRank, ED, ES);
-    decListOfRangesOfRank(lor, ED, ES);
+    // get ranges of ranks between current and border
+    if (upOrDown === "up") {
+        var lor = getListOfUpperRanges(borderRank, currentRank, ED, ES);
+        decListOfRangesOfRank(lor, ED, ES);
+    } else {
+        var lor = getListOfLowerRanges(borderRank, currentRank, ED, ES);
+        incListOfRangesOfRank(lor, ED, ES);
+    }
     // give current tast the new upper rank
     updateTaskRank(currentHeadline, currentRank, borderRank, ED, ES);
     
@@ -93,9 +108,20 @@ function getRank(headline, ES, ED) {
 /* Rank Rank Editor EditorSession -> ListofRanges
  * produce a list of rank for each rank between the two borders
  */
-function getListOfRanges(upperRank, lowerRank, ED, ES) {
+function getListOfUpperRanges(upperRank, lowerRank, ED, ES) {
     var lor = [];
     for (var i = upperRank; i < lowerRank; i++) {
+        lor.unshift(getRangesOfRank(i, ED, ES));
+    }
+    return lor;
+}
+
+/* Rank Rank Editor EditorSession -> ListofRanges
+ * produce a list of rank for each rank between the two borders
+ */
+function getListOfLowerRanges(lowerRank, upperRank, ED, ES) {
+    var lor = [];
+    for (var i = lowerRank; i > upperRank; i--) {
         lor.unshift(getRangesOfRank(i, ED, ES));
     }
     return lor;
@@ -125,13 +151,19 @@ function decListOfRangesOfRank(lor, ED, ES) {
             });
 }
 
-/* DomElement EditorSession -> Void
- * set the rank of el one lower
+/* ListOfRanges -> void
+ * increases the ranks of ListOfRanges in the file
  */
-function downRank(e) {
-    //code
-    console.log("onClickDownRank");
-    e.stopImmediatePropagation();
+function incListOfRangesOfRank(lor, ED, ES) {
+    lor.forEach(function(el) {
+                var oldRank = el.rank;
+                var newRank = el.rank - 1;
+                var ranges = el.ranges;
+                
+                ranges.forEach(function (el) {
+                   ES.replace(el, RANK + newRank); 
+                });
+            });
 }
 
 exports.upRank = upRank;

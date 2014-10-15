@@ -362,7 +362,6 @@ var APP = (function () {
      * Reacts to single clicks on a up
      */
     function onClickUpRank(e, el) {
-        console.log("onClickUpRank");
         e.stopPropagation();
         updateRank.upRank(el, ES, ED, showTask);
     }
@@ -371,9 +370,8 @@ var APP = (function () {
      * Reacts to single clicks on down
      */
     function onClickDownRank(e, el) {
-        //code
-        console.log("onClickDownRank");
         e.stopPropagation();
+        updateRank.downRank(el, ES, ED, showTask);
     }
     
     /* Void -> Void## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
