@@ -30,22 +30,13 @@ function upRank(el, ES, ED, showTask) {
         console.log(e);
         return;
     }
-    //console.log("Upper row: "+ upperRow.outerHTML);
-    //console.log("Upper Headline: " + upperHeadline);
-    //console.log("Current row: "+ currentRow.outerHTML);
-    //console.log("Current Headline: " + currentHeadline);
     
     // get RANK
     var currentRank = getRank(currentHeadline, ES, ED);
     var upperRank = getRank(upperHeadline, ES, ED);
     
-    //console.log("Current Rank: " + currentRank);
-    //console.log("Upper Rank: " + upperRank);
-    
-    
     // get ranges of ranks between current and upper
     var lor = getListOfRanges(upperRank, currentRank, ED, ES);
-    //console.log(lor); // sieht gut aus
     decListOfRangesOfRank(lor, ED, ES);
     // give current tast the new upper rank
     updateTaskRank(currentHeadline, currentRank, upperRank, ED, ES);
@@ -56,44 +47,25 @@ function upRank(el, ES, ED, showTask) {
 }
 
 /* String Number Number Editor Session -> Void
- * 
- * @param {type} e
- * @returns {undefined}
+ * Updates the rank of a task with a certain headline
  */
 function updateTaskRank(headline, oldRank, newRank, ED) {
     var headlineRange = ED.find(headline, {wrap:true, range: null}, false);
-    var options = {wrap:true, needle: "RANK: " + oldRank, range: null, start: headlineRange};
-    ED.replace("RANK: " + newRank, options);
+    var options = {wrap:true, needle: RANK + oldRank, range: null, start: headlineRange};
+    ED.replace(RANK + newRank, options);
     // update tasks
-}
-function downRank(e) {
-    //code
-    console.log("onClickDownRank");
-    e.stopImmediatePropagation();
 }
 
 /* String EditorSession Editor -> Rank
  * get the rank of a tass
  */
 function getRank(headline, ES, ED) {
-    console.log(headline);
     // find range
     var headlineRange = ED.find(headline, {wrap:true, range: null}, false);
-    console.log("headlineRange: " + headlineRange);    
-//    console.log("Cursor-Position: " + ED.getCursorPosition().row + "," + ED.getCursorPosition().column);
-//    var endOfRange = ED.find("\A", {wrap:true, range: null}, false);
-//    console.log("endOfRange: " + endOfRange);
-//    console.log("Cursor-Position-Row: " + ED.getCursorPosition().row);
-//    var taskRange = headlineRange;
-//    taskRange.end = endOfRange.start;// \A für eof
     
-    var beginRank = ED.find("RANK: ", {wrap:true, range: null}, false);
-    // TODO hier gibt noch Probleme "\n" ist nur eine form von Whitespace
-    // falls Suche nicht erfolgreich ist, sollte range null sein
-    //console.log("beginRank: " + beginRank);
+    var beginRank = ED.find(RANK, {wrap:true, range: null}, false);
     var endRank = ED.find("\s", {wrap:true, range: null}, false); 
     var rankRange = beginRank;
-    //console.log(beginRank);
     rankRange.start.column = rankRange.end.column;
     rankRange.end.column = endRank.start.column;
     
@@ -101,33 +73,6 @@ function getRank(headline, ES, ED) {
     var rank = parseInt(doc.getTextRange(rankRange));
     
     return rank;
-}
-
-/* Rank Rank Editor EditorSession -> void
- * replaces all occurences of a rank, with a different
- */
-function replaceRank(oldRank, newRank, ED, ES) {
-    //ED.$search.set({wrap:true, needle: "RANK: " + oldRank, range: null})
-    //var ranges = ED.$search.findAll(ES);
-    //
-    //if (ranges.length > 0) {
-    //    console.log("Replacing 'RANK: " + oldRank + "' with 'RANK: " + newRank + "'!");
-    //    console.log(ranges[0]);
-    //    
-    //}
-    //
-    //for (var i = 0; i < ranges.length; i++) {
-    //        ES.replace(ranges[i], "RANK: " + newRank);
-    //}
-    
-    ED.selectAll();
-    var text = ED.getCopyText();
-    //console.log("Looking for " + RANK + oldRank);
-    var re = new RegExp(RANK + oldRank, "g");
-    //console.log(re);
-    var newText = text.replace(re, RANK + newRank);
-    //console.log(newText);
-    ED.insert(newText);
 }
 
 /* Rank Rank Editor EditorSession -> ListofRanges
@@ -145,7 +90,7 @@ function getListOfRanges(upperRank, lowerRank, ED, ES) {
  * produce all ranges of rank
  */
 function getRangesOfRank(rank, ED, ES) {
-    ED.$search.set({wrap:true, needle: "RANK: " + rank, range: null});
+    ED.$search.set({wrap:true, needle: RANK + rank, range: null});
     var ranges = ED.$search.findAll(ES);
     return {"rank": rank, "ranges": ranges};
 }
@@ -163,6 +108,15 @@ function decListOfRangesOfRank(lor, ED, ES) {
                    ES.replace(el, RANK + newRank); 
                 });
             });
+}
+
+/* DomElement EditorSession -> Void
+ * set the rank of el one lower
+ */
+function downRank(e) {
+    //code
+    console.log("onClickDownRank");
+    e.stopImmediatePropagation();
 }
 
 exports.upRank = upRank;
