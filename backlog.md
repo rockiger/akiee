@@ -1,20 +1,6 @@
 # Akiee
 
-## TODO As a task planner I want to order my tasks, that I work with them in the right order and I don't have to invent rankings via prioritys.
-
-acceptance criteria:
-
-- [X] RANK: [n] where n is an integer and a rank is lower rank comes first
-- [X] If rank is null, Task comes last
-- [X] If rank of two task is the same, these two tasks won't be sorted
-- [X] When new task is created, it gets a rank n+1
-- [X] order is assigned by a atomar ranking system. 
-- [ ] A ranking should have only one task and a task should have one ranking only.
-- [ ] User can change rank via gui - nothing fancy yet
-
-## BUG Task-Change throws Error, if Task has an URL in it's headline
-
-## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance theme, that I feel Akiee is good integrated in the operating system (Look out for GTK widget factory to view elements of Ambiance theme; "twf" at the cmd).
+## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance theme, that I feel Akiee is good integrated in the operating system (Look out for GTK widget factory to view elements of Adwaita theme; "twf" at the cmd).
 
 acceptance criteria
 
@@ -23,7 +9,9 @@ acceptance criteria
 - [ ] The font for the editor should be Ubuntu Mono
 - [ ] The menu bar should be fixed
 
-## TODO As a user I want to know the parent node of a task, that I know to whick project this task belongs.
+## BUG Task-Change throws Error, if Task has an URL in it's headline
+
+## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
 
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 
@@ -140,7 +128,7 @@ acceptance criteria:
 - [X] `d`->DONE, `t`->DOING, `shift`+`t`->TODO
 - [X] Shortcuts are added to `shortcuts.md`
 
-## TODO As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
+## DONE As a task planner I want to add new todos via an entry field, that I can add new tasks without switching to the Editor.
 
 acceptance criteria
 
@@ -149,3 +137,15 @@ acceptance criteria
 - [X] default project is "Inbox", if "Inbox" not present, it gets created at end of file, fill project options with first order headlines (#)
 - [X] task gets inserted as last entry under it's project
 - [X] if taskstate of new task is the curren shown taskstate, task get's added to shown tasklist
+
+## DONE As a task planner I want to order my tasks, that I work with them in the right order and I don't have to invent rankings via prioritys.
+
+acceptance criteria:
+
+- [X] RANK: [n] where n is an integer and a rank is lower rank comes first
+- [X] If rank is null, Task comes last
+- [X] If rank of two task is the same, these two tasks won't be sorted
+- [X] When new task is created, it gets a rank n+1
+- [X] order is assigned by a atomar ranking system. 
+- [X] A ranking should have only one task and a task should have one ranking only; not enforced, but GUI follow this rule
+- [X] User can change rank via gui - nothing fancy yet
