@@ -11,6 +11,8 @@ acceptance criteria
 
 ## BUG Task-Change throws Error, if Task has an URL in it's headline
 
+## TODO As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
+
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
 
 ## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
@@ -149,3 +151,4 @@ acceptance criteria:
 - [X] order is assigned by a atomar ranking system. 
 - [X] A ranking should have only one task and a task should have one ranking only; not enforced, but GUI follow this rule
 - [X] User can change rank via gui - nothing fancy yet
+- [X] Right now tasks without RANK can't be sorted
