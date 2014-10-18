@@ -1,6 +1,7 @@
 /* This module deals with html creation of certain tasks */
 "use strict";
 var assert = require("assert");
+var enterTask = require("./enterTask");
 
 /*
  * ==========
@@ -42,7 +43,7 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
             var borderHeadline = borderRow.children[1].innerHTML;
         }
         catch (e) {
-            console.log(e);
+            console.log("Element ist allready first in Backlog.");
             return;
         }
     } else {
@@ -51,7 +52,7 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
             var borderHeadline = borderRow.children[1].innerHTML;
         }
         catch (e) {
-            console.log(e);
+            console.log("Element ist allready last in Backlog.");
             return;
         }
     }
@@ -59,6 +60,19 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
     // get RANK
     var currentRank = getRank(currentHeadline, ES, ED);
     var borderRank = getRank(borderHeadline, ES, ED);
+    
+    if (typeof borderRank !== "number" | borderRank === undefined) {
+        console.log(borderHeadline + " has no Rank.");
+        return;
+    }
+    
+    console.log(typeof currentRank + " : " + currentRank);
+    if (typeof currentRank !== "number" | currentRank === undefined) {
+        // current Headline is not rated yet, create ranking
+        // currentRank = enterTask.newRank();
+        console.log(currentHeadline + " has no Rank.");
+        return;
+    }
     
     // get ranges of ranks between current and border
     if (upOrDown === "up") {
@@ -93,15 +107,30 @@ function getRank(headline, ES, ED) {
     // find range
     var headlineRange = ED.find(headline, {wrap:true, range: null}, false);
     
-    var beginRank = ED.find(RANK, {wrap:true, range: null}, false);
-    var endRank = ED.find("\s", {wrap:true, range: null}, false); 
+    var beginRank = ED.find(RANK, {wrap:false, range: null}, false);
+    //var endRank = ED.find("\s", {wrap:true, range: null}, false);
+    var endRank = ED.find("\n#", {wrap:true, range: null}, false); 
+    console.log(headline + ": " + endRank.end);
     var rankRange = beginRank;
-    rankRange.start.column = rankRange.end.column;
-    rankRange.end.column = endRank.start.column;
+    try {
+        rankRange.start.column = rankRange.end.column;
+    }
+    catch (e) {
+        console.log("Couldn't find Rank statement.");
+        return undefined;
+    }
+    
+    try {
+        rankRange.end.column = endRank.start.column;
+    }
+    catch (e) {
+        console.log("Couldn't find end of Rank statement.");
+        // TODO: Add a Rank statement to task, to not puzzle the user
+        return undefined;
+    }
     
     var doc = ES.getDocument();
     var rank = parseInt(doc.getTextRange(rankRange));
-    
     return rank;
 }
 

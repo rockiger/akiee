@@ -131,7 +131,7 @@ var APP = (function () {
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
                 enterTask.openTaskEntry($, ES, ED, shownTaskState);
             }
-            console.log(e.keyCode);
+            //console.log(e.keyCode);
         });
     }
     
@@ -299,7 +299,6 @@ var APP = (function () {
             currentRow = currentRow.nextElementSibling;
         }
         currentRow.className = "selected";
-        console.log(currentRow);
         return list;
     } 
     
@@ -343,7 +342,6 @@ var APP = (function () {
             currentRow = currentRow.previousElementSibling;
         }
         currentRow.className = "selected";
-        console.log(currentRow);
         return list;
     }
     
@@ -578,7 +576,7 @@ acceptance criteria:
             return false;
           }
           fs.writeFileSync(filePath, data, "utf8");
-          console.log("Saved " + filePath);
+          //console.log("Saved " + filePath);
           hasChanged = false;
           return filePath;
         } else {

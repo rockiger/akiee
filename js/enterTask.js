@@ -172,3 +172,4 @@ function getFileEndPosition() {
 
 exports.openTaskEntry = openTaskEntry;
 exports.cancelTaskEntry = cancelTaskEntry;
+exports.newRank = rankOfNewTask;
