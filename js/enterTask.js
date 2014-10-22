@@ -18,11 +18,23 @@ var shownTaskState;
 var deepEqual = assert.deepEqual;
 
 /* Function(jquery) Object Object -> Task
+ * Consumes jquery-object, editor-session, the document and toggles the entry task field
+ */
+function toggleTaskEntry(jquery, editorSession, editor, currentTaskState) {
+    $ = jquery;
+    if ($("#show-enterTask").hasClass("active")) {
+        cancelTaskEntry(jquery);
+    } else {
+        openTaskEntry(jquery, editorSession, editor, currentTaskState);
+    }
+}
+
+/* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
 function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     $ = jquery;
-    ES = editorSession
+    ES = editorSession;
     ED = editor;
     NLC = ES.getDocument().getNewLineCharacter();
     shownTaskState = currentTaskState;
@@ -32,11 +44,13 @@ function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     var enterTask = $('#enterTask');
     var enterTaskProject = $('#enterTaskProject');
     var enterHeadline = $('#enterHeadline');
+    var enterTaskButton = $('#show-enterTask');
     
     enterTaskProject.html("<option>Inbox</option>\n" + buildOptions(projects));
     enterTask.submit(submitTask);
     enterTask.show();
     enterHeadline.focus();
+    enterTaskButton.addClass("active");
 }
 
 /* ListOfNodes -> String
@@ -56,9 +70,11 @@ function buildOptions(lon) {
 function cancelTaskEntry($) {
     var enterTask = $('#enterTask');
     var enterHeadline = $('#enterHeadline');
+    var enterTaskButton = $('#show-enterTask');
     
     enterHeadline.val("");
     enterTask.hide();
+    enterTaskButton.removeClass("active");
 }
 
 /* Form -> Void
@@ -173,3 +189,4 @@ function getFileEndPosition() {
 exports.openTaskEntry = openTaskEntry;
 exports.cancelTaskEntry = cancelTaskEntry;
 exports.newRank = rankOfNewTask;
+exports.toggleTaskEntry = toggleTaskEntry;

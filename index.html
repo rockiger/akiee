@@ -14,13 +14,13 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <div class="btn-group">
-            <button type="button" class="btn btn-default navbar-btn" id="show-todo">Todo</button>
-            <button type="button" class="btn btn-default navbar-btn" id="show-doing">Doing</button>
-            <button type="button" class="btn btn-default navbar-btn" id="show-done">Done</button>
+            <button type="button" class="btn btn-default navbar-btn btn-state" id="show-todo">Todo</button>
+            <button type="button" class="btn btn-default navbar-btn btn-state active" id="show-doing">Doing</button>
+            <button type="button" class="btn btn-default navbar-btn btn-state" id="show-done">Done</button>
           </div>
-          <button type="button" class="btn btn-default navbar-btn" id="show-tasks">All</button>
-          <button type="button" class="btn btn-default navbar-btn" id="show-editor">Editor</button>
-          <button type="button" class="btn btn-primary navbar-btn" id="show-enterTask">New</button>
+          <button type="button" class="btn btn-default navbar-btn btn-state" id="show-all">All</button>
+          <button type="button" class="btn btn-default navbar-btn btn-state" id="show-editor">Editor</button>
+          <button type="button" class="btn btn-default navbar-btn navbar-right btn-square" id="show-enterTask"><span class="glyphicon glyphicon-plus"></span></button>
         </div>
       </div>
     </nav>
@@ -45,7 +45,7 @@
         <button type="button" class="btn btn-link" id="cancel-enterTask">Cancel</button>
       </div>
     </form></div>
-    <table id="list" class="table table-condensed" tabindex="1"></table>
+    <table id="list" class="table" tabindex="1"></table>
     <script>
       /**
       * Needed to load node-webkit functionality.

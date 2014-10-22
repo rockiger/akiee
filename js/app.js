@@ -75,7 +75,7 @@ var APP = (function () {
           saveFile(ED);
         });
         
-        var taskButton = document.getElementById("show-tasks");
+        var taskButton = document.getElementById("show-all");
         taskButton.onclick = showAll;
         
         var todoButton = document.getElementById("show-todo");
@@ -91,10 +91,10 @@ var APP = (function () {
         editorButton.onclick = showEditor;
         
         var enterTaskButton = document.getElementById("show-enterTask");
-        enterTaskButton.onclick = function () {enterTask.openTaskEntry($, ES, ED, shownTaskState);};
+        enterTaskButton.onclick = function () {enterTask.toggleTaskEntry($, ES, ED, shownTaskState);};
         
         var cancelEnterTask = document.getElementById("cancel-enterTask");
-        cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);}
+        cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);};
         
         var enterTaskForm = document.getElementById("enterTask");
         enterTaskForm.addEventListener('keyup', function (e) {
@@ -129,7 +129,7 @@ var APP = (function () {
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
-                enterTask.openTaskEntry($, ES, ED, shownTaskState);
+                enterTask.toggleTaskEntry($, ES, ED, shownTaskState);
             }
             //console.log(e.keyCode);
         });
@@ -160,10 +160,10 @@ var APP = (function () {
      */
     deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
+    /*deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
     deepEqual(makeTodoList(LON, TODO), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
     deepEqual(makeTodoList(LON, DONE), "<tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
+    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");*/
     
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
@@ -215,6 +215,7 @@ var APP = (function () {
         editor.style.display = "block";
         ED.focus();
         ED.renderer.updateFull();
+        toggleActiveClass("#show-editor");
     }
     
     /* ->
@@ -257,6 +258,18 @@ var APP = (function () {
         insertHtml(makeTodoList(util.orderNodesByRank(util.getNodes(content)), state), "list");
         list.style.display = "block";
         shownTaskState = state;
+        toggleActiveClass("#show-" + state.toLowerCase());
+    }
+    
+    /* String -> Void
+     * consumes a jquery identifier and removes all active classes for .btn
+     * and add active to provided provided identifier
+     * 
+     * @returns {undefined}
+     */
+    function toggleActiveClass(elementId) {
+        $('.btn-state').removeClass("active");
+        $(elementId).addClass("active");
     }
     
      /* Void -> Void
