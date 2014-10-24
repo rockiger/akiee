@@ -3,7 +3,7 @@
     "main": "index.html",
     "window": {
         "title": "For Wookiee's who get shit done!",
-        "toolbar": false,
+        "toolbar": true,
         "position": "left",
         "width": 800,
         "height": 600,
@@ -12,3 +12,4 @@
 	"frame": true
     }
 }
+	

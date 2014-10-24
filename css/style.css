@@ -61,7 +61,7 @@ tr.selected:hover {background-color: #4281c3}
 
 .btn:focus, .btn:focus:active, .btn.active:focus, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus {
     outline-color: rgba(46,52,52,0.3);
-    outline-offset: -3px;
+    outline-offset: -4px;
     outline-style: dashed;
     outline-width: 1px;
     
@@ -84,7 +84,7 @@ tr.selected:hover {background-color: #4281c3}
     border-color: #a1a1a1;
     icon-shadow: 0 1px rgba(256, 256, 256, 0.76923);
     text-shadow: 0 1px rgba(256, 256, 256, 0.76923);
-    outline-offset: -3px;
+    outline-offset: -4px;
     padding: 8px 16px;
     transition: all 200ms ease-out;
     background-color: transparent;
@@ -102,7 +102,7 @@ tr.selected:hover {background-color: #4281c3}
     icon-shadow: 0 1px rgba(256, 256, 256, 0.76923);
     text-shadow: 0 1px rgba(256, 256, 256, 0.76923);
     outline: rgba(46, 52, 54 0.3) 1px dashed;
-    outline-offset: -3px;
+    outline-offset: -4px;
     transition: all 200ms ease-out;
 }
 
@@ -159,6 +159,6 @@ table td .glyphicon-chevron-up:hover, table td .glyphicon-chevron-down:hover {
 
 table td .glyphicon-chevron-up:focus, table td .glyphicon-chevron-down:focus {
     outline: rgba(46, 52, 54, 0.3) 1px dashed !important;
-    outline-offset: -3px;
+    outline-offset: -4px;
     
 }
