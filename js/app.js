@@ -143,7 +143,7 @@ var APP = (function () {
     
         var editor = ace.edit(element);
         var content;
-        editor.setTheme("ace/theme/tomorrow_night_blue");
+        editor.setTheme("ace/theme/chrome");
         editor.getSession().setMode("ace/mode/markdown");
         editor.getSession().setUseWrapMode(true);
         // Because people want to edit right away

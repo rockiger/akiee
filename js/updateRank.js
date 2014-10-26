@@ -119,7 +119,7 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
        editorContent += e.headline  + "\n";
        
        if (e.body) {
-           editorContent += e.body + "\n";
+           editorContent += e.body.trim() + "\n\n";
        }
        
        if (e.rank) {
