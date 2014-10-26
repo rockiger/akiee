@@ -1,14 +1,5 @@
 # Akiee
 
-## TODO As a Ubuntu user, I want Akiee to resemble Ubuntu's Ambiance theme, that I feel Akiee is good integrated in the operating system (Look out for GTK widget factory to view elements of Adwaita theme; "twf" at the cmd).
-
-acceptance criteria
-
-- [ ] The menu bar of Akie should be user Ambiance Colors in Ubuntu
-- [ ] The font for the task view should be Ubuntu
-- [ ] The font for the editor should be Ubuntu Mono
-- [ ] The menu bar should be fixed
-
 ## BUG Task-Change throws Error, if Task has an URL in it's headline
 
 ## TODO As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
@@ -152,3 +143,12 @@ acceptance criteria:
 - [X] A ranking should have only one task and a task should have one ranking only; not enforced, but GUI follow this rule
 - [X] User can change rank via gui - nothing fancy yet
 - [X] Right now tasks without RANK can't be sorted
+
+## DONE As a Linux user, I want Akiee to resemble Gnome 3's Adwaita theme, that I feel Akiee is good integrated in the operating system (Look out for GTK widget factory to view elements of Adwaita theme; "twf" at the cmd).
+
+acceptance criteria
+
+- [X] The menu bar of Akie should be user Gnome 3's Adwaita Colors in Ubuntu
+- [X] The font for the task view should be suitable
+- [X] The font for the editor should be suitable
+- [X] The menu bar should be fixed
