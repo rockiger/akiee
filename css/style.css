@@ -6,6 +6,7 @@ body {
   font-size: 16px;
   color: #54595a;
   background-color: #fff;
+  overflow-y: hidden;
 }
 
 .navbar-header { width: 100%;}
@@ -23,6 +24,7 @@ body {
 
 table, tbody, tr {width: 100%;}
 table {table-layout: fixed}
+#list {height: 100vh; overflow-y: auto;}
 
 #list tr:hover {cursor: pointer;}
 #list:focus {outline: none;}
