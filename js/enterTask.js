@@ -4,6 +4,8 @@ var assert = require("assert");
 var util = require("./util");
 var htmlUtil = require("./htmlUtil");
 
+var DURATION = 50;
+
 /*
 * ==========
 * Globals:
@@ -41,6 +43,7 @@ function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
+    var enterTaskDiv = $('#enterTaskDiv');
     var enterTask = $('#enterTask');
     var enterTaskProject = $('#enterTaskProject');
     var enterHeadline = $('#enterHeadline');
@@ -48,7 +51,7 @@ function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     
     enterTaskProject.html("<option>Inbox</option>\n" + buildOptions(projects));
     enterTask.submit(submitTask);
-    enterTask.show();
+    enterTaskDiv.slideDown(DURATION);
     enterHeadline.focus();
     enterTaskButton.addClass("active");
 }
@@ -68,12 +71,13 @@ function buildOptions(lon) {
  * Consumes jquery and closes the entry form and deletes the input
  */
 function cancelTaskEntry($) {
+    var enterTaskDiv = $('#enterTaskDiv');
     var enterTask = $('#enterTask');
     var enterHeadline = $('#enterHeadline');
     var enterTaskButton = $('#show-enterTask');
     
     enterHeadline.val("");
-    enterTask.hide();
+    enterTaskDiv.slideUp(DURATION);
     enterTaskButton.removeClass("active");
 }
 

@@ -43,8 +43,8 @@ tr:hover {background-color: #f2f2f2;}
 
 tr.selected:hover {background-color: #4281c3}
 
-#enterTaskDiv {margin-top: -10px; margin-bottom: 10px;}
-#enterTask {margin-top: 20px; display: none;}
+#enterTaskDiv {background-color: #d6d6d6; margin-top: -10px; padding-bottom: 10px; border-bottom: 1px solid #a1a1a1; display: none;}
+#enterTask {margin-top: 20px;}
 #enterTask div {padding-right: 0;}
 
 /* Bootstrap-Theme Overide */
@@ -119,6 +119,7 @@ tr.selected:hover {background-color: #4281c3}
     text-decoration: underline;
     background: none;
     color: #2a76c6;
+    box-shadow: none;
 }
 
 .btn-link:hover {
@@ -161,4 +162,17 @@ table td .glyphicon-chevron-up:focus, table td .glyphicon-chevron-down:focus {
     outline: rgba(46, 52, 54, 0.3) 1px dashed !important;
     outline-offset: -4px;
     
+}
+
+.form-control {
+    border: 1px solid #a1a1a1; border-radius: 3px;
+    box-shadow: inset 0 3px transparent;
+    background-color: transparent;
+    background-image: linear-gradient(#f7f7f7, #ffffff 90%);
+    transition: all 200ms ease-out;
+}
+
+.form-control:focus {
+    border-color: #4a90d9;
+    box-shadow: inset 0 3px rgba(0, 0, 0, 0.02);
 }
