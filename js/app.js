@@ -121,10 +121,9 @@ var APP = (function () {
                 selectNext();
             } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
                 selectPrevious();
-            } else if (e.keyCode === 68 ) { // Dtesttest
+            } else if (e.keyCode === 68 ) { // D
                 doneState(); 
             } else if (e.keyCode === 84 && e.shiftKey) { // SHIFT + T
-                console.log("todoState()");
                 todoState();
             } else if (e.keyCode === 84 ) { // T
                 doingState();
@@ -209,6 +208,9 @@ var APP = (function () {
      *  shows the editor
      */
     function showEditor() {
+        if ($("#show-enterTask").hasClass("active")) {
+            enterTask.cancelTaskEntry($);
+        }
         var editor = document.getElementById("editor");
         var list   = document.getElementById("list");
         list.style.display = "none";
