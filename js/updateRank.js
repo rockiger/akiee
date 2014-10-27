@@ -22,21 +22,21 @@ var deepEqual = assert.deepEqual;
 /* DomElement EditorSession -> Void
  * set the rank of el one higher
  */
-function upRank(el, ES, ED, showTask) {
-    moveRank(el, ES, ED, showTask, "up");
+function upRank(el, ES, ED, showTask, saveFile) {
+    moveRank(el, ES, ED, showTask, saveFile, "up");
 }
 
 /* DomElement EditorSession Editor Function -> Void
  * set the rank of el one lower
  */
-function downRank(el, ES, ED, showTask) {
-    moveRank(el, ES, ED, showTask, "down");
+function downRank(el, ES, ED, showTask, saveFile) {
+    moveRank(el, ES, ED, showTask, saveFile, "down");
 }
 
 /* DomElement EditorSession Editor Function String -> Void
  * move the rank of el 
  */
-function moveRank(el, ES, ED, showTask, upOrDown) {
+function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     var content = ED.getSession().getValue();
     var lon = util.getNodes(content);
     
@@ -130,6 +130,7 @@ function moveRank(el, ES, ED, showTask, upOrDown) {
     //console.log(editorContent);
     
     ES.setValue(editorContent.trim());
+    saveFile(ED);
     
     // update view 
     showTask(currentStatus);
