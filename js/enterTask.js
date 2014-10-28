@@ -51,7 +51,7 @@ function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
     
     enterTaskProject.html("<option>Inbox</option>\n" + buildOptions(projects));
     enterTask.submit(submitTask);
-    $('#list').animate({ top: "+=55px" }, DURATION);
+    $('#list').animate({ top: "107px" }, DURATION);
     enterTaskDiv.slideDown(DURATION);
     enterHeadline.focus();
     enterTaskButton.addClass("active");
@@ -79,7 +79,7 @@ function cancelTaskEntry($) {
     
     enterHeadline.val("");
     enterTaskDiv.slideUp(DURATION);
-    $('#list').animate({ top: "-=55px" }, DURATION);
+    $('#list').animate({ top: "52px" }, DURATION);
     enterTaskButton.removeClass("active");
 }
 
