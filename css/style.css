@@ -1,5 +1,5 @@
 body {
-  margin:0; 
+  margin:0;
   padding-top: 52px;
   font-family: "Source Sans Pro", Cantarell, Ubuntu, "Helvetica Neue", Helvetica, Calibri, Verdana, Arial, sans-serif;
   font-size: 16px;
@@ -11,7 +11,7 @@ body {
 
 .navbar-header { width: 100%; height: 52px;}
 
-#editor, #list { 
+#editor, #list {
         margin: 0;
         position: absolute;
         top: 52px;
@@ -49,6 +49,11 @@ tr.selected:hover {background-color: #4281c3}
 #enterTask {margin-top: 20px;}
 #enterTask div {padding-right: 0;}
 
+.empty-list-image {
+    overflow: hidden;
+    height: 100%;
+}
+
 /* Bootstrap-Theme Overide */
 
 .btn, .btn:active, .btn:focus {
@@ -66,7 +71,7 @@ tr.selected:hover {background-color: #4281c3}
     outline-offset: -4px;
     outline-style: dashed;
     outline-width: 1px;
-    
+
 }
 .btn.active, .btn.active:hover, .btn:hover:active {
     background-image: linear-gradient(#d6d6d6, #e0e0e0);
@@ -77,7 +82,7 @@ tr.selected:hover {background-color: #4281c3}
     line-height: 16px;
 }
 .navbar-default {
-    background-color: #ededed; 
+    background-color: #ededed;
     background-image: none;
     border-color: #a1a1a1;
 }
@@ -139,10 +144,10 @@ table td .glyphicon-chevron-down {
 }
 
 table td .glyphicon-chevron-up:hover, table td .glyphicon-chevron-down:hover {
-    border: 1px solid #a1a1a1;    
+    border: 1px solid #a1a1a1;
     border-radius: 3px;
     background-image: linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%);
-    
+
 }
 
 
@@ -163,7 +168,7 @@ table td .glyphicon-chevron-up:hover, table td .glyphicon-chevron-down:hover {
 table td .glyphicon-chevron-up:focus, table td .glyphicon-chevron-down:focus {
     outline: rgba(46, 52, 54, 0.3) 1px dashed !important;
     outline-offset: -4px;
-    
+
 }
 
 .form-control {

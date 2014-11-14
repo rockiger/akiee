@@ -15,8 +15,8 @@
             cssUrl = gnomeExternalCss;
         } else if (process.env.DESKTOP_SESSION === "ubuntu" || process.env.DESKTOP_SESSION === 'ubntu-2d') {
             cssUrl = ubuntuExternalCss;
-        } 
-        
+        }
+
         if (cssUrl) {
             document.write('<link rel="stylesheet" type="text/css" href="'+ cssUrl +'">');
         }
@@ -27,7 +27,7 @@
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <div class="btn-group">
+          <div class="btn-group" id="taskbuttons">
             <button type="button" class="btn btn-default navbar-btn btn-state" id="show-todo">Todo</button>
             <button type="button" class="btn btn-default navbar-btn btn-state active" id="show-doing">Doing</button>
             <button type="button" class="btn btn-default navbar-btn btn-state" id="show-done">Done</button>
@@ -59,7 +59,8 @@
         <button type="button" class="btn btn-link" id="cancel-enterTask">Cancel</button>
       </div>
     </form></div>
-    <table id="list" class="table" tabindex="1"></table>
+    <table id="list" class="table" tabindex="1">
+    </table>
     <script>
       /**
       * Needed to load node-webkit functionality.
@@ -75,7 +76,7 @@
       win.show();
       }
     </script>
-   
+
     <script src="lib/ace/src-noconflict/ace.js"></script>
     <script src="lib/jquery.js"></script>
     <script src="lib/bootstrap.js"></script>
