@@ -91,7 +91,7 @@ var APP = (function () {
         editorButton.onclick = showEditor;
 
         var enterTaskButton = document.getElementById("show-enterTask");
-        enterTaskButton.onclick = function () {enterTask.toggleTaskEntry($, ES, ED, shownTaskState);};
+        enterTaskButton.onclick = function () {enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask);};
 
         var cancelEnterTask = document.getElementById("cancel-enterTask");
         cancelEnterTask.onclick = function () {enterTask.cancelTaskEntry($);};
@@ -128,7 +128,7 @@ var APP = (function () {
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
-                enterTask.toggleTaskEntry($, ES, ED, shownTaskState);
+                enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask);
             }
             //console.log(e.keyCode);
         });
@@ -641,6 +641,7 @@ acceptance criteria:
      * @param {String} todos
      * @param {String} doings
      * @param {String} dones
+     * @param {TaskState} state
      * @returns {the html string for the placeholder image that should be shown}
      */
     deepEqual(makeEmptyImageHtml("","",""),
@@ -651,14 +652,14 @@ acceptance criteria:
               '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>');
     deepEqual(makeEmptyImageHtml("XXX","XXX","", DONE),
               '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>');
-    function makeEmptyImageHtml(todos, doings, dones, status) {
+    function makeEmptyImageHtml(todos, doings, dones, state) {
 		if ((todos === "") & (doings === "") & (dones === "")) {
 			return '<div class="empty-list-image"><img src="./artwork/empty-new.svg" /></div>'; 
-		} else if ((todos === "") & (doings !== "" | dones !== "") & status === TODO) {
+		} else if ((todos === "") & (doings !== "" | dones !== "") & state === TODO) {
 			return '<div class="empty-list-image"><img src="./artwork/empty-todo.svg" /></div>'; 			
-		} else if ((doings === "") & (todos !== "" | dones !== "") & status === DOING) {
+		} else if ((doings === "") & (todos !== "" | dones !== "") & state === DOING) {
 			return '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>'; 
-		} else if ((dones === "") & (doings !== "" | todos !== "") & status === DONE) {
+		} else if ((dones === "") & (doings !== "" | todos !== "") & state === DONE) {
 			return '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>'; 
 		}
     }

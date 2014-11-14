@@ -18,29 +18,30 @@ var ED;
 var NLC;
 var shownTaskState;
 var deepEqual = assert.deepEqual;
+var reloadTasks;
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and toggles the entry task field
  */
-function toggleTaskEntry(jquery, editorSession, editor, currentTaskState) {
+function toggleTaskEntry(jquery, editorSession, editor, currentTaskState, showTask) {
     $ = jquery;
     if ($("#show-enterTask").hasClass("active")) {
         cancelTaskEntry(jquery);
     } else {
-        openTaskEntry(jquery, editorSession, editor, currentTaskState);
+        openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask);
     }
 }
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry(jquery, editorSession, editor, currentTaskState) {
+function openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask) {
     $ = jquery;
     ES = editorSession;
     ED = editor;
     NLC = ES.getDocument().getNewLineCharacter();
     shownTaskState = currentTaskState;
-    
+    reloadTasks = showTask;
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTaskDiv = $('#enterTaskDiv');
@@ -99,6 +100,13 @@ function submitTask(e) {
         writeTask(endOfProject, taskStatus, taskHeadline, taskRank);
         addTaskToList(taskStatus, taskHeadline);
     }
+    
+    var emptyListImage = $(".empty-list-image").contents();
+    if (emptyListImage !== []) {
+		var state = $("#taskbuttons .active").text().toUpperCase();
+		reloadTasks(state);
+	}
+	
     
     cancelTaskEntry($);
     return false; //prevent form from redirect.
