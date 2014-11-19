@@ -1,10 +1,10 @@
 # Akiee
 
-## TODW As a User I want to syncronize my tasks via dropbox and similar services, that I can add tasks from every computer I have access to.
+## TODO As a User I want to syncronize my tasks via dropbox and similar services, that I can add tasks from every computer I have access to.
 
 acceptance criteria:
 
-- [ ] reload all task if files is changed
+- [X] reload all task if files is changed
 - [ ] Offer a file dialog to choose the path of the liveflow-file
 
 ## TODO As a new User I want to have a nice startpage, that I know what I need to do next and bond emotionally

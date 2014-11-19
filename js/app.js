@@ -148,7 +148,8 @@ var APP = (function () {
         // Because people want to edit right away
         editor.focus();
         currentFile = util.getTaskFiles();
-        content = openFile(editor, currentFile);
+        content = util.openFile(editor, currentFile);
+        fs.watch(currentFile, reloadFile);
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
         return editor;
@@ -557,24 +558,6 @@ acceptance criteria:
         saveFile(ED);
     }
 
-    /* Editor String -> Bool
-     * consumes an editor and a filepath and loads the file in editor,
-     * produces the content of the file or false if file could not be loaded
-     */
-
-    function openFile(editor, filePath) {
-      if (fs.existsSync(filePath)) {
-        hasChanged = false;
-        var fileContent = fs.readFileSync(filePath, "utf8");
-        editor.getSession().setValue(fileContent);
-        currentFile = filePath;
-        return fileContent;
-      }
-      else {
-        return false;
-      }
-    }
-
     /* Editor String -> String
      * saves the content of Editor editor to the String filepath and
      * produces the filepath or false if saving failed
@@ -663,6 +646,12 @@ acceptance criteria:
 			return '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>'; 
 		}
     }
+
+	function reloadFile(event) {
+		console.log("Datei geändert");
+		var content = util.openFile(ED, currentFile);
+		showDoing();
+	}
 
     /* DOMElement DOMElement -> Boolean
      * Checks if to DOMElements are equal

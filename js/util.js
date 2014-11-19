@@ -18,7 +18,7 @@ function getUserHome() {
 }
 
 function getLiveflow(userHome) {
-    var confFolder = path.join(userHome + "/.livewookiee/");
+    var confFolder = path.join(userHome + "/.akiee/");
     var filename = "liveflow.md";
     console.log(confFolder);
     var liveFlowPath = path.join(confFolder, filename);
@@ -35,6 +35,25 @@ function getLiveflow(userHome) {
         fs.writeFileSync(filename, "")
     }
     return liveFlowPath;
+}
+
+
+/* Editor String -> Bool
+ * consumes an editor and a filepath and loads the file in editor,
+ * produces the content of the file or false if file could not be loaded
+ */
+
+function openFile(editor, filePath) {
+  if (fs.existsSync(filePath)) {
+	hasChanged = false;
+	var fileContent = fs.readFileSync(filePath, "utf8");
+	editor.getSession().setValue(fileContent);
+	currentFile = filePath;
+	return fileContent;
+  }
+  else {
+	return false;
+  }
 }
 
 function print_r(obj) { 
@@ -118,7 +137,7 @@ function print_r(obj) {
     deepEqual(hasHigherRank(n1, n1), 1);
     deepEqual(hasHigherRank(n3, n3), 1);
     
-    function hasHigherRank(n1, n2) {
+function hasHigherRank(n1, n2) {
 	if (n1.rank === null) {
 	    return 1;
 	} else if (n1.rank !== null && n2.rank === null) {
@@ -128,7 +147,7 @@ function print_r(obj) {
 	} else {
 	    return 1;
 	}
-    }
+}
 
 exports.getTaskFiles = getTaskFiles;
 exports.getUserHome = getUserHome;
@@ -138,3 +157,4 @@ exports.getNodes = getNodes;
 exports.getProjects = getProjects;
 exports.orderNodesByRank = orderNodesByRank;
 exports.hasHigherRank = hasHigherRank;
+exports.openFile = openFile

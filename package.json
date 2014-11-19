@@ -15,7 +15,7 @@
         "show": false,
 	"frame": true
     },
-    "maintainers":[ 
+    "maintainers":[
         {
         "name": "Marco Laspe",
         "email": "marco@rockiger.com",
