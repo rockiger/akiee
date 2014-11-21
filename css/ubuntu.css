@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
-/* 
+/*
     Created on : 03.11.2014, 02:17:44
     Author     : Marco Laspe
 */
@@ -48,3 +48,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     z-index: 9999 !important;
 
 }*/
+
+.form-control:focus {
+	border-color: #F07746;
+}
+
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+	color: #F07746;
+}

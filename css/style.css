@@ -122,7 +122,7 @@ tr.selected:hover {background-color: #4281c3}
     font-size: 13px;
 }
 
-.btn-link {
+.btn-link, .btn-link:focus, .btn-link:active {
     text-decoration: underline;
     background: none;
     color: #2a76c6;
