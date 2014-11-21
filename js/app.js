@@ -602,10 +602,10 @@ acceptance criteria:
         wrapper.innerHTML = html;
         return wrapper.firstChild;
     }
-    
+
     /* Void -> String
-     * produces the right emty image based on the availble task 
-     * 
+     * produces the right emty image based on the availble task
+     *
      * @returns {the html for the empty image}
      */
     function getEmptyImage() {
@@ -618,7 +618,7 @@ acceptance criteria:
         var html = makeEmptyImageHtml(todos, doings, dones, state);
         return html;
     }
-    
+
     /* String String String -> String
      * produces the html for the placeholder image, if no task list item is present
      * @param {String} todos
@@ -637,20 +637,24 @@ acceptance criteria:
               '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>');
     function makeEmptyImageHtml(todos, doings, dones, state) {
 		if ((todos === "") & (doings === "") & (dones === "")) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-new.svg" /></div>'; 
+			return '<div class="empty-list-image"><img src="./artwork/empty-new.svg" /></div>';
 		} else if ((todos === "") & (doings !== "" | dones !== "") & state === TODO) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-todo.svg" /></div>'; 			
+			return '<div class="empty-list-image"><img src="./artwork/empty-todo.svg" /></div>';
 		} else if ((doings === "") & (todos !== "" | dones !== "") & state === DOING) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>'; 
+			return '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>';
 		} else if ((dones === "") & (doings !== "" | todos !== "") & state === DONE) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>'; 
+			return '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>';
 		}
     }
 
 	function reloadFile(event) {
-		console.log("Datei geändert");
-		var content = util.openFile(ED, currentFile);
-		showDoing();
+		console.log("Datei geaendert");
+		// TODO: Needs to check if file was changed by differnt software
+		if (!DOC.hasFocus()) {
+		  var content = util.openFile(ED, currentFile);
+		  showDoing();
+		}
+
 	}
 
     /* DOMElement DOMElement -> Boolean
