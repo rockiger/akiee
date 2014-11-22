@@ -14,25 +14,24 @@ function getTaskFiles() {
 }
 
 function getUserHome() {
-  return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+  return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
 }
 
 function getLiveflow(userHome) {
     var confFolder = path.join(userHome + "/.akiee/");
     var filename = "liveflow.md";
+    var filepath = path.join(userHome + "/.akiee/" + filename);
     console.log(confFolder);
     var liveFlowPath = path.join(confFolder, filename);
     if (fs.existsSync(confFolder)) {
         if (fs.existsSync(liveFlowPath)) {
             return liveFlowPath;
         } else {
-            process.chdir(confFolder);
-            fs.writeFileSync(filename, "");
+            fs.writeFileSync(filepath, "");
         }
     } else {
-        fs.mkdir(confFolder);
-        process.chdir(confFolder);
-        fs.writeFileSync(filename, "")
+        fs.mkdirSync(confFolder);
+        fs.writeFileSync(filepath, "");
     }
     return liveFlowPath;
 }
