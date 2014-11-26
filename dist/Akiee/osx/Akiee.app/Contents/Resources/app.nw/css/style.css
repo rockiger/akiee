@@ -1,0 +1,185 @@
+body {
+  margin:0;
+  padding-top: 52px;
+  font-family: "Source Sans Pro", Cantarell, Ubuntu, "Helvetica Neue", Helvetica, Calibri, Verdana, Arial, sans-serif;
+  font-size: 16px;
+  color: #54595a;
+  background-color: #fff;
+  overflow-y: hidden;
+  heigth: 100vh;
+}
+
+.navbar-header { width: 100%; height: 52px;}
+
+#editor, #list {
+        margin: 0;
+        position: absolute;
+        top: 52px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+.nav, .pagination, .carousel a { cursor: pointer; }
+
+table, tbody, tr {width: 100%;}
+table {table-layout: fixed}
+#list {overflow-y: auto;}
+
+#list tr:hover {cursor: pointer;}
+#list:focus {outline: none;}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+.todo td {background-color: #d9edf7 !important; color: #31708f}
+.done td {color: #777; text-decoration: line-through;}
+.doing td {background-color: #dff0d8 !important; color: #3c763d}
+
+td:nth-child(2) { width: 100% }
+
+.selected {background-color: #729FCF; color: white;}
+
+tr:hover {background-color: #f2f2f2;}
+
+tr.selected:hover {background-color: #4281c3}
+
+#enterTaskDiv {background-color: #d6d6d6; margin-top: -10px; padding-bottom: 10px; border-bottom: 1px solid #a1a1a1; display: none; height: 65px;}
+#enterTask {margin-top: 20px;}
+#enterTask div {padding-right: 0;}
+
+.empty-list-image {
+    overflow: hidden;
+    height: 100%;
+}
+
+/* Bootstrap-Theme Overide */
+
+.btn, .btn:active, .btn:focus {
+    background-image: linear-gradient(to bottom, #fafafa 0%, #ededed 40%, #e0e0e0 100%);
+    border-radius: 3px;
+    color: #2e3436;
+    box-shadow: inset 0 1px white, 0 1px white;
+    margin-left: 3px;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.btn:focus, .btn:focus:active, .btn.active:focus, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus {
+    outline-color: rgba(46,52,52,0.3);
+    outline-offset: -4px;
+    outline-style: dashed;
+    outline-width: 1px;
+
+}
+.btn.active, .btn.active:hover, .btn:hover:active {
+    background-image: linear-gradient(#d6d6d6, #e0e0e0);
+    border-radius: 3px;
+    color: #2e3436;
+    box-shadow: none;
+    font-size: 16px;
+    line-height: 16px;
+}
+.navbar-default {
+    background-color: #ededed;
+    background-image: none;
+    border-color: #a1a1a1;
+}
+
+.btn-default, .btn-default:focus, .btn-default:active, .btn-default:focus:active {
+    border-color: #a1a1a1;
+    icon-shadow: 0 1px rgba(256, 256, 256, 0.76923);
+    text-shadow: 0 1px rgba(256, 256, 256, 0.76923);
+    outline-offset: -4px;
+    padding: 8px 16px;
+    transition: all 200ms ease-out;
+    background-color: transparent;
+    background-position: 0;
+}
+/* .navbar-default {background-image: linear-gradient( #f7f7f7, #ededed);}*/
+
+.btn-default:hover {
+    background-image: linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%);
+    background-position: 0;
+}
+
+.btn-default.active, .btn-default.active:hover, .btn-default:hover:active {
+    border-color: #a1a1a1;
+    icon-shadow: 0 1px rgba(256, 256, 256, 0.76923);
+    text-shadow: 0 1px rgba(256, 256, 256, 0.76923);
+    outline: rgba(46, 52, 54 0.3) 1px dashed;
+    outline-offset: -4px;
+    transition: all 200ms ease-out;
+}
+
+.btn-square, .btn-square:hover, .btn-square.active, .btn-square.active:hover, .btn-square:active, .btn-square:hover:active, btn-squre:focus {
+    padding: 8px 8px 8px 10px !important;
+    font-size: 13px !important;
+}
+
+*:before {
+    font-size: 13px;
+}
+
+.btn-link, .btn-link:focus, .btn-link:active {
+    text-decoration: underline;
+    background: none;
+    color: #2a76c6;
+    box-shadow: none;
+}
+
+.btn-link:hover {
+    color: #4a90d9;
+}
+table td .glyphicon-chevron-up, .glyphicon-chevron-down {
+    border: 1px solid white;
+    padding: 8px;
+    padding-left: 9px;
+    color: #54595a;
+}
+table td .glyphicon-chevron-down {
+    padding-left: 8px;
+    color: #54595a;
+}
+
+table td .glyphicon-chevron-up:hover, table td .glyphicon-chevron-down:hover {
+    border: 1px solid #a1a1a1;
+    border-radius: 3px;
+    background-image: linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%);
+
+}
+
+
+.btn-group > .btn:first-child, .btn-group > .btn:last-child {
+    width: 100px;
+}
+
+.btn-group > .btn {
+    width: 98px;
+    height: 32px;
+    padding-top: 7px !important;
+}
+
+.todo td .glyphicon-chevron-up, .todo td .glyphicon-chevron-down, .doing td .glyphicon-chevron-up, .doing td .glyphicon-chevron-down,
+.selected td .glyphicon-chevron-up, .selected td .glyphicon-chevron-down, tr:hover .glyphicon-chevron-up, tr:hover .glyphicon-chevron-down {border-color: transparent;}
+
+
+table td .glyphicon-chevron-up:focus, table td .glyphicon-chevron-down:focus {
+    outline: rgba(46, 52, 54, 0.3) 1px dashed !important;
+    outline-offset: -4px;
+
+}
+
+.form-control {
+    border: 1px solid #a1a1a1; border-radius: 3px;
+    box-shadow: inset 0 3px transparent;
+    background-color: transparent;
+    background-image: linear-gradient(#f7f7f7, #ffffff 90%);
+    transition: all 200ms ease-out;
+}
+
+.form-control:focus {
+    border-color: #4a90d9;
+    box-shadow: inset 0 3px rgba(0, 0, 0, 0.02);
+}

@@ -1,0 +1,58 @@
+/*
+Copyright (C) 2014 macco
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+/*
+    Created on : 03.11.2014, 02:17:44
+    Author     : Marco Laspe
+*/
+
+::-webkit-scrollbar {
+	width: 3px;
+	height: 3px;
+}
+::-webkit-scrollbar-track-piece {
+	background-color: transparent;
+	-webkit-border-radius: 3px
+}
+::-webkit-scrollbar-thumb:vertical {
+	background-color: #F07746;
+	-webkit-border-radius: 3px
+}
+::-webkit-scrollbar-thumb:horizontal {
+	background-color: #F07746;
+	-webkit-border-radius: 3px
+}
+
+/*::-webkit-scrollbar-thumb:horizontal:hover, ::-webkit-scrollbar-thumb:vertical:hover {
+    background-image: url(data:image/png;base64,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) !important;
+    max-width: 800px !important;
+    padding: 0 0 !important;
+    width: 77px !important;
+    height: 21px !important;
+    margin-left: -21px !important;
+    background-position-x: -77px;
+    z-index: 9999 !important;
+
+}*/
+
+.form-control:focus {
+	border-color: #F07746;
+}
+
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+	color: #F07746;
+}
