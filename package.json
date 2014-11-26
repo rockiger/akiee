@@ -1,0 +1,10 @@
+{
+  "name": "Akiee",
+  "version": "0.0.1",
+  "description": "Akiee is a task management for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor.",
+  "author": "Marco Laspe",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-node-webkit-builder": "^0.3.0"
+  }
+}
