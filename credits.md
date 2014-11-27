@@ -4,7 +4,7 @@
 
 https://github.com/rogerwang/node-webkit
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_License
 
@@ -33,7 +33,7 @@ H THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ## Chewbacca Vector by FreeWebElements
 http://freewebelements.com/vector-star-wars-character/
 
-### Licence
+### License
 http://creativecommons.org/licenses/by/3.0/deed.en
 
 ```
@@ -158,7 +158,7 @@ The rights granted under, and the subject matter referenced, in this License wer
 
 http://getbootstrap.com/
 
-### Licence
+### License
 
 https://github.com/twbs/bootstrap/blob/master/LICENSE
 
@@ -189,7 +189,7 @@ THE SOFTWARE.
 
 https://www.myfonts.com/foundry/Hiekka_Graphics/
 
-### Licence
+### License
 
 ```
 1. Allowed uses
@@ -253,7 +253,7 @@ This agreement is governed by the laws of the United States of America and the C
 
 http://ace.c9.io/
 
-### Licence
+### License
 
 https://github.com/ajaxorg/ace/blob/master/LICENSE
 
@@ -288,7 +288,7 @@ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 
 http://jquery.com
 
-### Licence
+### License
 
 http://jquery.org/license
 
@@ -306,7 +306,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 http://gioorgi.com/org-mode-parser
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_License
 
@@ -348,7 +348,7 @@ http://members.optusnet.com.au/~charles57/GTD
 
 ## Process by Roman Shtylman
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_Licensehttp://en.wikipedia.org/wiki/MIT_Licensehttp://en.wikipedia.org/wiki/MIT_License
 
@@ -379,7 +379,7 @@ a copy of this software and associated documentation files (the
 
 ## Underscore by Jeremy Ashkenas, DocumentCloud and Investigative
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_License
 
@@ -411,7 +411,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ## Grunt by "Cowboy" Ben Alman
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_License
 
@@ -442,7 +442,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ## Grunt Node-Webkit-Builder by Steffen Müller
 
-### Licence
+### License
 
 http://en.wikipedia.org/wiki/MIT_License
 
