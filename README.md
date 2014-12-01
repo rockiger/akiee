@@ -1,7 +1,7 @@
 <img alt="Akiee the task managen for hackers, wookie icon" src="./app/logo.png" width="100px"/>
 # Welcome to Akiee
 
-Akiee is a task manager that aloaws??? you to easily organize your task in an easy manner... It is build with Node-Webkit and Javascript.
+Akiee is a task manager that allows you to easily organize your task in an easy manner... It is build with Node-Webkit and Javascript.
 
 What makes Akiee different from other task managers?
 
@@ -15,9 +15,9 @@ Akiee is at 0.0.1, it's the first beta release. I have been using it for some ti
 
 Akiee is heavily inspired by the great Org-Mode and my work as a product owner in a software company.
 
-# Screenshots
+# Screenshots and Video
 
-
+TODO Insert a few screenshots and a youtube video
 
 # How to install and use Akiee
 
@@ -27,4 +27,4 @@ Download your binarys:
 * [Windows](https://github.com/rockiger/akiee/blob/master/dist/Akiee/akiee-0.0.1-win.zip?raw=true "Akiee Windows Download")
 * [OS X](https://github.com/rockiger/akiee/blob/master/dist/Akiee/akiee-0.0.1-osx.zip?raw=true "Akiee OS X Download")
 
-Unpack the contents and click on the `akiee` (Linux) or `Akiee` file.
+Unpack the content and click on the `akiee` (Linux) or `Akiee` file.
