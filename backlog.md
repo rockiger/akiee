@@ -57,12 +57,14 @@ acc:
 - [ ] Some Mac Theme on MAC
 - [ ] Windows 8 Theme on Windows
 
-## TODO As a person who plans a FUTURE task, I want to add a DOING-date for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
+## TODO As a person who plans a FUTURE task, I want to add a DOING-date (scheduled) for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
 
 acceptance criteria
 
 - [ ] choose a DOING-date in the entry field
 - [ ] jumps (only) from TODO to DOING on the given date
+- 
+## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work. 
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 
