@@ -23,9 +23,9 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>Version 0.1.0</string>
+    <string>Version 0.0.1</string>
     <key>CFBundleVersion</key>
-    <string>0.1.0</string>
+    <string>0.0.1</string>
     <key>DTSDKBuild</key>
     <string>12F37</string>
     <key>DTSDKName</key>
