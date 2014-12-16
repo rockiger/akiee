@@ -7,21 +7,22 @@ acceptance criteria:
 - [X] reload all task if files is changed
 - [ ] Offer a file dialog to choose the path of the liveflow-file
 
-## TODO As a new User I want to have a nice startpage, that I know what I need to do next and bond emotionally
-
-## BUG Task-Change throws Error, if Task has an URL in it's headline
-
 ## TODO As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
 
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
-
-## TODO As a User I want the buttons to represent the state of nw, that I what view I am seeing rigth now.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>
 
 ## TODO As a user I want to be able to search for a task in a certain task view, that I can find task that I entered a while ago.
+
+acceptance criteria:
+
+- [ ] Filterbox
+- [ ] uses all important information: body, Parent node, date, etc.
+
+## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
 
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
 - [ ] Agenda View shows all Todos
@@ -53,7 +54,7 @@ acc:
 
 acc:
 
-- [ ] Ubuntu Ambiance on Ubuntu
+- [X] Ubuntu Ambiance on Ubuntu
 - [ ] Some Mac Theme on MAC
 - [ ] Windows 8 Theme on Windows
 
@@ -63,8 +64,6 @@ acceptance criteria
 
 - [ ] choose a DOING-date in the entry field
 - [ ] jumps (only) from TODO to DOING on the given date
-- 
-## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work. 
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 
@@ -86,7 +85,7 @@ AC:
 ## DONE As a user I want to see my notes, when I open live wookiee, that I see my notes instantly.
 - [X] a standard org file ist loaded (liveflow.md)
 - [X] liveflow.org is located at ~/.livewookie/liveflow.md
-- [X] liveflow.org doesn't exists it should be created   
+- [X] liveflow.org doesn't exists it should be created
 - [X] It is opened with the start of the program
 
 ## DONE As a note keeper I want every change in my notes saved instantly, that I don't have to worry about forgetting them.
@@ -110,7 +109,7 @@ AC:
     - [X] Changing zepto.min.js to jquery.js - speed should not be in issue in the beginning
     - [X] removing unused files (angular, zepto ...)
 
-## DONE A a user I want to see my notes, when I open live wookiee, that I see my notes instantly. DEADLINE: <2013-08-24 Sa 11:00> 
+## DONE A a user I want to see my notes, when I open live wookiee, that I see my notes instantly. DEADLINE: <2013-08-24 Sa 11:00>
 
 ## DONE As a note keeper I want, that the editor area is focused after the start of livewookie, that I can start writing instantly.
 
@@ -150,7 +149,7 @@ acceptance criteria:
 - [X] If rank is null, Task comes last
 - [X] If rank of two task is the same, these two tasks won't be sorted
 - [X] When new task is created, it gets a rank n+1
-- [X] order is assigned by a atomar ranking system. 
+- [X] order is assigned by a atomar ranking system.
 - [X] A ranking should have only one task and a task should have one ranking only; not enforced, but GUI follow this rule
 - [X] User can change rank via gui - nothing fancy yet
 - [X] Right now tasks without RANK can't be sorted
@@ -163,3 +162,9 @@ acceptance criteria
 - [X] The font for the task view should be suitable
 - [X] The font for the editor should be suitable
 - [X] The menu bar should be fixed
+
+## DONE As a new User I want to have a nice startpage, that I know what I need to do next and bond emotionally
+
+## DONE Task-Change throws Error, if Task has an URL in it's headline
+
+## DONE As a User I want the buttons to represent the state of Akiee, that I what view I am seeing rigth now.
