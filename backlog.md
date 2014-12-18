@@ -1,26 +1,22 @@
 # Akiee
 
-## TODO As a User I want to syncronize my tasks via dropbox and similar services, that I can add tasks from every computer I have access to.
+## TODO As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
 
-acceptance criteria:
-
-- [X] reload all task if files is changed
-- [ ] Offer a file dialog to choose the path of the liveflow-file
-
-## TODO As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
+## As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>
+- [ ] Entry field allows to set date
 
 ## TODO As a user I want to be able to search for a task in a certain task view, that I can find task that I entered a while ago.
 
 acceptance criteria:
 
 - [ ] Filterbox
-- [ ] uses all important information: body, Parent node, date, etc.
+- [ ] uses all important information: body, Parent node, date, etc.
 
 ## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
 
@@ -43,12 +39,19 @@ acceptance criteria:
 
 - [ ] Two possibilities 1. New Window,Tab with Deteils. 2. Preview like in Geary, tbd.
 
-## TODO As a user I want that the filter buttons have the same color as the states, that I can make a connection between them.
+## TODO As a person who plans a FUTURE task, I want to add a DOING-date (scheduled) for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
 
-acc:
-- [ ] green for doing
-- [ ] blue for todo
-- [ ] grey for done
+acceptance criteria
+
+- [ ] choose a DOING-date in the entry field
+- [ ] jumps (only) from TODO to DOING on the given date
+
+## TODO As a User I want to syncronize my tasks via dropbox and similar services, that I can add tasks from every computer I have access to.
+
+acceptance criteria:
+
+- [X] reload all task if files is changed
+- [ ] Offer a file dialog to choose the path of the liveflow-file
 
 ## TODO As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
@@ -57,13 +60,6 @@ acc:
 - [X] Ubuntu Ambiance on Ubuntu
 - [ ] Some Mac Theme on MAC
 - [ ] Windows 8 Theme on Windows
-
-## TODO As a person who plans a FUTURE task, I want to add a DOING-date (scheduled) for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
-
-acceptance criteria
-
-- [ ] choose a DOING-date in the entry field
-- [ ] jumps (only) from TODO to DOING on the given date
 
 ## DONE As the user I want to see all my DOING's after livewookie is started, that I can begin with my work instantly.
 
@@ -168,3 +164,5 @@ acceptance criteria
 ## DONE Task-Change throws Error, if Task has an URL in it's headline
 
 ## DONE As a User I want the buttons to represent the state of Akiee, that I what view I am seeing rigth now.
+
+## DONE As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
