@@ -169,7 +169,7 @@ var APP = (function () {
         if (lon.length === 0) {
             return "";
         }
-        if (state === ALL) {
+        if (state === ALL && lon[0].todo !== null) {
         return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline) + makeTodoList(lon.slice(1), state));
         }
         else {
