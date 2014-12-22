@@ -368,7 +368,6 @@ var APP = (function () {
      * Reacts to single clicks on a row
      */
     function onClickTableRow(e) {
-        if (LW.DEBUG === true) {LW.row = e ;}
         var state = e.children[0].innerHTML;
         var headline = e.children[1].innerHTML;
         changeStateInTable(e, state);
