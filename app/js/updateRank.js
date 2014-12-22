@@ -42,14 +42,13 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     
     var currentRow = el.parentNode;
     var currentHeadline = currentRow.children[1].innerHTML;
-    var currentStatus = currentRow.children[0].innerHTML;
-    var currentNode = nodeWithHeadline(lon, currentHeadline, currentStatus);
+    var currentState = currentRow.children[0].innerHTML;
+    var currentNode = nodeWithHeadline(lon, currentHeadline, currentState);
     var currentRank = parseInt(currentNode.rank);
     
     if (upOrDown === "up") {
         try {
             var borderRow = currentRow.previousElementSibling;
-            var borderHeadline = borderRow.children[1].innerHTML;
         }
         catch (e) {
             console.log("Element ist allready first in Backlog.");
@@ -58,7 +57,6 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     } else {
         try {
             var borderRow = currentRow.nextElementSibling;
-            var borderHeadline = borderRow.children[1].innerHTML;
         }
         catch (e) {
             console.log("Element ist allready last in Backlog.");
@@ -66,7 +64,14 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
         }
     }
     
-    var borderNode = nodeWithHeadline(lon, borderHeadline, currentStatus);
+    var borderState = borderRow.children[0].innerHTML;
+    if (currentState !== borderState) {
+        console.log("State of task allready changed");
+        return;
+    }
+    
+    var borderHeadline = borderRow.children[1].innerHTML;
+    var borderNode = nodeWithHeadline(lon, borderHeadline, borderState);
     var borderRank = parseInt(borderNode.rank);
     
     if (borderRank === "" | borderRank === undefined) {
@@ -133,7 +138,7 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     saveFile(ED);
     
     // update view 
-    showTask(currentStatus);
+    showTask(currentState);
 }
 
 /* String Number Number Editor Session -> Void
@@ -250,7 +255,7 @@ deepEqual(nodeWithHeadline([{"headline":"Head 1", "todo":"DOING"},{"headline":"H
 
 function nodeWithHeadline(lon, headline, status) {
     return lon.filter(function (e) {
-            return (e.headline === headline&& e.todo === status);
+            return (e.headline === headline && e.todo === status);
         })[0];
 }
 
