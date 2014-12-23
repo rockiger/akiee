@@ -2,6 +2,9 @@
 
 ## TODO As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
 
+- [ ] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
+- [ ] Remove "APP"-Pattern in app.js, this is not important in a node-webkit app?
+
 ## As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
