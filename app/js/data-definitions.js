@@ -1,4 +1,4 @@
-/*
+    /*
  * ==========
  * Data definitions:
  */
@@ -22,7 +22,7 @@
 /* ClassName is one of:
  * - "todo"
  * - "doing"
- * - "dono"
+ * - "done"
  * 
     function fnForClassName(cn) {
         if (cn === "todo") {
