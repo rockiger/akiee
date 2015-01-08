@@ -138,6 +138,7 @@ table td .glyphicon-chevron-up, .glyphicon-chevron-down, .hover-button {
     padding-left: 9px;
     color: #54595a;
 }
+
 table td .glyphicon-chevron-down {
     padding-left: 8px;
     color: #54595a;
@@ -149,7 +150,6 @@ table td .glyphicon-chevron-up:hover, table td .glyphicon-chevron-down:hover, .h
     background-image: linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%);
 
 }
-
 
 .btn-group > .btn:first-child, .btn-group > .btn:last-child {
     width: 100px;

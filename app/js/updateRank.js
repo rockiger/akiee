@@ -42,7 +42,7 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     
     var currentRow = el.parentNode;
     var currentHeadline = currentRow.children[1].innerHTML;
-    var currentState = currentRow.children[0].innerHTML;
+    var currentState = currentRow.children[0].children[0].innerHTML;
     var currentNode = nodeWithHeadline(lon, currentHeadline, currentState);
     var currentRank = parseInt(currentNode.rank);
     
@@ -64,7 +64,7 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
         }
     }
     
-    var borderState = borderRow.children[0].innerHTML;
+    var borderState = borderRow.children[0].children[0].innerHTML;
     if (currentState !== borderState) {
         console.log("State of task allready changed");
         return;
