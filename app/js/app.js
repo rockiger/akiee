@@ -149,7 +149,7 @@ var APP = (function () {
         editor.focus();
         currentFile = util.getTaskFiles();
         content = util.openFile(editor, currentFile);
-        fs.watch(currentFile, reloadFile);
+        //fs.watch(currentFile, reloadFile);
         // Because 16px is easier on the eyes
         editor.setFontSize(16);
         return editor;
