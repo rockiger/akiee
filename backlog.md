@@ -1,11 +1,14 @@
 # Akiee
 
+## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
+
 ## TODO As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
 
 - [ ] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
-- [ ] Remove "APP"-Pattern in app.js, this is not important in a node-webkit app?
+- [ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?
 
-## As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
+## TODO As a personal kanban user I want to see an overview of all my task, that I 
+better visualize my work
 
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
 
@@ -24,7 +27,7 @@ acceptance criteria:
 ## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
 
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
-- [ ] Agenda View shows all Todos
+- [ ] Agenda View shows all tasks or Doings
   - [ ] Define Model, based on org-mode-parser-nodes
 - [ ] Agenda View shows a Timetable for Today
   - [ ] Agenda View is based on Org-Mode's
