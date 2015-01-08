@@ -36,7 +36,7 @@ var APP = (function () {
     var deepEqual = assert.deepEqual;
     var hasChanged = false;
     var currentFile;
-    LW.onClickTableRow = onClickTableRow;
+    LW.onClickState = onClickState;
     LW.onClickUpRank = onClickUpRank;
     LW.onClickDownRank = onClickDownRank;
 
@@ -160,10 +160,6 @@ var APP = (function () {
      */
     deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
-    /*deepEqual(makeTodoList(LON, ALL), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, TODO), "<tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bla bla bla</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr><tr onclick='LW.onClickTableRow(this);'><td>TODO</td><td>Bli bli bli</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DONE), "<tr onclick='LW.onClickTableRow(this);'><td>DONE</td><td>Blub blub blub</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");
-    deepEqual(makeTodoList(LON, DOING), "<tr onclick='LW.onClickTableRow(this);'><td>DOING</td><td>This is the string for what is now</td><td onclick='LW.onClickUpRank(event, this);'>Up</td><td  onclick='LW.onClickDownRank(event, this);'>Down</td></tr>", "makeTodoList");*/
 
     function makeTodoList(lon, state) {
         if (lon.length === 0) {
@@ -367,10 +363,12 @@ var APP = (function () {
     /* Element -> Void
      * Reacts to single clicks on a row
      */
-    function onClickTableRow(e) {
+    function onClickState(e) {
+        console.log("State Clicked")
         var state = e.children[0].innerHTML;
-        var headline = e.children[1].innerHTML;
-        changeStateInTable(e, state);
+        var headline = e.parentNode.children[1].innerHTML;
+        var row = e.parentNode;
+        changeStateInTable(row, state);
         advanceStateInFile(headline, state);
     }
 
@@ -444,14 +442,14 @@ acceptance criteria:
      * @returns {DOMElement}
      */
     deepEqual(equalNode(changeStateInTable(
-            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"),
-            createTrElement('<tr class="doing"><td>DOING</td><td>Test Headline</td></tr>')), true);
+            createTrElement("<tr><td><span>TODO</span></td><td>Test Headline</td></tr>"), "TODO"),
+            createTrElement('<tr class="doing"><td><span>DOING</span></td><td>Test Headline</td></tr>')), true);
     deepEqual(equalNode(changeStateInTable(
-            createTrElement('<tr class="todo"><td>TODO</td><td>Test Headline</td></tr>'), "TODO"),
-            createTrElement('<tr class="doing"><td>DOING</td><td>Test Headline</td></tr>')), true);
+            createTrElement('<tr class="todo"><td><span>TODO</span></td><td>Test Headline</td></tr>'), "TODO"),
+            createTrElement('<tr class="doing"><td><span>DOING</span></td><td>Test Headline</td></tr>')), true);
 
     function changeStateInTable(row, state) {
-        return changeStateClass(changeStateInTd(row,state),state);
+        return changeStateClass(changeStateInRow(row,state),state);
     }
 
     /* DOMElement TaskState -> DOMElement
@@ -462,28 +460,36 @@ acceptance criteria:
      * @param {TaskState} state - The current state of the task
      * @returns {Row} - The class name of a row, that has been set
      */
-    deepEqual(equalNode(changeStateInTd(
-            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>"), "TODO"),
-            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>")), true);
-    deepEqual(equalNode(changeStateInTd(
-            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>"), "DOING"),
-            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>")), true);
-    deepEqual(equalNode(changeStateInTd(
-            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>"), "DONE"),
-            createTrElement("<tr><td>TODO</td><td>Test Headline</td></tr>")), true);
-    deepEqual(equalNode(changeStateInTd(
-            createTrElement("<tr><td>DONE</td><td>Test Headline</td></tr>"), "TODO"),
-            createTrElement("<tr><td>DOING</td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInRow(
+            createTrElement("<tr><td><span>TODO</span></td><td>Test Headline</td></tr>"), "TODO"),
+            createTrElement("<tr><td><span>DOING</span></td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInRow(
+            createTrElement("<tr><td><span>DOING</span></td><td>Test Headline</td></tr>"), "DOING"),
+            createTrElement("<tr><td><span>DONE</span></td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInRow(
+            createTrElement("<tr><td><span>DONE</span></td><td>Test Headline</td></tr>"), "DONE"),
+            createTrElement("<tr><td><span>TODO</span></td><td>Test Headline</td></tr>")), true);
+    deepEqual(equalNode(changeStateInRow(
+            createTrElement("<tr><td><span>DONE</span></td><td>Test Headline</td></tr>"), "TODO"),
+            createTrElement("<tr><td><span>DOING</span></td><td>Test Headline</td></tr>")), true);
 
-    function changeStateInTd(row, state) {
+    function changeStateInRow(row, state) {
         if (state === "TODO") {
-            row.childNodes[0].innerHTML = "DOING";
+            row.childNodes[0].childNodes[0].innerHTML = "DOING";
+            var show = showTodo;
         } else if (state === "DOING") {
-            row.childNodes[0].innerHTML = "DONE";
+            row.childNodes[0].childNodes[0].innerHTML = "DONE";
+            var show = showDoing;
         } else if (state === "DONE") {
-            row.childNodes[0].innerHTML = "TODO";
+            row.childNodes[0].childNodes[0].innerHTML = "TODO";
+            var show = showDone;
         }
-            return row;
+        
+        $(row).fadeOut(3000, function(){
+            $(this).remove();
+            show();
+        });
+        return row;
     }
 
     /* DOMElement Classname -> DOMElement
