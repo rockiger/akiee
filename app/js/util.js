@@ -156,4 +156,4 @@ exports.getNodes = getNodes;
 exports.getProjects = getProjects;
 exports.orderNodesByRank = orderNodesByRank;
 exports.hasHigherRank = hasHigherRank;
-exports.openFile = openFile
+exports.openFile = openFile;
