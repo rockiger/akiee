@@ -495,6 +495,8 @@ acceptance criteria:
                 show(); 
             });            
         });
+        
+        return row;
     }
 
     /* DOMElement Classname -> DOMElement
