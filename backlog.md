@@ -2,10 +2,11 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## TODO As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
+## DOING As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
 
 - [ ] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
 - [ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?
+- [ ] Create tests with PhantomJS for DOM-Manipulation
 
 ## TODO As a personal kanban user I want to see an overview of all my task, that I 
 better visualize my work
@@ -59,7 +60,9 @@ acceptance criteria:
 - [X] reload all task if files is changed
 - [ ] Offer a file dialog to choose the path of the liveflow-file
 
-## TODO As a user I want akie appearing suitable to my operating system, that it feels like a native app:
+## TODO As a user I want to keep notes (not tasks), that I want to keep for future reference, that I can remember important information.
+
+## DONE As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
 acc:
 
