@@ -4,7 +4,7 @@
 
 ## DOING As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
 
-- [ ] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
+- [X] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
 - [ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?
 - [ ] Create tests with PhantomJS for DOM-Manipulation
 
