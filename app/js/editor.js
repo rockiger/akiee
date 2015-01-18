@@ -61,8 +61,18 @@ function saveFile(editor, filePath) {
     }
   }
 }
+/**
+ * 
+ * Editor EditorSession ListOfNumber -> Void
+ * First consumes a ListOfNumbers and then set and saves the corresponding 
+ * string in Markdown format to the Editor and file
+ */
 
+function setEditorContent(ED, ES, lon) {
+    ES.setValue(util.lonToMarkdown(lon).trim());
+    saveFile(ED);
+}
 
-
+exports.setEditorContent = setEditorContent;
 exports.setupAce = setupAce;
 exports.openFile = openFile;

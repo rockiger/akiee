@@ -3,9 +3,7 @@
 var assert = require("assert");
 var enterTask = require("./enterTask");
 var util = require("./util");
-
-
-var deepEqual = assert.deepEqual;
+var editor = require("./editor")
 
 /*
  * ==========
@@ -134,8 +132,7 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     
     //console.log(editorContent);
     
-    ES.setValue(editorContent.trim());
-    saveFile(ED);
+    editor.setEditorContent(ED, ES, lon)
     
     // update view 
     showTask(currentState);

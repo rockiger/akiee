@@ -7,6 +7,7 @@ var APP = (function () {
     var org = require('./lib/markdown-org-mode-parser');
     var htmlUtil = require("./js/htmlUtil");
     var updateRank = require("./js/updateRank");
+    var editor = require("./js/editor");
 
     /*
      * Akiee - a  Markdown alternative to Emacs Org-mode
@@ -557,17 +558,20 @@ acceptance criteria:
      * @returns {Boolean} - true if state could be changed, else false
      */
     function changeStateInFile(headline, oldState, newState) {
-        // find range
-        var range = ED.find(headline, {wrap:true, range: null}, false);
-        // create Range from start of line to start of headline in row
-        var end = range.start.column;
-        range.start.column = 0;
-        range.end.column = end;
-        // replace current state with new state
-
-        var options = {needle: oldState, range: range, start: range, wrap: true};
-        ED.replace(newState, options);
-        saveFile(ED);
+        
+        var content = ED.getSession().getValue();
+        var lon = util.getNodes(content);
+        
+        // replace node in lon
+        
+        var lon = lon.map(function(key, val, array) {
+            if (key.headline === headline && key.todo === oldState) {
+                key.todo = newState;
+            }
+            return key;
+        });
+        
+        editor.setEditorContent(ED, ES, lon);
     }
 
     /* Editor String -> String

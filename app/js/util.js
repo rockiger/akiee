@@ -5,7 +5,18 @@ var fs = require("fs");
 var path = require("path");
 var assert = require("assert");
 
+/*
+ * ==========
+ * Constants:
+ */
+var RANK = "RANK: ";
+
+/*
+ * ==========
+ * Globals:
+ */
 var deepEqual = assert.deepEqual;
+
 
 function getTaskFiles() {
     var userHome = getUserHome();
@@ -101,10 +112,10 @@ function print_r(obj) {
      * Produces a ascending ordered list of nodes by RANK,
      * non ranked nodes, are put at the end of the list
      */
-    var n1 = {"headline": "Test-Node 1", "rank": 0}
-    var n2 = {"headline": "Test-Node 2", "rank": 5}
-    var n3 = {"headline": "Test-Node 3", "rank": 11}
-    var n4 = {"headline": "Test-Node 11", "rank": null}
+    var n1 = {"headline": "Test-Node 1", "rank": 0};
+    var n2 = {"headline": "Test-Node 2", "rank": 5};
+    var n3 = {"headline": "Test-Node 3", "rank": 11};
+    var n4 = {"headline": "Test-Node 11", "rank": null};
     
     
     deepEqual(orderNodesByRank([n1, n2, n3]),
@@ -148,6 +159,41 @@ function hasHigherRank(n1, n2) {
 	}
 }
 
+/**
+ * ListOfNodes -> String
+ * Consumes a list of numbers and produces a string with all task in markdown
+ */
+deepEqual(lonToMarkdown([{"level":1, "headline":"Headline 1"},
+                         {"level":2, "headline":"Headline 2", "todo":"TODO",
+                          "body": "Body for 2", "rank": 10}]),
+                          "# Headline 1\n## TODO Headline 2\nBody for 2\n\nRANK: 10\n");
+                          
+function lonToMarkdown (lon) {
+    var taskString = "";
+    lon.forEach(function(e) {
+       if (e.level === 1) {
+           taskString += "# ";
+       } else if (e.level === 2) {
+           taskString += "## ";
+       }
+       
+       if (e.todo) {
+           taskString += e.todo + " ";
+       }
+       
+       taskString += e.headline  + "\n";
+       
+       if (e.body) {
+           taskString += e.body.trim() + "\n\n";
+       }
+       
+       if (e.rank) {
+           taskString += RANK + e.rank + "\n";
+       }
+    })
+    return taskString;
+}
+
 exports.getTaskFiles = getTaskFiles;
 exports.getUserHome = getUserHome;
 exports.getLiveflow = getLiveflow;
@@ -157,3 +203,4 @@ exports.getProjects = getProjects;
 exports.orderNodesByRank = orderNodesByRank;
 exports.hasHigherRank = hasHigherRank;
 exports.openFile = openFile;
+exports.lonToMarkdown = lonToMarkdown;
