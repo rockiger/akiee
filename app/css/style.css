@@ -139,6 +139,10 @@ table td .glyphicon-chevron-up, .glyphicon-chevron-down, .hover-button {
     color: #54595a;
 }
 
+/* Unfortunately invisibly glyphicons look not good */
+/*table tr:first-child td .glyphicon-chevron-up {display: none;}
+table tr:last-child  td .glyphicon-chevron-down {display: none;}*/
+
 table td .glyphicon-chevron-down {
     padding-left: 8px;
     color: #54595a;

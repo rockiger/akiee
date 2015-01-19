@@ -3,7 +3,7 @@
 var assert = require("assert");
 var enterTask = require("./enterTask");
 var util = require("./util");
-var editor = require("./editor")
+var editor = require("./editor");
 
 /*
  * ==========
@@ -47,6 +47,9 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     if (upOrDown === "up") {
         try {
             var borderRow = currentRow.previousElementSibling;
+            if (borderRow === null) {
+                throw new TypeError("No previous sibling of Element", "updateRank.js", 51);
+            }
         }
         catch (e) {
             console.log("Element ist allready first in Backlog.");
@@ -55,6 +58,9 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     } else {
         try {
             var borderRow = currentRow.nextElementSibling;
+            if (borderRow === null) {
+                throw new TypeError("No next sibling of Element", "updateRank.js", 62);
+            }
         }
         catch (e) {
             console.log("Element ist allready last in Backlog.");
@@ -132,7 +138,8 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     
     //console.log(editorContent);
     
-    editor.setEditorContent(ED, ES, lon)
+    editor.setEditorContent(ED, ES, lon);
+    
     
     // update view 
     showTask(currentState);
