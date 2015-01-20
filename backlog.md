@@ -2,13 +2,6 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## DOING As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
-
-- [X] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
-- ~~[ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?~~
-- ~~[ ] Create tests with PhantomJS for DOM-Manipulation~~
-- [ ] restructure code
-
 ## TODO As a personal kanban user I want to see an overview of all my task, that I 
 better visualize my work
 
@@ -176,3 +169,9 @@ acceptance criteria
 ## DONE As a User I want the buttons to represent the state of Akiee, that I what view I am seeing rigth now.
 
 ## DONE As a user I want to order tasks without ranking yet in the GUI, that I can order them without using the editor
+
+## DONE As a developer I want to refactor Akiee's code, that I don't go insane and can add new features faster ;)
+
+- [X] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
+- ~~[ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?~~
+- ~~[ ] Create tests with PhantomJS for DOM-Manipulation~~
