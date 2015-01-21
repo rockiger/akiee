@@ -2,9 +2,6 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## TODO As a personal kanban user I want to see an overview of all my task, that I 
-better visualize my work
-
 ## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
 
 ## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
@@ -175,3 +172,6 @@ acceptance criteria
 - [X] Remove the dependencies of Ace-Editor for replacing/writing in the task file, instead replace/write in the ListOfNumber-Datastructure and replace the whole editor content.
 - ~~[ ] Remove "module"-pattern in app.js, this is not important in a node-webkit app?~~
 - ~~[ ] Create tests with PhantomJS for DOM-Manipulation~~
+
+## DONE As a personal kanban user I want to see an overview of all my task, that I 
+better visualize my work

@@ -10,31 +10,33 @@ var editor = require("./editor");
  * Constants:
  */
 var RANK = "RANK: ";
+var ALL = "ALL";
 
 /*
  * ==========
  * Globals:
  */
 var deepEqual = assert.deepEqual;
+var $;
 
 /* DomElement EditorSession -> Void
  * set the rank of el one higher
  */
-function upRank(el, ES, ED, showTask, saveFile) {
-    moveRank(el, ES, ED, showTask, saveFile, "up");
+function upRank(el, ES, ED, showTask, saveFile, $) {
+    moveRank(el, ES, ED, showTask, saveFile, $, "up");
 }
 
 /* DomElement EditorSession Editor Function -> Void
  * set the rank of el one lower
  */
-function downRank(el, ES, ED, showTask, saveFile) {
-    moveRank(el, ES, ED, showTask, saveFile, "down");
+function downRank(el, ES, ED, showTask, saveFile, $) {
+    moveRank(el, ES, ED, showTask, saveFile, $, "down");
 }
 
 /* DomElement EditorSession Editor Function String -> Void
  * move the rank of el 
  */
-function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
+function moveRank(el, ES, ED, showTask, saveFile, $, upOrDown) {
     var content = ED.getSession().getValue();
     var lon = util.getNodes(content);
     
@@ -141,7 +143,11 @@ function moveRank(el, ES, ED, showTask, saveFile, upOrDown) {
     editor.setEditorContent(ED, ES, lon);
     
     
-    // update view 
+    // update view
+    if ($("#show-all.active").text().toUpperCase() === ALL) {
+            showTask(ALL);
+            return;
+        }        
     showTask(currentState);
 }
 

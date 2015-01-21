@@ -22,8 +22,8 @@ body {
 
 .nav, .pagination, .carousel a { cursor: pointer; }
 
-table, tbody, tr {width: 100%;}
-table {table-layout: fixed}
+#list, table, tbody, tr {width: 100%;}
+#list {table-layout: fixed}
 #list {overflow-y: auto;}
 
 #list tr:hover {cursor: pointer;}
@@ -31,6 +31,14 @@ table {table-layout: fixed}
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     vertical-align: middle;
+}
+
+.kanban-column {background-color: #ddd;}
+.kanban-column tr {background-color: #fff;}
+.kanban-column td {
+padding: 8px;
+line-height: 1.42857143;
+border-top: 1px solid #ddd;
 }
 
 .todo td {background-color: #d9edf7 !important; color: #31708f}
@@ -44,6 +52,9 @@ td:nth-child(2) { width: 100% }
 tr:hover {background-color: #f2f2f2;}
 
 tr.selected:hover {background-color: #4281c3}
+
+#kanban-row:hover {background-color: transparent; cursor: default;}
+.table > thead > tr > th.kanban-column, .table > tbody > tr > th.kanban-column, .table > tfoot > tr > th.kanban-column, .table > thead > tr > td.kanban-column, .table > tbody > tr > td.kanban-column, .table > tfoot > tr > td.kanban-column {width: 30%; vertical-align: top;}
 
 #enterTaskDiv {background-color: #d6d6d6; margin-top: -10px; padding-bottom: 10px; border-bottom: 1px solid #a1a1a1; display: none; height: 65px;}
 #enterTask {margin-top: 20px;}

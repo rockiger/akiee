@@ -129,7 +129,7 @@ var APP = (function () {
             } else if (e.keyCode === 84 ) { // T
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
-                enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask);
+                enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask, showEditor);
             }
             //console.log(e.keyCode);
         });
@@ -259,9 +259,23 @@ var APP = (function () {
         editor.style.display = "none";
         var content = ED.getSession().getValue();
         var todos = util.orderNodesByRank(util.getNodes(content));
-        insertHtml(makeTodoList(todos, state), "list");
+        
+        if (state === ALL) {
+            var todo = makeTodoList(todos, TODO);
+            var doing = makeTodoList(todos, DOING);
+            var done = makeTodoList(todos, DONE);
+
+            var kanban = '<tr id="kanban-row"><td class="kanban-column"><table>' + todo + 
+                    '</table></td>' + '<td class="kanban-column"><table>' + doing + 
+                    '</table></td>' + '<td class="kanban-column"><table>' + done + 
+                    '</table></td></tr>' ;
+            insertHtml(kanban, "list");
+        } else {
+            insertHtml(makeTodoList(todos, state), "list");
+        }
+        
         list.style.display = "block";
-        shownTaskState = state;
+        //  shownTaskState = state; -> What is this good for
     }
 
     /* String -> Void
@@ -365,7 +379,7 @@ var APP = (function () {
      * Reacts to single clicks on a row
      */
     function onClickState(e) {
-        console.log("State Clicked")
+        console.log("State Clicked");
         var state = e.children[0].innerHTML;
         var headline = e.parentNode.children[1].innerHTML;
         var row = e.parentNode;
@@ -378,7 +392,7 @@ var APP = (function () {
      */
     function onClickUpRank(e, el) {
         e.stopPropagation();
-        updateRank.upRank(el, ES, ED, showTask, saveFile);
+        updateRank.upRank(el, ES, ED, showTask, saveFile, $);
     }
 
     /* Event Element -> Void
@@ -386,7 +400,7 @@ var APP = (function () {
      */
     function onClickDownRank(e, el) {
         e.stopPropagation();
-        updateRank.downRank(el, ES, ED, showTask, saveFile);
+        updateRank.downRank(el, ES, ED, showTask, saveFile, $);
     }
 
     /* Void -> Void## TODO As a task planner I want to add TODO/DONE via keys/shortcut, to easily decide wich headings/list-items are tasks and in which state they are.
@@ -488,6 +502,10 @@ acceptance criteria:
         } else if (state === "DONE") {
             row.childNodes[0].childNodes[0].innerHTML = "TODO";
             var show = showDone;
+        }
+        
+        if ($("#show-all.active").text().toUpperCase() === ALL) {
+            var show = showAll;
         }
         
         $(row).fadeOut(3000, function() {

@@ -19,29 +19,38 @@ var NLC;
 var shownTaskState;
 var deepEqual = assert.deepEqual;
 var reloadTasks;
+var reloadEditor;
+
+/*
+ * =========
+ * Constants:
+ */
+
+var ALL = "ALL";
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and toggles the entry task field
  */
-function toggleTaskEntry(jquery, editorSession, editor, currentTaskState, showTask) {
+function toggleTaskEntry(jquery, editorSession, editor, currentTaskState, showTask, showEditor) {
     $ = jquery;
     if ($("#show-enterTask").hasClass("active")) {
         cancelTaskEntry(jquery);
     } else {
-        openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask);
+        openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask, showEditor);
     }
 }
 
 /* Function(jquery) Object Object -> Task
  * Consumes jquery-object, editor-session, the document and opens up an entry field to insert a new task, produces the task
  */
-function openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask) {
+function openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask, showEditor) {
     $ = jquery;
     ES = editorSession;
     ED = editor;
     NLC = ES.getDocument().getNewLineCharacter();
     shownTaskState = currentTaskState;
     reloadTasks = showTask;
+    reloadEditor = showEditor;
     var content = ES.getValue();
     var projects = util.getProjects(util.getNodes(content));
     var enterTaskDiv = $('#enterTaskDiv');
@@ -104,6 +113,21 @@ function submitTask(e) {
     var emptyListImage = $(".empty-list-image").contents();
     if (emptyListImage !== []) {
 		var state = $("#taskbuttons .active").text().toUpperCase();
+                if (state.length === 0) {
+                    state = $("#show-all.active").text().toUpperCase();
+                    if (state.length !== 0) {
+                        reloadTasks(ALL);
+                        cancelTaskEntry($);
+                        return false;
+                    } else {
+                        state =  $("#show-editor.active").text().toUpperCase();
+                        if (state.length !== 0) {
+                            reloadEditor();
+                            cancelTaskEntry($);
+                            return false;
+                        }
+                    }
+                }
 		reloadTasks(state);
 	}
 	
