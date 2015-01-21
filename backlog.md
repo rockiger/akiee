@@ -30,7 +30,7 @@ acceptance criteria:
 - [ ] Agenda-View should always updated when it's shown
 
 
-## As a User I want to add recurring task, that I can track task, that I have to do often.
+## TODO As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
 
 ## TODO As A User I want the the details of a task when I klick on it, that I can see notes I did to finish it.
@@ -48,10 +48,12 @@ acceptance criteria
 
 acceptance criteria:
 
-- [X] reload all task if files is changed
+- [ ] reload all task if files is changed
 - [ ] Offer a file dialog to choose the path of the liveflow-file
 
 ## TODO As a user I want to keep notes (not tasks), that I want to keep for future reference, that I can remember important information.
+
+## TODO AS a user I want that Akiee restores the state right where I left it, that I can pick up my work where I left it.
 
 ## DONE As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
