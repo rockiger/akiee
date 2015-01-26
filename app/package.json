@@ -13,7 +13,7 @@
         "height": 600,
         "resizable": true,
         "show": true,
-	      "frame": true
+        "frame": true
     },
     "maintainers":[
         {
