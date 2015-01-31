@@ -156,24 +156,27 @@ var APP = (function () {
         return editor;
     }
 
-    /* ListOfNodes -> String
-     * produces the HTML from a ListOfNodes lon
+    /* ListOfNodes State ListOfNumbers -> String
+     * consumes a ordered ListOfNumbers, the unordered ListOfNumber and the state of the task list
+     * produces a string with the corresponding HTML 
      */
     deepEqual("","", "makeTodoList");
     var LON = [{"todo": 'TODO', "headline":"Bla bla bla"}, {"todo": 'DONE', "headline":"Blub blub blub"}, {"todo": 'TODO', "headline":"Bli bli bli"}, {"todo": 'DOING', "headline":"This is the string for what is now"}];
 
-    function makeTodoList(lon, state) {
+    function makeTodoList(lon, state, lun) {
         if (lon.length === 0) {
             return "";
         }
         if (state === ALL && lon[0].todo !== null) {
-        return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline) + makeTodoList(lon.slice(1), state));
+            var project = util.projectOf(lun, lon[0].headline);
+            return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project) + makeTodoList(lon.slice(1), state, lun));
         }
         else {
             if (lon[0].todo === state) {
-                return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline) + makeTodoList(lon.slice(1), state));
+                var project = util.projectOf(lun, lon[0].headline);
+                return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project) + makeTodoList(lon.slice(1), state, lun));
             } else {
-                return makeTodoList(lon.slice(1), state);
+                return makeTodoList(lon.slice(1), state, lun);
             }
 
         }
@@ -258,12 +261,15 @@ var APP = (function () {
         var list = document.getElementById("list");
         editor.style.display = "none";
         var content = ED.getSession().getValue();
+        var nodes = util.getNodes(content);
+        // Don't use nodes as attribut, cause orderNodesByRank will mutate nodes
+        // Caused my fuckin' headache to find, fuck immutability
         var todos = util.orderNodesByRank(util.getNodes(content));
         
         if (state === ALL) {
-            var todo = makeTodoList(todos, TODO);
-            var doing = makeTodoList(todos, DOING);
-            var done = makeTodoList(todos, DONE);
+            var todo = makeTodoList(todos, TODO, nodes);
+            var doing = makeTodoList(todos, DOING, nodes);
+            var done = makeTodoList(todos, DONE, nodes);
 
             var kanban = '<tr id="kanban-row"><td class="kanban-column"><table>' + todo + 
                     '</table></td>' + '<td class="kanban-column"><table>' + doing + 
@@ -271,7 +277,7 @@ var APP = (function () {
                     '</table></td></tr>' ;
             insertHtml(kanban, "list");
         } else {
-            insertHtml(makeTodoList(todos, state), "list");
+            insertHtml(makeTodoList(todos, state, nodes), "list");
         }
         
         list.style.display = "block";
@@ -381,7 +387,7 @@ var APP = (function () {
     function onClickState(e) {
         console.log("State Clicked");
         var state = e.children[0].innerHTML;
-        var headline = e.parentNode.children[1].innerHTML;
+        var headline = htmlUtil.headlineOfElement(e);
         var row = e.parentNode;
         changeStateInTable(row, state);
         advanceStateInFile(headline, state);

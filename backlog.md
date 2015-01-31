@@ -2,9 +2,7 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## TODO As a user I want to know the parent node of a task, that I know to which project this task belongs.
-
-## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them
+## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them;
 - [ ] Due Mark is recognised by the markdown theme and based on org-modes
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>
 - [ ] Entry field allows to set date
@@ -16,7 +14,7 @@ acceptance criteria:
 - [ ] Filterbox
 - [ ] uses all important information: body, Parent node, date, etc.
 
-## TODO As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
+## TODO As a user I want to filter my currrent list for project, that I can concentrate on one.
 
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
 - [ ] Agenda View shows all tasks or Doings
@@ -177,3 +175,7 @@ acceptance criteria
 
 ## DONE As a personal kanban user I want to see an overview of all my task, that I 
 better visualize my work
+
+## DONE As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
+
+## DONE As a user I want to know the project node of a task, that I know to which project this task belongs.

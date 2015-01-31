@@ -20,13 +20,12 @@ body {
         right: 0;
     }
 
-.nav, .pagination, .carousel a { cursor: pointer; }
+.nav, .pagination, .carousel a, .hover-button {cursor: pointer; }
 
 #list, table, tbody, tr {width: 100%;}
 #list {table-layout: fixed}
 #list {overflow-y: auto;}
 
-#list tr:hover {cursor: pointer;}
 #list:focus {outline: none;}
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
@@ -64,6 +63,9 @@ tr.selected:hover {background-color: #4281c3}
     overflow: hidden;
     height: 100%;
 }
+
+.project-tag {font-weight: normal; color: #4281c3; padding-left:0px}
+tr.selected:hover .project-tag {color: #729FCF;}
 
 /* Bootstrap-Theme Overide */
 
