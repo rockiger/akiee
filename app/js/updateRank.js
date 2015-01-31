@@ -41,7 +41,7 @@ function moveRank(el, ES, ED, showTask, saveFile, $, upOrDown) {
     var lon = util.getNodes(content);
     
     var currentRow = el.parentNode;
-    var currentHeadline = currentRow.children[1].innerHTML;
+    var currentHeadline = currentRow.children[1].children[1].innerHTML;
     var currentState = currentRow.children[0].children[0].innerHTML;
     var currentNode = nodeWithHeadline(lon, currentHeadline, currentState);
     var currentRank = parseInt(currentNode.rank);
@@ -76,7 +76,7 @@ function moveRank(el, ES, ED, showTask, saveFile, $, upOrDown) {
         return;
     }
     
-    var borderHeadline = borderRow.children[1].innerHTML;
+    var borderHeadline = borderRow.children[1].children[1].innerHTML;
     var borderNode = nodeWithHeadline(lon, borderHeadline, borderState);
     var borderRank = parseInt(borderNode.rank);
     

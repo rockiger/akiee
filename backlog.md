@@ -27,6 +27,8 @@ acceptance criteria:
 - [ ] There is a Shortcut for the Agenda View
 - [ ] Agenda-View should always updated when it's shown
 
+## TODO As a (kanban) user I want to have the DONE state ordered by time in reverse, that I can see what I finished last
+
 
 ## TODO As a User I want to add recurring task, that I can track task, that I have to do often.
 - [ ] Define the interval at which the task is recurring
