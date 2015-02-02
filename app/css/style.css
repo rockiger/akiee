@@ -65,6 +65,7 @@ tr.selected:hover {background-color: #4281c3}
 }
 
 .project-tag {font-weight: normal; color: #4281c3; padding-left:0px}
+.deadline {font-weight: normal; float: right; color: #ccc; padding-top: 7px;}
 tr.selected:hover .project-tag {color: #729FCF;}
 
 /* Bootstrap-Theme Overide */
