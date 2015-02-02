@@ -20,6 +20,8 @@ body {
         right: 0;
     }
 
+#list {top:174px}
+
 .nav, .pagination, .carousel a, .hover-button {cursor: pointer; }
 
 #list, table, tbody, tr {width: 100%;}
@@ -55,9 +57,13 @@ tr.selected:hover {background-color: #4281c3}
 #kanban-row:hover {background-color: transparent; cursor: default;}
 .table > thead > tr > th.kanban-column, .table > tbody > tr > th.kanban-column, .table > tfoot > tr > th.kanban-column, .table > thead > tr > td.kanban-column, .table > tbody > tr > td.kanban-column, .table > tfoot > tr > td.kanban-column {width: 30%; vertical-align: top;}
 
-#enterTaskDiv {background-color: #d6d6d6; margin-top: -10px; padding-bottom: 10px; border-bottom: 1px solid #a1a1a1; display: none; height: 65px;}
-#enterTask {margin-top: 20px;}
+#enterTaskDiv, #search-form {background-color: #d6d6d6; margin-top: -10px; padding-bottom: 10px; border-bottom: 1px solid #a1a1a1; display: none; height: 65px;}
+#enterTask, #search-form .row {margin-top: 20px;}
 #enterTask div {padding-right: 0;}
+
+#search-form {display: block;}
+#search-input {padding-left: 30px;}
+#search-input-icon {position: absolute; left:0px; padding: 8px 27px;}
 
 .empty-list-image {
     overflow: hidden;
