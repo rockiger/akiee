@@ -38,7 +38,6 @@
         </div>
       </div>
     </nav>
-    <div id="editor"></div>
     <div id="enterTaskDiv" class="container-fluid"><form id="enterTask" class="row">
       <div class="col-xs-5">
         <input type="text" class="form-control" id="enterHeadline" placeholder="Enter Headline">
@@ -59,6 +58,15 @@
         <button type="button" class="btn btn-link" id="cancel-enterTask">Cancel</button>
       </div>
     </form></div>
+    <div id="search-form" class="container-fluid">
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+            <input type="text" class="form-control" id="search-input">
+            <span id="search-input-icon" class="glyphicon glyphicon-search"></span>
+        </div>
+      </div>
+    </div>
+    <div id="editor"></div>
     <table id="list" class="table" tabindex="1">
     </table>
     <script>
