@@ -8,7 +8,7 @@ var APP = (function () {
     var htmlUtil = require("./js/htmlUtil");
     var updateRank = require("./js/updateRank");
     var editor = require("./js/editor");
-    //var findTask = require("./js/findTask")
+    var findTask = require("./js/findTask");
 
     /*
      * Akiee - a  Markdown alternative to Emacs Org-mode
@@ -106,6 +106,17 @@ var APP = (function () {
             e.stopPropagation();
         });
 
+        var showSearchButton = document.getElementById("show-searchbox");
+        showSearchButton.onclick = function () {findTask.toggleSearchBox($);};
+        
+        var searchForm = document.getElementById("search-input");
+        searchForm.addEventListener('keyup', function (e) {
+            if (e.keyCode === 27) {
+                findTask.cancelSearchBox($);
+                }
+            e.stopPropagation();
+        });
+
         document.addEventListener('keyup', function (e) {
             if (e.keyCode === 32 && e.ctrlKey) { // CTRL + Space
                 toggleTasks();
@@ -135,7 +146,7 @@ var APP = (function () {
                 console.log($);
                 findTask.toggleSearchBox($);
             }
-            console.log(e.keyCode);
+            //console.log(e.keyCode);
         });
         
         $('#search-input').keyup(function () {
