@@ -20,8 +20,6 @@ body {
         right: 0;
     }
 
-#list {top:174px}
-
 .nav, .pagination, .carousel a, .hover-button {cursor: pointer; }
 
 #list, table, tbody, tr {width: 100%;}
@@ -61,7 +59,6 @@ tr.selected:hover {background-color: #4281c3}
 #enterTask, #search-form .row {margin-top: 20px;}
 #enterTask div {padding-right: 0;}
 
-#search-form {display: block;}
 #search-input {padding-left: 30px;}
 #search-input-icon {position: absolute; left:0px; padding: 8px 27px;}
 
