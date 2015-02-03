@@ -8,6 +8,7 @@ var APP = (function () {
     var htmlUtil = require("./js/htmlUtil");
     var updateRank = require("./js/updateRank");
     var editor = require("./js/editor");
+    //var findTask = require("./js/findTask")
 
     /*
      * Akiee - a  Markdown alternative to Emacs Org-mode
@@ -130,9 +131,22 @@ var APP = (function () {
                 doingState();
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
                 enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask, showEditor);
+            } else if (e.keyCode === 70 && e.ctrlKey) { // CTRL + f
+                console.log($);
+                findTask.toggleSearchBox($);
             }
-            //console.log(e.keyCode);
+            console.log(e.keyCode);
         });
+        
+        $('#search-input').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('#list tr').hide();
+            $('#list tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
     }
 
     /*
@@ -169,12 +183,15 @@ var APP = (function () {
         }
         if (state === ALL && lon[0].todo !== null) {
             var project = util.projectOf(lun, lon[0].headline);
-            return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project) + makeTodoList(lon.slice(1), state, lun));
+            return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project, lon[0].deadline) + makeTodoList(lon.slice(1), state, lun));
         }
         else {
             if (lon[0].todo === state) {
                 var project = util.projectOf(lun, lon[0].headline);
-                return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project) + makeTodoList(lon.slice(1), state, lun));
+                if (lon[0].deadline) {
+                    LW.deadline = lon[0].deadline;
+                }
+                return (htmlUtil.htmlForTodoListRow(lon[0].todo, lon[0].headline, project, lon[0].deadline) + makeTodoList(lon.slice(1), state, lun));
             } else {
                 return makeTodoList(lon.slice(1), state, lun);
             }
@@ -703,6 +720,7 @@ acceptance criteria:
     function equalNode(el1, el2) {
         return el1.isEqualNode(el2);
     }
+    
     main();
 
 })();
