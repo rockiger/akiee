@@ -11,6 +11,7 @@ var assert = require("assert");
  */
 var RANK = "RANK: ";
 var DEFPRO = "Inbox"; // default project
+var DEADLINE = "DEADLINE: ";
 
 /*
  * ==========
@@ -182,6 +183,12 @@ function lonToMarkdown (lon) {
        
        if (e.body) {
            taskString += e.body.trim() + "\n\n";
+       }
+       
+       if (e.deadline) {
+           taskString += DEADLINE + "<" + String(e.deadline.getFullYear()) + "-" + 
+                   String(e.deadline.getMonth()) + "-" + String(e.deadline.getDate()) +
+                   "> \n";
        }
        
        if (e.rank) {
