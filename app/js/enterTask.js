@@ -102,13 +102,12 @@ function submitTask(e) {
     var taskProject = $(this).find('#enterTaskProject').val();
     var taskHeadline = $(this).find('#enterHeadline').val();
     var taskStatus = $(this).find('#enterTaskStatus').val();
-    var taskDate = $(this).find('#enterDate').val();
 
     if (taskHeadline !== '') {
         var project = findProject(taskProject);
         var endOfProject = findEndOfProject(project);
         var taskRank = rankOfNewTask(ED.getSession().getValue());
-        writeTask(endOfProject, taskStatus, taskHeadline, taskRank, taskDate);
+        writeTask(endOfProject, taskStatus, taskHeadline, taskRank);
         //addTaskToList(taskStatus, taskHeadline, taskProject, taskDate);
     }
 
@@ -190,8 +189,7 @@ function getFileEndPosition() {
  * Consumes position, status and headline of a new task and produces an entry in the editor
  */
  function writeTask(pos, status, headline, rank, deadline) {
-    var dl = (deadline) ? "\nDEADLINE: <" + deadline + ">" : "";
-    ES.insert(pos, "## " + status + " " + headline + dl + "\nRANK: " + rank);
+    ES.insert(pos, "## " + status + " " + headline + "\nRANK: " + rank);
     var currentPos = ED.getCursorPosition();
     var endOfFile = getFileEndPosition();
     if (JSON.stringify(currentPos) === JSON.stringify(endOfFile)) {
