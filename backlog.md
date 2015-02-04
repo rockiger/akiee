@@ -7,13 +7,6 @@
 - [ ] DEADLINE: <2013-08-24 Sa 11:00>
 - [ ] Entry field allows to set date
 
-## TODO As a user I want to be able to search for a task in a certain task view, that I can find task that I entered a while ago.
-
-acceptance criteria:
-
-- [ ] Filterbox
-- [ ] uses all important information: body, Parent node, date, etc.
-
 ## TODO As a user I want to filter my currrent list for project, that I can concentrate on one.
 
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
@@ -181,3 +174,10 @@ better visualize my work
 ## DONE As a experienced kanban user I want to have a Kanbanboard, that I can visualize my work.
 
 ## DONE As a user I want to know the project node of a task, that I know to which project this task belongs.
+
+## DONE As a user I want to be able to search for a task in a certain task view, that I can find task that I entered a while ago.
+
+acceptance criteria:
+
+- [X] Filterbox
+- [X] uses all important information: body, Parent node, date, etc.

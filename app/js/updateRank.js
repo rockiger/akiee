@@ -11,6 +11,8 @@ var editor = require("./editor");
  */
 var RANK = "RANK: ";
 var ALL = "ALL";
+var DEADLINE = "DEADLINE: ";
+var WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /*
  * ==========
@@ -110,35 +112,6 @@ function moveRank(el, ES, ED, showTask, saveFile, $, upOrDown) {
             });     
     }
     currentNode.rank = borderRank;
-    
-    //console.log(currentRank);
-    //console.log(borderRank);
-    //console.log(lon);
-    
-    var editorContent = "";
-    lon.forEach(function(e) {
-       if (e.level === 1) {
-           editorContent += "# ";
-       } else if (e.level === 2) {
-           editorContent += "## ";
-       }
-       
-       if (e.todo) {
-           editorContent += e.todo + " ";
-       }
-       
-       editorContent += e.headline  + "\n";
-       
-       if (e.body) {
-           editorContent += e.body.trim() + "\n\n";
-       }
-       
-       if (e.rank) {
-           editorContent += RANK + e.rank + "\n";
-       }
-    });
-    
-    //console.log(editorContent);
     
     editor.setEditorContent(ED, ES, lon);
     
