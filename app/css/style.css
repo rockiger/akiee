@@ -130,10 +130,10 @@ tr.selected:hover .project-tag {color: #729FCF;}
     transition: all 200ms ease-out;
 }
 
-.btn-square, .btn-square:hover, .btn-square.active, .btn-square.active:hover, .btn-square:active, .btn-square:hover:active, btn-squre:focus {
+.btn-square, .btn-square:hover, .btn-square.active, .btn-square.active:hover, .btn-square:active, .btn-square:hover:active, btn-square:focus {
     padding: 8px 8px 8px 10px !important;
     font-size: 13px !important;
-    margin-left: 6px;
+    margin-left: 6px !important;
 }
 
 *:before {
