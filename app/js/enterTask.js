@@ -57,8 +57,9 @@ function openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask
     var enterTask = $('#enterTask');
     var enterTaskProject = $('#enterTaskProject');
     var enterHeadline = $('#enterHeadline');
+    var enterDate = $('#enterDate');
     var enterTaskButton = $('#show-enterTask');
-    
+
     enterTaskProject.html("<option>Inbox</option>\n" + buildOptions(projects));
     enterTask.submit(submitTask);
     $('#list').animate({ top: "107px" }, DURATION);
@@ -86,7 +87,7 @@ function cancelTaskEntry($) {
     var enterTask = $('#enterTask');
     var enterHeadline = $('#enterHeadline');
     var enterTaskButton = $('#show-enterTask');
-    
+
     enterHeadline.val("");
     enterTaskDiv.slideUp(DURATION);
     $('#list').animate({ top: "52px" }, DURATION);
@@ -97,19 +98,21 @@ function cancelTaskEntry($) {
  * consumes the form and is reponsible for the handling of a submited task
  */
 function submitTask(e) {
-    
+
     var taskProject = $(this).find('#enterTaskProject').val();
     var taskHeadline = $(this).find('#enterHeadline').val();
     var taskStatus = $(this).find('#enterTaskStatus').val();
-    
+    var taskDate = $(this).find('#enterDate').val();
+
     if (taskHeadline !== '') {
         var project = findProject(taskProject);
         var endOfProject = findEndOfProject(project);
         var taskRank = rankOfNewTask(ED.getSession().getValue());
-        writeTask(endOfProject, taskStatus, taskHeadline, taskRank);
-        addTaskToList(taskStatus, taskHeadline);
+        writeTask(endOfProject, taskStatus, taskHeadline, taskRank, taskDate);
+        //addTaskToList(taskStatus, taskHeadline, taskProject, taskDate);
     }
-    
+
+    // TODO: Refactor to function
     var emptyListImage = $(".empty-list-image").contents();
     if (emptyListImage !== []) {
 		var state = $("#taskbuttons .active").text().toUpperCase();
@@ -130,8 +133,8 @@ function submitTask(e) {
                 }
 		reloadTasks(state);
 	}
-	
-    
+
+
     cancelTaskEntry($);
     return false; //prevent form from redirect.
 }
@@ -186,8 +189,9 @@ function getFileEndPosition() {
 /* Position, String String -> Void
  * Consumes position, status and headline of a new task and produces an entry in the editor
  */
- function writeTask(pos, status, headline, rank) {
-    ES.insert(pos, "## " + status + " " + headline + "\nRANK: " + rank);
+ function writeTask(pos, status, headline, rank, deadline) {
+    var dl = (deadline) ? "\nDEADLINE: <" + deadline + ">" : "";
+    ES.insert(pos, "## " + status + " " + headline + dl + "\nRANK: " + rank);
     var currentPos = ED.getCursorPosition();
     var endOfFile = getFileEndPosition();
     if (JSON.stringify(currentPos) === JSON.stringify(endOfFile)) {
@@ -197,16 +201,17 @@ function getFileEndPosition() {
         ES.insert(currentPos, NLC);
     }
  }
- 
+
  /* TaskState String -> Void
   * Consumes Taskstate and adds the task to the current task list if the state matches the curren shown task state
   */
- function addTaskToList(taskState, headline) {
+ function addTaskToList(taskState, headline, project, deadline) {
     if (taskState === shownTaskState) {
-        $("#list").append(htmlUtil.htmlForTodoListRow(taskState, headline));
+        $("#list").append(htmlUtil.htmlForTodoListRow(taskState, headline,
+                          deadline, project));
     }
  }
- 
+
  /* String -> Rank
   * Returns the rank for a new task, which is +1 of the highest rank in the content
   */
