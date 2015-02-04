@@ -2,40 +2,11 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## TODO As a task planner I want to add due markers to a task, that I know when I have to finish them;
-- [ ] Due Mark is recognised by the markdown theme and based on org-modes
-- [ ] DEADLINE: <2013-08-24 Sa 11:00>
-- [ ] Entry field allows to set date
-
-## TODO As a user I want to filter my currrent list for project, that I can concentrate on one.
-
-## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
-- [ ] Agenda View shows all tasks or Doings
-  - [ ] Define Model, based on org-mode-parser-nodes
-- [ ] Agenda View shows a Timetable for Today
-  - [ ] Agenda View is based on Org-Mode's
-- [ ] Toggle Button should be Bootstrap, for nice design
-- [ ] Editor should have focus after it is shown
-- [ ] There is a Menu entry for Agenda Views
-- [ ] There is a Shortcut for the Agenda View
-- [ ] Agenda-View should always updated when it's shown
-
 ## TODO As a (kanban) user I want to have the DONE state ordered by time in reverse, that I can see what I finished last
-
-
-## TODO As a User I want to add recurring task, that I can track task, that I have to do often.
-- [ ] Define the interval at which the task is recurring
 
 ## TODO As A User I want the the details of a task when I klick on it, that I can see notes I did to finish it.
 
 - [ ] Two possibilities 1. New Window,Tab with Deteils. 2. Preview like in Geary, tbd.
-
-## TODO As a person who plans a FUTURE task, I want to add a DOING-date (scheduled) for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
-
-acceptance criteria
-
-- [ ] choose a DOING-date in the entry field
-- [ ] jumps (only) from TODO to DOING on the given date
 
 ## TODO As a User I want to syncronize my tasks via dropbox and similar services, that I can add tasks from every computer I have access to.
 
@@ -47,6 +18,33 @@ acceptance criteria:
 ## TODO As a user I want to keep notes (not tasks), that I want to keep for future reference, that I can remember important information.
 
 ## TODO AS a user I want that Akiee restores the state right where I left it, that I can pick up my work where I left it.
+
+## TODO As a User I want to have an intelligent Entry-Box for the a new task, that I can add important meta information like due date, projecet, etc. easily.
+
+## TODO As a User I want to add recurring task, that I can track task, that I have to do often.
+- [ ] Define the interval at which the task is recurring
+
+
+## TODO As a user I want to filter my currrent list for project, that I can concentrate on one.
+
+## TODO As a person who plans a FUTURE task, I want to add a DOING-date (scheduled) for a task, that I can forget about tasks that have no urgency right now, but will be in my DOING's when I need them.
+
+acceptance criteria
+
+- [ ] choose a DOING-date in the entry field
+- [ ] jumps (only) from TODO to DOING on the given date
+
+
+## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
+- [ ] Agenda View shows all tasks or Doings
+  - [ ] Define Model, based on org-mode-parser-nodes
+- [ ] Agenda View shows a Timetable for Today
+  - [ ] Agenda View is based on Org-Mode's
+- [ ] Toggle Button should be Bootstrap, for nice design
+- [ ] Editor should have focus after it is shown
+- [ ] There is a Menu entry for Agenda Views
+- [ ] There is a Shortcut for the Agenda View
+- [ ] Agenda-View should always updated when it's shown
 
 ## DONE As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
@@ -181,3 +179,8 @@ acceptance criteria:
 
 - [X] Filterbox
 - [X] uses all important information: body, Parent node, date, etc.
+
+## DONE As a task planner I want to add due markers to a task, that I know when I have to finish them;
+- [X] Due Mark is recognised by the markdown theme and based on org-modes
+- [X] DEADLINE: <2013-08-24 Sa 11:00>
+- ~~[ ] Entry field allows to set date~~ this is just to ugly right now
