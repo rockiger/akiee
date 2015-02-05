@@ -128,7 +128,7 @@ var APP = (function () {
                 showDone();
             } else if ((e.keyCode === 52 || e.keyCode === 100) && e.ctrlKey) { // CTRL + 4
                 showAll();
-            } else if ((e.keyCode === 53 || e.keyCode === 101) && e.ctrlKey) { // CTRL + 5
+            } else if ((e.keyCode === 69 || e.keyCode === 101) && e.ctrlKey) { // CTRL + E
                 showEditor();
             } else if ((e.keyCode === 40 || e.keyCode === 74) ) { // DOWN / J
                 selectNext();
@@ -242,6 +242,8 @@ var APP = (function () {
     function showEditor() {
         if ($("#show-enterTask").hasClass("active")) {
             enterTask.cancelTaskEntry($);
+        } else if ($("#show-searchbox").hasClass("active")) {
+            findTask.cancelSearchBox($);
         }
         var editor = document.getElementById("editor");
         var list   = document.getElementById("list");
@@ -320,6 +322,7 @@ var APP = (function () {
      */
     function toggleActiveClass(elementId) {
         $('.btn-state').removeClass("active");
+        $('#show-editor').removeClass("active");
         $(elementId).addClass("active");
     }
 

@@ -35,6 +35,8 @@ function toggleTaskEntry(jquery, editorSession, editor, currentTaskState, showTa
     $ = jquery;
     if ($("#show-enterTask").hasClass("active")) {
         cancelTaskEntry(jquery);
+    } else if ($("#show-editor").hasClass("active")) {
+       return "";
     } else {
         openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask, showEditor);
     }

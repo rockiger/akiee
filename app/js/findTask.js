@@ -24,6 +24,8 @@ function toggleSearchBox(jquery) {
    if($("#show-searchbox").hasClass("active")) {
         console.log("cancelSearchBox");
         cancelSearchBox(jquery);
+   } else if ($("#show-editor").hasClass("active")) {
+       return "";
    } else {
         console.log("openSearchBox");
         openSearchBox(jquery);
