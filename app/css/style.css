@@ -80,7 +80,7 @@ tr.selected:hover .project-tag {color: #729FCF;}
     box-shadow: inset 0 1px white, 0 1px white;
     margin-left: 3px;
     font-size: 16px;
-    line-height: 16px;
+    line-height: 14px;
 }
 
 .btn:focus, .btn:focus:active, .btn.active:focus, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus {
