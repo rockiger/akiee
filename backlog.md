@@ -17,6 +17,8 @@ acceptance criteria:
 
 ## TODO As a user I want to keep notes (not tasks), that I want to keep for future reference, that I can remember important information.
 
+## TODO As a user I want to change the ranking/order of a task via drag and drop, that I can less cumberstone with ranking.
+
 ## TODO AS a user I want that Akiee restores the state right where I left it, that I can pick up my work where I left it.
 
 ## TODO As a User I want to have an intelligent Entry-Box for the a new task, that I can add important meta information like due date, projecet, etc. easily.
