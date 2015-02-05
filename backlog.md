@@ -2,6 +2,13 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
+## TODO As a Gnome3 user, I want better integration, that the app feels more native to me.
+
+acceptance criteria:
+
+- [ ] use adwaita icons instead of glyphicons
+- [ ] try to simulate gtk-headerbar with borderless window
+
 ## TODO As a (kanban) user I want to have the DONE state ordered by time in reverse, that I can see what I finished last
 
 ## TODO As A User I want the the details of a task when I klick on it, that I can see notes I did to finish it.
