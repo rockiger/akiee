@@ -96,7 +96,6 @@ tr.selected:hover .project-tag {color: #729FCF;}
     color: #2e3436;
     box-shadow: none;
     font-size: 16px;
-    line-height: 16px;
 }
 .navbar-default {
     background-color: #ededed;
