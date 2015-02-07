@@ -90,7 +90,7 @@ var APP = (function () {
         doneButton.onclick = showDone;
 
         var editorButton = document.getElementById("show-editor");
-        editorButton.onclick = showEditor;
+        editorButton.onclick = toggleTasks;
 
         var enterTaskButton = document.getElementById("show-enterTask");
         enterTaskButton.onclick = function () {enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask);};
@@ -157,7 +157,7 @@ var APP = (function () {
                 return rex.test($(this).text());
             }).show();
 
-        })
+        });
     }
 
     /*
@@ -235,7 +235,7 @@ var APP = (function () {
             showEditor();
         }
     }
-
+    
     /*  ->
      *  shows the editor
      */
