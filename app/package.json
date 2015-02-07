@@ -11,6 +11,8 @@
         "position": "center",
         "width": 800,
         "height": 600,
+        "min_width": 540,
+        "min_height": 150,
         "resizable": true,
         "show": true,
         "frame": true
