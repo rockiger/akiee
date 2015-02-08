@@ -11,7 +11,7 @@ var assert = require("assert");
  * ==========
  * Globals:
  */
-var deepEqual = assert.deepEqual;
+var deepEqual = function () {}; //assert.deepEqual;
 
 /*
  * State String String -> String

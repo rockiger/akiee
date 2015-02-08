@@ -17,7 +17,7 @@ var DEADLINE = "DEADLINE: ";
  * ==========
  * Globals:
  */
-var deepEqual = assert.deepEqual;
+var deepEqual = function () {}; //assert.deepEqual;
 
 
 function getTaskFiles() {

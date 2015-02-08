@@ -35,7 +35,7 @@ var APP = (function () {
      * ==========
      * Globals:
      */
-    var deepEqual = assert.deepEqual;
+    var deepEqual = function () {}; //assert.deepEqual;
     var hasChanged = false;
     var currentFile;
     LW.onClickState = onClickState;
