@@ -11,7 +11,13 @@ cp akiee ./dist/Akiee/linux-x64/
 
 # create archives for download
 cd ./dist/Akiee/
-tar -zcvf akiee-0.0.2-linux64.tar.gz linux-x64/
-tar -zcvf akiee-0.0.2-linux32.tar.gz linux-x32/
-zip -r akiee-0.0.2-osx.zip mac-x64/
-zip -r akiee-0.0.2-win.zip windows-x64/
+
+mv linux-x64/ akiee-0.0.2-linux-x64/
+mv linux-x32/ akiee-0.0.2-linux-x32/
+mv mac-x64/ akiee-0.0.2-mac-x64/
+mv windows-x64/ akiee-0.0.2-windows-x64/
+
+tar -zcvf akiee-0.0.2-linux64.tar.gz akiee-0.0.2-linux-x64/
+tar -zcvf akiee-0.0.2-linux32.tar.gz akiee-0.0.2-linux-x32/
+zip -r akiee-0.0.2-osx.zip akiee-0.0.2-mac-x64/
+zip -r akiee-0.0.2-win.zip akiee-0.0.2-windows-x64/
