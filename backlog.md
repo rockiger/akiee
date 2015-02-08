@@ -2,6 +2,8 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
+## BUG Search- and Entry-Box can both be open at the same time.
+
 ## TODO As a new Akiee user, I want a some help what to do next, that I don't to guess what features could be usefull to me.
 
 acceptance criteria:
