@@ -229,12 +229,16 @@ deepEqual(projectOf(lon1, "Kuendigung ebuero"), "Rockiger");
 
 function projectOf(lon, headline) {
     function projectOfHelper(lon, headline, project) {
-        if (lon[0].headline === headline || lon.length === 0) {
-            return project;
-        } else if (parseInt(lon[0].level) === 1) {
-            return projectOfHelper(lon.slice(1), headline, lon[0].headline);
-        } else {
-            return projectOfHelper(lon.slice(1), headline, project);
+        try {
+            if (lon[0].headline === headline || lon.length === 0) {
+                return project;
+            } else if (parseInt(lon[0].level) === 1) {
+                return projectOfHelper(lon.slice(1), headline, lon[0].headline);
+            } else {
+                return projectOfHelper(lon.slice(1), headline, project);
+            }
+        } catch (error) {
+            console.log(String(error));
         }
     }
     return projectOfHelper(lon,headline, DEFPRO);

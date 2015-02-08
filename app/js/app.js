@@ -129,7 +129,7 @@ var APP = (function () {
             } else if ((e.keyCode === 52 || e.keyCode === 100) && e.ctrlKey) { // CTRL + 4
                 showAll();
             } else if ((e.keyCode === 69 || e.keyCode === 101) && e.ctrlKey) { // CTRL + E
-                showEditor();
+                toggleTasks();
             } else if ((e.keyCode === 40 || e.keyCode === 74) ) { // DOWN / J
                 selectNext();
             } else if ((e.keyCode === 38 || e.keyCode === 75) ) { // UP / K
@@ -143,7 +143,6 @@ var APP = (function () {
             } else if (e.keyCode === 13 && e.ctrlKey) { // ENTER + CTRL
                 enterTask.toggleTaskEntry($, ES, ED, shownTaskState, showTask, showEditor);
             } else if (e.keyCode === 70 && e.ctrlKey) { // CTRL + f
-                console.log($);
                 findTask.toggleSearchBox($);
             }
             //console.log(e.keyCode);
@@ -214,8 +213,9 @@ var APP = (function () {
     /* String -> undefined
      * insert the html in the elautomatic semicolon intellij
      */
+    var emptyBoardHtml = '<tr id="kanban-row"><td class="kanban-column"><table></table></td><td class="kanban-column"><table></table></td><td class="kanban-column"><table></table></td></tr>'
     function insertHtml(html, el) {
-        if (html === "") {
+        if (html === "" || html === emptyBoardHtml) {
             html = getEmptyImage();
         }
         var tag = document.getElementById(el);
@@ -686,7 +686,7 @@ acceptance criteria:
         var doings = makeTodoList(tasks, "DOING");
         var dones = makeTodoList(tasks, "DONE");
         var state = $("#taskbuttons .active").text().toUpperCase();
-        var html = makeEmptyImageHtml(todos, doings, dones, state);
+        var html = makeEmptyHtml(todos, doings, dones, state);
         return html;
     }
 
@@ -698,23 +698,23 @@ acceptance criteria:
      * @param {TaskState} state
      * @returns {the html string for the placeholder image that should be shown}
      */
-    deepEqual(makeEmptyImageHtml("","",""),
-              '<div class="empty-list-image"><img src="./artwork/empty-new.svg" /></div>');
-    deepEqual(makeEmptyImageHtml("","XXX","XXX", TODO),
-              '<div class="empty-list-image"><img src="./artwork/empty-todo.svg" /></div>');
-    deepEqual(makeEmptyImageHtml("XXX","","XXX", DOING),
-              '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>');
-    deepEqual(makeEmptyImageHtml("XXX","XXX","", DONE),
-              '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>');
-    function makeEmptyImageHtml(todos, doings, dones, state) {
+    var emptyTodo = '<div class="empty-list"><h1>No TODOs here</h1><p>Add a new task by clicking on <span class="glyphicon glyphicon-plus"></span> or press <code>Ctrl+Enter</code>.</p></div>';
+    var emptyDoing = '<div class="empty-list"><h1>All DOINGs are done!</h1><p>Get some new tasks by clicking on TODO or press <code>Ctrl+1</code>.</p><p>Add a new task by clicking on <span class="glyphicon glyphicon-plus"></span> or press <code>Ctrl+Enter</code>.</p></div>'; 
+    var emptyDone = '<div class="empty-list"><h1>Nothing DONE yet</h1><p>Start working by clicking on DOING or pressing <code>Ctrl+2</code>.</p></div>';
+    var emptyNew = '<div class="empty-list"><h1>Welcome!</h1><p>Start with adding a new task by clicking on <span class="glyphicon glyphicon-plus"></span> or press <code>Ctrl+Enter</code>.</p><p>Work through your tasks by clicking on <i>Todo</i>, <i>Doing</i>, <i>Done</i> or pressing <code>Ctrl+1</code>,<code>Ctrl+2</code>,<code>Ctrl+3</code>.</p><p>Get a complete overview of all your task by clicking on <i>Board</i> or pressing <code>Ctrl+4</code>.</p><p>Search for tasks by clicking on <span class="glyphicon glyphicon-search"></span> or press <code>Ctrl+F</code>.</p><p>Edit your tasks directly in markdown by clicking on <span class="glyphicon glyphicon-list-alt"></span> or press <code>Ctrl+E</code>.</p></div>';
+    deepEqual(makeEmptyHtml("","",""), emptyNew);
+    deepEqual(makeEmptyHtml("","XXX","XXX", TODO), emptyTodo);
+    deepEqual(makeEmptyHtml("XXX","","XXX", DOING), emptyDoing);
+    deepEqual(makeEmptyHtml("XXX","XXX","", DONE), emptyDone);
+    function makeEmptyHtml(todos, doings, dones, state) {
 		if ((todos === "") & (doings === "") & (dones === "")) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-new.svg" /></div>';
+			return emptyNew;
 		} else if ((todos === "") & (doings !== "" | dones !== "") & state === TODO) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-todo.svg" /></div>';
+			return emptyTodo;
 		} else if ((doings === "") & (todos !== "" | dones !== "") & state === DOING) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-doing.svg" /></div>';
+			return emptyDoing;
 		} else if ((dones === "") & (doings !== "" | todos !== "") & state === DONE) {
-			return '<div class="empty-list-image"><img src="./artwork/empty-done.svg" /></div>';
+			return emptyDone;
 		}
     }
 

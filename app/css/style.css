@@ -67,6 +67,8 @@ tr.selected:hover {background-color: #4281c3}
     height: 100%;
 }
 
+.empty-list {vertical-align: middle; text-align: center; position: fixed; top: 30%; width: 100%}
+
 .project-tag {font-weight: normal; color: #4281c3; padding-left:0px}
 .deadline {font-weight: normal; float: right; color: #ccc; padding-top: 7px;}
 tr.selected:hover .project-tag {color: #729FCF;}
