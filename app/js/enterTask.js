@@ -17,7 +17,7 @@ var ES;
 var ED;
 var NLC;
 var shownTaskState;
-var deepEqual = function () {}; //assert.deepEqual;
+var deepEqual = assert.deepEqual;
 var reloadTasks;
 var reloadEditor;
 

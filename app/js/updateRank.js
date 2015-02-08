@@ -18,7 +18,7 @@ var WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
  * ==========
  * Globals:
  */
-var deepEqual = function () {}; //assert.deepEqual;
+var deepEqual = assert.deepEqual;
 var $;
 
 /* DomElement EditorSession -> Void
