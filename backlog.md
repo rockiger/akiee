@@ -2,6 +2,12 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
+## TODO As a new Akiee user, I want a some help what to do next, that I don't to guess what features could be usefull to me.
+
+acceptance criteria:
+ - [ ] look at Atom and Scratch, when users have no file open (welcome screen)
+ - [ ] go away from comical style
+
 ## TODO As a Gnome3 user, I want better integration, that the app feels more native to me.
 
 acceptance criteria:
