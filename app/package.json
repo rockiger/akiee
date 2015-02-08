@@ -1,33 +1,81 @@
 {
-    "name": "Akiee",
-    "main": "index.html",
-    "description": "Akiee is a task management for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor.",
-    "version": "0.0.1",
-    "keywords": [ "task management", "node-webkit", "linux", "windows", "mac", "markdown", "agile", "personal kanban" ],
-    "window": {
-        "title": "Akiee",
-        "toolbar": true,
-        "icon": "logo.png",
-        "position": "center",
-        "width": 800,
-        "height": 600,
-        "min_width": 540,
-        "min_height": 150,
-        "resizable": true,
-        "show": true,
-        "frame": true
-    },
-    "maintainers":[
+    "webkit": {
+        "page-cache": false, 
+        "java": false, 
+        "plugin": false
+    }, 
+    "webexe_settings": {
+        "linux-x32": true, 
+        "windows-x64": true, 
+        "download_dir": "/home/macco/Programme/Web2Executable/files/downloads", 
+        "nw_compression_level": 5, 
+        "mac-x32": false, 
+        "windows-x32": false, 
+        "mac-x64": true, 
+        "nw_version": "0.11.6", 
+        "force_download": false, 
+        "linux-x64": true
+    }, 
+    "js-flags": "", 
+    "name": "Akiee", 
+    "single-instance": true, 
+    "nodejs": true, 
+    "chromium-args": "", 
+    "additional_trust_anchors": "", 
+    "maintainers": [
         {
-        "name": "Marco Laspe",
-        "email": "marco@rockiger.com",
-        "web": "http://rockiger.com"
+            "web": "http://rockiger.com", 
+            "name": "Marco Laspe", 
+            "email": "marco@rockiger.com"
         }
-    ],
+    ], 
+    "user-agent": "", 
+    "inject-js-end": "", 
     "licenses": [
         {
-       "type": "GPLv2",
-       "url": "http://www.example.com/licenses/gpl.html"
+            "url": "http://www.example.com/licenses/gpl.html", 
+            "type": "GPLv2"
         }
-    ]
+    ], 
+    "window": {
+        "fullscreen": false, 
+        "exe_icon": "logo.png", 
+        "resizable": true, 
+        "title": "Akiee", 
+        "always-on-top": false, 
+        "frame": true, 
+        "show": true, 
+        "visible": true, 
+        "height": 600, 
+        "min_height": 150, 
+        "width": 800, 
+        "as_desktop": false, 
+        "min_width": 540, 
+        "position": "center", 
+        "show_in_taskbar": true, 
+        "mac_icon": "logo.png", 
+        "transparent": false, 
+        "toolbar": false, 
+        "icon": "logo.png"
+    }, 
+    "version": "0.0.2", 
+    "snapshot": "", 
+    "node-main": "", 
+    "keywords": [
+        "task", 
+        "management", 
+        "node", 
+        "webkit", 
+        "linux", 
+        "windows", 
+        "mac", 
+        "markdown", 
+        "agile", 
+        "personal", 
+        "kanban"
+    ], 
+    "inject-js-start": "", 
+    "node-remote": "", 
+    "main": "index.html", 
+    "description": "Akiee is a task management for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor."
 }
