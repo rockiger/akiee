@@ -6,7 +6,7 @@
 
 acceptance criteria:
  - [ ] look at Atom and Scratch, when users have no file open (welcome screen)
- - [ ] go away from comical style
+ - [X] go away from comical style
 
 ## TODO As a Gnome3 user, I want better integration, that the app feels more native to me.
 
