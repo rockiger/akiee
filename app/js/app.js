@@ -541,7 +541,7 @@ acceptance criteria:
             var show = showDone;
         }
         
-        if ($("#show-all.active").text().toUpperCase() === ALL) {
+        if ($("#show-all.active").text() === 'Board') {
             var show = showAll;
         }
         

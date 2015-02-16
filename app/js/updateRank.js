@@ -117,7 +117,7 @@ function moveRank(el, ES, ED, showTask, saveFile, $, upOrDown) {
     
     
     // update view
-    if ($("#show-all.active").text().toUpperCase() === ALL) {
+    if ($("#show-all.active").text() === "Board") {
             showTask(ALL);
             return;
         }        
