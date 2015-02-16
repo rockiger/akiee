@@ -1,6 +1,7 @@
 /* This module deals with entering search via a special entry field */
 "use strict";
 var assert = require("assert");
+var enterTask = require("./enterTask");
 
 var DURATION = 50;
 
@@ -22,12 +23,13 @@ function toggleSearchBox(jquery) {
    console.log("toogleSearchBox");
    $ = jquery;
    if($("#show-searchbox").hasClass("active")) {
-        console.log("cancelSearchBox");
         cancelSearchBox(jquery);
    } else if ($("#show-editor").hasClass("active")) {
        return "";
    } else {
-        console.log("openSearchBox");
+        if ($("#show-enterTask").hasClass("active")) {
+            enterTask.cancelTaskEntry(jquery);
+        }
         openSearchBox(jquery);
    }
 }

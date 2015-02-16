@@ -11,6 +11,7 @@ var DURATION = 50;
 * Globals:
 */
 var util = require('./util');
+var findTask = require('./findTask');
 var u = require('util');
 var $;
 var ES;
@@ -38,6 +39,9 @@ function toggleTaskEntry(jquery, editorSession, editor, currentTaskState, showTa
     } else if ($("#show-editor").hasClass("active")) {
        return "";
     } else {
+        if($("#show-searchbox").hasClass("active")) {
+            findTask.cancelSearchBox(jquery);
+        }
         openTaskEntry(jquery, editorSession, editor, currentTaskState, showTask, showEditor);
     }
 }
