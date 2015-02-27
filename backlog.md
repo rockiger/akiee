@@ -2,14 +2,6 @@
 
 ## DOING  As a developer I want to explore the options of using Clojurescript for Akiee, that I can leverage Lisp for competitive advantage
 
-## BUG Search- and Entry-Box can both be open at the same time.
-
-## TODO As a new Akiee user, I want a some help what to do next, that I don't to guess what features could be usefull to me.
-
-acceptance criteria:
- - [ ] look at Atom and Scratch, when users have no file open (welcome screen)
- - [X] go away from comical style
-
 ## TODO As a Gnome3 user, I want better integration, that the app feels more native to me.
 
 acceptance criteria:
@@ -55,20 +47,20 @@ acceptance criteria
 
 ## TODO As a note keeper I want a agenda view for today, that I can see what I have to do today
 - [ ] Agenda View shows all tasks or Doings
-  - [ ] Define Model, based on org-mode-parser-nodes
+- [ ] Define Model, based on org-mode-parser-nodes
 - [ ] Agenda View shows a Timetable for Today
-  - [ ] Agenda View is based on Org-Mode's
+- [ ] Agenda View is based on Org-Mode's
 - [ ] Toggle Button should be Bootstrap, for nice design
 - [ ] Editor should have focus after it is shown
 - [ ] There is a Menu entry for Agenda Views
 - [ ] There is a Shortcut for the Agenda View
 - [ ] Agenda-View should always updated when it's shown
 
-## DONE As a user I want akie appearing suitable to my operating system, that it feels like a native app:
+## TODO As a user I want akie appearing suitable to my operating system, that it feels like a native app:
 
 acc:
 
-- [X] Ubuntu Ambiance on Ubuntu
+- [ ] Ubuntu Ambiance on Ubuntu
 - [ ] Some Mac Theme on MAC
 - [ ] Windows 8 Theme on Windows
 
@@ -202,3 +194,11 @@ acceptance criteria:
 - [X] Due Mark is recognised by the markdown theme and based on org-modes
 - [X] DEADLINE: <2013-08-24 Sa 11:00>
 - ~~[ ] Entry field allows to set date~~ this is just to ugly right now
+
+## DONE Search- and Entry-Box can both be open at the same time.
+
+## DONE As a new Akiee user, I want a some help what to do next, that I don't to guess what features could be usefull to me.
+
+acceptance criteria:
+ - [X] look at Atom and Scratch, when users have no file open (welcome screen)
+ - [X] go away from comical style
