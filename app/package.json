@@ -1,66 +1,9 @@
 {
-    "webkit": {
-        "page-cache": false, 
-        "java": false, 
-        "plugin": false
-    }, 
-    "webexe_settings": {
-        "linux-x32": true, 
-        "windows-x64": true, 
-        "download_dir": "/home/macco/Programme/Web2Executable/files/downloads", 
-        "nw_compression_level": 5, 
-        "mac-x32": false, 
-        "windows-x32": false, 
-        "mac-x64": true, 
-        "nw_version": "0.11.6", 
-        "force_download": false, 
-        "linux-x64": true
-    }, 
-    "js-flags": "", 
-    "name": "Akiee", 
-    "single-instance": true, 
+    "app_name": "Akiee", 
     "nodejs": true, 
-    "chromium-args": "", 
     "additional_trust_anchors": "", 
-    "maintainers": [
-        {
-            "web": "http://rockiger.com", 
-            "name": "Marco Laspe", 
-            "email": "marco@rockiger.com"
-        }
-    ], 
-    "user-agent": "", 
     "inject-js-end": "", 
-    "licenses": [
-        {
-            "url": "http://www.example.com/licenses/gpl.html", 
-            "type": "GPLv2"
-        }
-    ], 
-    "window": {
-        "fullscreen": false, 
-        "exe_icon": "logo.png", 
-        "resizable": true, 
-        "title": "Akiee", 
-        "always-on-top": false, 
-        "frame": true, 
-        "show": true, 
-        "visible": true, 
-        "height": 600, 
-        "min_height": 150, 
-        "width": 800, 
-        "as_desktop": false, 
-        "min_width": 540, 
-        "position": "center", 
-        "show_in_taskbar": true, 
-        "mac_icon": "logo.png", 
-        "transparent": false, 
-        "toolbar": true, 
-        "icon": "logo.png"
-    }, 
-    "version": "0.0.2", 
-    "snapshot": "", 
-    "node-main": "", 
+    "node-remote": "", 
     "keywords": [
         "task", 
         "management", 
@@ -74,8 +17,67 @@
         "personal", 
         "kanban"
     ], 
+    "licenses": [
+        {
+            "url": "http://www.example.com/licenses/gpl.html", 
+            "type": "GPLv2"
+        }
+    ], 
+    "user-agent": "", 
+    "window": {
+        "fullscreen": false, 
+        "resizable": true, 
+        "title": "Akiee", 
+        "always-on-top": false, 
+        "frame": false, 
+        "show": false, 
+        "kiosk": false, 
+        "kiosk_emulation": false, 
+        "exe_icon": "logo.png", 
+        "visible": true, 
+        "as_desktop": false, 
+        "width": 1000, 
+        "mac_icon": "logo.png", 
+        "position": "center", 
+        "show_in_taskbar": true, 
+        "height": 600, 
+        "transparent": true, 
+        "toolbar": false, 
+        "icon": "logo.png"
+    }, 
+    "version": "0.0.3", 
     "inject-js-start": "", 
-    "node-remote": "", 
     "main": "index.html", 
-    "description": "Akiee is a task management for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor."
+    "node-main": "", 
+    "webexe_settings": {
+        "linux-x32": false, 
+        "export_dir": "output", 
+        "windows-x64": false, 
+        "download_dir": "/home/macco/Programme/Web2Executable/files/downloads", 
+        "nw_compression_level": 4, 
+        "mac-x32": false, 
+        "windows-x32": false, 
+        "mac-x64": false, 
+        "nw_version": "0.12.3", 
+        "force_download": false, 
+        "linux-x64": true
+    }, 
+    "description": "Akiee is a task management for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor.", 
+    "maintainers": [
+        {
+            "web": "http://rockiger.com", 
+            "name": "Marco Laspe", 
+            "email": "marco@rockiger.com"
+        }
+    ], 
+    "webkit": {
+        "page-cache": false, 
+        "java": false, 
+        "plugin": false
+    }, 
+    "js-flags": "", 
+    "name": "akiee", 
+    "single-instance": true, 
+    "snapshot": "", 
+    "chromium-args": ""
 }
