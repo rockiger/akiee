@@ -1,0 +1,1 @@
+document.write('<script src="out/goog/base.js"></script>');document.write('<script src="out/cljs_deps.js"></script>');document.write('<script>goog.require("hello_world.core");</script>');
