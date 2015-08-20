@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
-/* 
+/*
     Created on : 03.11.2014, 02:12:40
     Author     : Marco Laspe
 */
@@ -55,3 +55,122 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	background-color: #d6d6d6;
 }
 
+#close {
+  display: block;
+  padding-left: 10px;
+  /*border-left: 1px solid #a1a1a1;*/
+  border-width: 0 0 0 1px;
+  border-image: linear-gradient(to bottom, rgba(161, 161, 161, 0), #a1a1a1 30%, #a1a1a1 70%, rgba(161, 161, 161, 0) 100%) 0 1/0 1 stretch;
+  margin-left: 5px;
+  height: 30px;
+  margin-top: 8px;
+}
+
+#close-app {
+  width: 31px;
+  height: 31px;
+  background-color: transparent;
+  margin-right: -10px;
+  padding-top: 7px;
+  padding-left: 7px;
+  margin-top: 0px;
+}
+
+#toolbar .container-fluid {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+#toolbar .container-fluid  * {
+  -webkit-app-region: no-drag;
+}
+
+#toolbar .container-fluid .navbar-flex .spacer {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+html {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+html, #root, #app, #toolbar {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+#toolbar {
+  border-width: 1px;
+}
+
+#list {
+  border: 1px solid #a1a1a1;
+  border-width: 0 0 1px 1px;
+}
+
+#task-sidebar {
+  border-right: 1px solid #a1a1a1;
+  border-bottom: 1px solid #a1a1a1;
+}
+
+#task-sidebar.closed {
+  border-right: none;
+}
+
+.navbar-default {
+  border-color: #a1a1a1;
+  background-image: linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%);
+  background-color: #ededed;
+}
+
+body.blur .navbar-default, body.blur button {
+  background-image: none;
+}
+
+#root.unmaximized {
+  padding: 7px;
+}
+
+#root.maximized {
+  height: calc(100% + 18px);
+}
+
+#app {
+  box-shadow: 0 3px 9px 1px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+}
+
+body {
+  background: transparent;
+}
+
+div.slider.closed ~ #tasks #list, div.slider.closed ~ #tasks #task-sidebar {
+  height: calc(100% - 68px);
+}
+
+div.slider.open ~ #tasks #list, div.slider.open ~ #tasks #task-sidebar {
+  height: calc(100% - 113px);
+}
+
+#editor {
+  left: 7px;
+}
+
+#editor textarea {
+  height: calc(100% - 68px);
+  width: calc(100% + 7px);
+}
+
+#editor {
+  position: static;
+  width: calc(100% + 7px);
+  height: calc(100% - 68px);
+}
+
+
+
+#editor textarea {
+  height: calc(100% - 0px);
+  width: calc(100% - 7px);
+}

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="2369ce37-1c69-4249-9715-514c8821b214" kpf_version="5" name="livewookie.komodoproject">
+<preference-set idref="2369ce37-1c69-4249-9715-514c8821b214" id="project" preftype="project">
+  <long id="prefs_version">1</long>
+</preference-set>
 </project>

@@ -136,7 +136,7 @@ function print_r(obj) {
     
     /**
      * Node Node -> Bool
-     * Determens if n2 has a higher Rank than n1
+     * Determens if n2 has a bigger Rank than n1
      */
     deepEqual(hasHigherRank(n1, n2), -1);
     deepEqual(hasHigherRank(n2, n1), 1);

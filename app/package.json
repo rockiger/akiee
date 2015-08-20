@@ -55,7 +55,7 @@
         "show_in_taskbar": true, 
         "mac_icon": "logo.png", 
         "transparent": false, 
-        "toolbar": false, 
+        "toolbar": true, 
         "icon": "logo.png"
     }, 
     "version": "0.0.2", 
