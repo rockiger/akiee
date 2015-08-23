@@ -26,29 +26,29 @@
     "user-agent": "", 
     "window": {
         "fullscreen": false, 
+        "height": 600, 
         "resizable": true, 
-        "title": "Akiee", 
+        "show": false, 
         "always-on-top": false, 
         "frame": false, 
-        "show": false, 
+        "title": "Akiee", 
         "kiosk": false, 
         "kiosk_emulation": false, 
         "exe_icon": "logo.png", 
         "visible": true, 
         "as_desktop": false, 
-        "width": 1000, 
-        "mac_icon": "logo.png", 
+        "toolbar": false, 
         "position": "center", 
         "show_in_taskbar": true, 
-        "height": 600, 
+        "mac_icon": "logo.png", 
+        "width": 1000, 
         "transparent": true, 
-        "toolbar": false, 
         "icon": "logo.png"
     }, 
     "version": "0.0.3", 
     "inject-js-start": "", 
     "main": "index.html", 
-    "node-main": "", 
+    "chromium-args": "--enable-transparent-visuals --disable-gpu", 
     "webexe_settings": {
         "linux-x32": false, 
         "export_dir": "output", 
@@ -79,5 +79,5 @@
     "name": "akiee", 
     "single-instance": true, 
     "snapshot": "", 
-    "chromium-args": ""
+    "node-main": ""
 }
