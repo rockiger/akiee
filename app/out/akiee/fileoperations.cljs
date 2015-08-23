@@ -45,11 +45,11 @@
       (if (.existsSync fs file-path)
         file-path
         (do
-          (.writeFileSync fs file-path "")
+          (.writeFileSync fs file-path "# Inbox")
           file-path))
       (do
         (.mkdirSync fs dir-path)
-        (.writeFileSync fs file-path)
+        (.writeFileSync fs file-path "# Inbox")
         file-path))))
 
 (is (= (create-task-list-file "/home/macco") (str "/home/macco/" dirname "/" filename)))
