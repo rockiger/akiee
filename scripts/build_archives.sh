@@ -1,0 +1,1 @@
+nwjs-build.sh --src=/home/macco/Listings/akiee/app --name=akiee --win-icon=/home/macco/Listings/akiee/app/logo.png --osx-icon=/home/macco/Listings/akiee/app/logo.png --CFBundleIdentifier=com.akieeapp --output-dir=/home/macco/Listings/akiee/dist --version=0.0.3 --nw=0.12.3 --target="1 3 5" --libudev --build
