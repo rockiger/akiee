@@ -182,8 +182,7 @@
     [:div#tasks show? [:div#list (if (= (db/list-state) ALL)
                        [:table.table [:tbody [:tr.kanban-row
                        (for [tb (db/tasks)]
-                         (do (println tb)
-                         [:td.kanban-column (task-table tb)]))]]]
+                         [:td.kanban-column (task-table tb)])]]]
                        (task-table (db/tasks)))]
      [:aside#task-sidebar sidebar? (sb/sidebar)]]))
 

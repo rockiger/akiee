@@ -1,86 +1,86 @@
 {
-  "app_name": "Akiee",
-  "nodejs": true,
-  "additional_trust_anchors": "",
-  "inject-js-end": "",
-  "node-remote": "",
-  "keywords": [
-    "task",
-    "management",
-    "node",
-    "webkit",
-    "linux",
-    "windows",
-    "mac",
-    "markdown",
-    "agile",
-    "personal",
-    "kanban"
-  ],
-  "licenses": [
-    {
-      "url": "http://www.example.com/licenses/gpl.html",
-      "type": "GPLv2"
-    }
-  ],
-  "user-agent": "",
-  "window": {
-    "fullscreen": false,
-    "resizable": true,
-    "show": false,
-    "always-on-top": false,
-    "frame": false,
-    "title": "Akiee",
-    "kiosk": false,
-    "height": 600,
-    "exe_icon": "logo.png",
-    "visible": true,
-    "transparent": true,
-    "as_desktop": false,
-    "width": 1000,
-    "position": "center",
-    "show_in_taskbar": true,
-    "kiosk_emulation": false,
-    "mac_icon": "logo.png",
-    "toolbar": true,
-    "icon": "logo.png"
-  },
-  "version": "0.0.3",
-  "inject-js-start": "",
-  "main": "index.html",
-  "node-main": "",
-  "webexe_settings": {
-    "linux-x32": false,
-    "export_dir": "output",
-    "windows-x64": false,
-    "download_dir": "/home/macco/Programme/Web2Executable/files/downloads",
-    "nw_compression_level": 4,
-    "mac-x32": false,
-    "windows-x32": false,
-    "mac-x64": false,
-    "nw_version": "0.12.3",
-    "force_download": false,
-    "linux-x64": true
-  },
-  "description": "Akiee is a task management tool for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor.",
-  "maintainers": [
-    {
-      "web": "http://rockiger.com",
-      "name": "Marco Laspe",
-      "email": "marco@rockiger.com"
-    }
-  ],
-  "webkit": {
-    "page-cache": false,
-    "java": false,
-    "plugin": false
-  },
-  "js-flags": "",
-  "name": "akiee",
-  "single-instance": true,
-  "snapshot": "",
-  "chromium-args": "--enable-transparent-visuals --disable-gpu",
-  "devDependencies": {
-    "nw-builder": "^2.0.2"
-  }
+    "app_name": "Akiee", 
+    "nodejs": true, 
+    "additional_trust_anchors": "", 
+    "inject-js-end": "", 
+    "node-remote": "", 
+    "keywords": [
+        "task", 
+        "management", 
+        "node", 
+        "webkit", 
+        "linux", 
+        "windows", 
+        "mac", 
+        "markdown", 
+        "agile", 
+        "personal", 
+        "kanban"
+    ], 
+    "devDependencies": {
+        "nw-builder": "^2.0.2"
+    }, 
+    "licenses": [
+        {
+            "url": "http://www.example.com/licenses/gpl.html", 
+            "type": "GPLv2"
+        }
+    ], 
+    "user-agent": "", 
+    "window": {
+        "fullscreen": false, 
+        "resizable": true, 
+        "title": "Akiee", 
+        "always-on-top": false, 
+        "frame": true, 
+        "show": false, 
+        "kiosk": false, 
+        "height": 600, 
+        "exe_icon": "logo.png", 
+        "visible": true, 
+        "as_desktop": false, 
+        "width": 1000, 
+        "mac_icon": "logo.png", 
+        "position": "center", 
+        "show_in_taskbar": true, 
+        "kiosk_emulation": false, 
+        "transparent": true, 
+        "toolbar": false, 
+        "icon": "logo.png"
+    }, 
+    "version": "0.0.3", 
+    "inject-js-start": "", 
+    "main": "index.html", 
+    "chromium-args": "--enable-transparent-visuals --disable-gpu", 
+    "webexe_settings": {
+        "linux-x32": false, 
+        "export_dir": "/home/macco/Listings/akiee/dist", 
+        "windows-x64": false, 
+        "download_dir": "/home/macco/Programme/Web2Executable/files/downloads", 
+        "nw_compression_level": 4, 
+        "mac-x32": false, 
+        "windows-x32": false, 
+        "mac-x64": false, 
+        "nw_version": "0.12.3", 
+        "force_download": false, 
+        "linux-x64": true
+    }, 
+    "description": "Akiee is a task management tool for hackers. It is based on markdown to structure your tasks and projects. It can be used on Linux, Mac ond Windows. Clients for android and iOS are planned - so long files can be edited with every text editor.", 
+    "maintainers": [
+        {
+            "web": "http://rockiger.com", 
+            "name": "Marco Laspe", 
+            "email": "marco@rockiger.com"
+        }
+    ], 
+    "webkit": {
+        "page-cache": false, 
+        "java": false, 
+        "plugin": false
+    }, 
+    "js-flags": "", 
+    "name": "akiee", 
+    "single-instance": true, 
+    "snapshot": "", 
+    "node-main": ""
 }
