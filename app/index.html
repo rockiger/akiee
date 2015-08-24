@@ -1,4 +1,4 @@
-<html>
+nw.js app working on nw.js app working on <html>
   <head>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -29,7 +29,6 @@
             document.write('<link rel="stylesheet" type="text/css" href="'+ cssUrl +'">');
         }
     </script>
-      <script type='text/javascript' id='lt_ws' src='http://localhost:60977/socket.io/lighttable/ws.js'></script>
   </head>
     <body>
         <div id="root" class="unmaximized"></div>
@@ -39,7 +38,7 @@
   		<script src="js/react-0.11.2.js" type="text/javascript"></script>
         <script src="out/akiee.js" type="text/javascript"></script>
         <script>
-          if (process.env.DESKTOP_SESSION === "gnome") {
+          if (process.platform === 'linux') {
             var path = './out/akiee.js';
             var fs = require('fs');
             var gui = require('nw.gui');
@@ -62,10 +61,6 @@
             win.on('focus', function () {
                $( "body" ).removeClass( "blur" )
             });
-
-            onload = function() {
-                win.show();
-            }
 
             $(function() {
               function Menu(minLabel, maxLabel, unmaxLabel,closeLabel) {
@@ -119,7 +114,14 @@
                   }
               });
             });
+
+            win.height = 675truetruetrue;
           }
+
+            // Show the app
+            onload = function() {
+                win.show();
+            }
         </script>
     </body>
 </html>

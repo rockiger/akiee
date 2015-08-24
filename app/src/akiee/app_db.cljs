@@ -342,7 +342,7 @@
         i (inc (node-pos-by-headline pro lon))
         new-lon (vec (concat (subvec lon 0 i) [n] (subvec lon i)))]
    (reset-lon! gs new-lon)))
-(is (no/node= (get (:lon (insert-node-helper! (no/->node TODO "Test Headline" "Inbox" (->rank)) "Inbox" test-state)) 1)
+#_(is (no/node= (get (:lon (insert-node-helper! (no/->node TODO "Test Headline" "Inbox" (->rank)) "Inbox" test-state)) 1)
        (no/->node TODO "Test Headline" "Inbox" (->rank))))
 
 (defn insert-node!

@@ -146,11 +146,11 @@ body {
 }
 
 div.slider.closed ~ #tasks #list, div.slider.closed ~ #tasks #task-sidebar {
-  height: calc(100% - 68px);
+  height: calc(100% - 88px);
 }
 
 div.slider.open ~ #tasks #list, div.slider.open ~ #tasks #task-sidebar {
-  height: calc(100% - 113px);
+  height: calc(100% - 133px);
 }
 
 #search-form, #enter-task-div {
