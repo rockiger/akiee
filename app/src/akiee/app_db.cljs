@@ -30,7 +30,7 @@
   [p]
   (global-state. false false false false "" nil nil DOING (no/->nodes p)))
 
-(is (= (:lon (load-app-state fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
+#_(is (= (:lon (load-app-state fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
                                             :body "" :tag nil :tags {}  :todo "DOING"
                                             :priority nil :scheduled nil :deadline nil
                                             :properties {} :drawer {} :rank nil  :style nil}
@@ -42,7 +42,7 @@
 
 
 (def app-state  (rc/atom (load-app-state FP)))
-(def test-state (rc/atom (load-app-state fo/testfile)))
+;(def test-state (rc/atom (load-app-state fo/testfile)))
 
 
 (defn nodes
@@ -118,7 +118,7 @@
 
 ;; ==========================================================
 ;; TEST
-(let [filter-tasks (fn [x] (if (= (:level x) 2) true false ))
+#_(let [filter-tasks (fn [x] (if (= (:level x) 2) true false ))
       filter-state (fn [x] (cond
                                 (= (:ls @app-state) ALL) true
                                 (= (:ls @app-state) (:todo x)) true
@@ -290,10 +290,9 @@
   produces the position of the element with the headline hl and level 1"
   [coll hl]
     (index-of-node-helper coll hl 0))
-(is (= (index-of-node (:lon @test-state) "Inbox") 0))
-(is (= (index-of-node (:lon @test-state) "XXXXX") nil))
-(is (= (index-of-node (:lon @test-state) "Test") nil
-))
+;(is (= (index-of-node (:lon @test-state) "Inbox") 0))
+;(is (= (index-of-node (:lon @test-state) "XXXXX") nil))
+;(is (= (index-of-node (:lon @test-state) "Test") nil))
 
 (defn reset-lon!
   "Global-State ListOfNode -> GlobalState
