@@ -196,7 +196,7 @@ td.rank {
   color: #777 !important;
 }
 
-.selected, .selected>td>span.hover-button {
+.selected, tr.selected, .selected>td>span.hover-button {
   background-color: #729FCF;
   color: white;
 }
@@ -290,6 +290,10 @@ tr.selected:hover, .selected:hover>td>span.hover-button {
   position: fixed;
   text-align: center;
   vertical-align: middle;
+}
+
+.kanban-row td.kanban-column:nth-child(2) .empty-list, .kanban-row td.kanban-column:last-child .empty-list {
+  display: none;
 }
 
 .project-tag {

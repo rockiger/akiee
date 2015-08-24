@@ -153,6 +153,12 @@ div.slider.open ~ #tasks #list, div.slider.open ~ #tasks #task-sidebar {
   height: calc(100% - 113px);
 }
 
+#search-form, #enter-task-div {
+  border-left: 1px solid #a1a1a1;
+  border-right: 1px solid #a1a1a1;
+}
+}
+
 #editor {
   left: 7px;
 }
@@ -167,8 +173,6 @@ div.slider.open ~ #tasks #list, div.slider.open ~ #tasks #task-sidebar {
   width: calc(100% + 7px);
   height: calc(100% - 68px);
 }
-
-
 
 #editor textarea {
   height: calc(100% - 0px);

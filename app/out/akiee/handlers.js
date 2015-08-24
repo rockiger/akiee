@@ -377,17 +377,17 @@ return null;
 akiee.handlers.handle_keyup = (function handle_keyup(ev){
 var mac_QMARK_ = ((cljs.core._EQ_.call(null,process.platform,"darwin"))?true:false);
 var ky = ((function (mac_QMARK_){
-return (function (p1__5231_SHARP_){
-return p1__5231_SHARP_.keyCode;
+return (function (p1__16601_SHARP_){
+return p1__16601_SHARP_.keyCode;
 });})(mac_QMARK_))
 ;
 var ctrl_QMARK_ = ((mac_QMARK_)?((function (mac_QMARK_,ky){
-return (function (p1__5232_SHARP_){
-return p1__5232_SHARP_.metaKey;
+return (function (p1__16602_SHARP_){
+return p1__16602_SHARP_.metaKey;
 });})(mac_QMARK_,ky))
 :((function (mac_QMARK_,ky){
-return (function (p1__5233_SHARP_){
-return p1__5233_SHARP_.ctrlKey;
+return (function (p1__16603_SHARP_){
+return p1__16603_SHARP_.ctrlKey;
 });})(mac_QMARK_,ky))
 );
 if(cljs.core.truth_((function (){var and__3745__auto__ = cljs.core._EQ_.call(null,ky.call(null,ev),(32));

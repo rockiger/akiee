@@ -11,14 +11,14 @@ return true;
 var ddd = function (var_args){
 var args = null;
 if (arguments.length > 0) {
-var G__6390__i = 0, G__6390__a = new Array(arguments.length -  0);
-while (G__6390__i < G__6390__a.length) {G__6390__a[G__6390__i] = arguments[G__6390__i + 0]; ++G__6390__i;}
-  args = new cljs.core.IndexedSeq(G__6390__a,0);
+var G__16334__i = 0, G__16334__a = new Array(arguments.length -  0);
+while (G__16334__i < G__16334__a.length) {G__16334__a[G__16334__i] = arguments[G__16334__i + 0]; ++G__16334__i;}
+  args = new cljs.core.IndexedSeq(G__16334__a,0);
 } 
 return ddd__delegate.call(this,args);};
 ddd.cljs$lang$maxFixedArity = 0;
-ddd.cljs$lang$applyTo = (function (arglist__6391){
-var args = cljs.core.seq(arglist__6391);
+ddd.cljs$lang$applyTo = (function (arglist__16335){
+var args = cljs.core.seq(arglist__16335);
 return ddd__delegate(args);
 });
 ddd.cljs$core$IFn$_invoke$arity$variadic = ddd__delegate;
@@ -85,11 +85,11 @@ var this__4360__auto____$1 = this;
 return cljs.core._lookup.call(null,this__4360__auto____$1,k__4361__auto__,null);
 });
 
-akiee.datadefinitions.global_state.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4362__auto__,k6393,else__4363__auto__){
+akiee.datadefinitions.global_state.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4362__auto__,k16337,else__4363__auto__){
 var self__ = this;
 var this__4362__auto____$1 = this;
-var G__6395 = (((k6393 instanceof cljs.core.Keyword))?k6393.fqn:null);
-switch (G__6395) {
+var G__16339 = (((k16337 instanceof cljs.core.Keyword))?k16337.fqn:null);
+switch (G__16339) {
 case "lon":
 return self__.lon;
 
@@ -127,7 +127,7 @@ return self__.editor_QMARK_;
 
 break;
 default:
-return cljs.core.get.call(null,self__.__extmap,k6393,else__4363__auto__);
+return cljs.core.get.call(null,self__.__extmap,k16337,else__4363__auto__);
 
 }
 });
@@ -201,39 +201,39 @@ return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.searc
 }
 });
 
-akiee.datadefinitions.global_state.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4367__auto__,k__4368__auto__,G__6392){
+akiee.datadefinitions.global_state.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4367__auto__,k__4368__auto__,G__16336){
 var self__ = this;
 var this__4367__auto____$1 = this;
-var pred__6396 = cljs.core.keyword_identical_QMARK_;
-var expr__6397 = k__4368__auto__;
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"editor?","editor?",1562728713),expr__6397))){
-return (new akiee.datadefinitions.global_state(G__6392,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+var pred__16340 = cljs.core.keyword_identical_QMARK_;
+var expr__16341 = k__4368__auto__;
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"editor?","editor?",1562728713),expr__16341))){
+return (new akiee.datadefinitions.global_state(G__16336,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"search?","search?",785472524),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,G__6392,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"search?","search?",785472524),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,G__16336,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"entry?","entry?",2007901397),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,G__6392,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"entry?","entry?",2007901397),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,G__16336,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"changed?","changed?",-437828330),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,G__6392,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"changed?","changed?",-437828330),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,G__16336,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"ss","ss",-1463049578),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,G__6392,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"ss","ss",-1463049578),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,G__16336,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"selected","selected",574897764),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,G__6392,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"selected","selected",574897764),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,G__16336,self__.editable,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"editable","editable",1930280326),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,G__6392,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"editable","editable",1930280326),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,G__16336,self__.ls,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"ls","ls",1195788590),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,G__6392,self__.lon,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"ls","ls",1195788590),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,G__16336,self__.lon,self__.__meta,self__.__extmap,null));
 } else {
-if(cljs.core.truth_(pred__6396.call(null,new cljs.core.Keyword(null,"lon","lon",522068437),expr__6397))){
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,G__6392,self__.__meta,self__.__extmap,null));
+if(cljs.core.truth_(pred__16340.call(null,new cljs.core.Keyword(null,"lon","lon",522068437),expr__16341))){
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,G__16336,self__.__meta,self__.__extmap,null));
 } else {
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4368__auto__,G__6392),null));
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4368__auto__,G__16336),null));
 }
 }
 }
@@ -251,10 +251,10 @@ var this__4372__auto____$1 = this;
 return cljs.core.seq.call(null,cljs.core.concat.call(null,new cljs.core.PersistentVector(null, 9, 5, cljs.core.PersistentVector.EMPTY_NODE, [(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"editor?","editor?",1562728713),self__.editor_QMARK_],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"search?","search?",785472524),self__.search_QMARK_],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"entry?","entry?",2007901397),self__.entry_QMARK_],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"changed?","changed?",-437828330),self__.changed_QMARK_],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"ss","ss",-1463049578),self__.ss],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"selected","selected",574897764),self__.selected],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"editable","editable",1930280326),self__.editable],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"ls","ls",1195788590),self__.ls],null)),(new cljs.core.PersistentVector(null,2,(5),cljs.core.PersistentVector.EMPTY_NODE,[new cljs.core.Keyword(null,"lon","lon",522068437),self__.lon],null))], null),self__.__extmap));
 });
 
-akiee.datadefinitions.global_state.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4359__auto__,G__6392){
+akiee.datadefinitions.global_state.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4359__auto__,G__16336){
 var self__ = this;
 var this__4359__auto____$1 = this;
-return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,G__6392,self__.__extmap,self__.__hash));
+return (new akiee.datadefinitions.global_state(self__.editor_QMARK_,self__.search_QMARK_,self__.entry_QMARK_,self__.changed_QMARK_,self__.ss,self__.selected,self__.editable,self__.ls,self__.lon,G__16336,self__.__extmap,self__.__hash));
 });
 
 akiee.datadefinitions.global_state.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__4365__auto__,entry__4366__auto__){
@@ -281,8 +281,8 @@ akiee.datadefinitions.__GT_global_state = (function __GT_global_state(editor_QMA
 return (new akiee.datadefinitions.global_state(editor_QMARK_,search_QMARK_,entry_QMARK_,changed_QMARK_,ss,selected,editable,ls,lon,null,null,null));
 });
 
-akiee.datadefinitions.map__GT_global_state = (function map__GT_global_state(G__6394){
-return (new akiee.datadefinitions.global_state(new cljs.core.Keyword(null,"editor?","editor?",1562728713).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"search?","search?",785472524).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"entry?","entry?",2007901397).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"changed?","changed?",-437828330).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"ss","ss",-1463049578).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"selected","selected",574897764).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"editable","editable",1930280326).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"ls","ls",1195788590).cljs$core$IFn$_invoke$arity$1(G__6394),new cljs.core.Keyword(null,"lon","lon",522068437).cljs$core$IFn$_invoke$arity$1(G__6394),null,cljs.core.dissoc.call(null,G__6394,new cljs.core.Keyword(null,"editor?","editor?",1562728713),new cljs.core.Keyword(null,"search?","search?",785472524),new cljs.core.Keyword(null,"entry?","entry?",2007901397),new cljs.core.Keyword(null,"changed?","changed?",-437828330),new cljs.core.Keyword(null,"ss","ss",-1463049578),new cljs.core.Keyword(null,"selected","selected",574897764),new cljs.core.Keyword(null,"editable","editable",1930280326),new cljs.core.Keyword(null,"ls","ls",1195788590),new cljs.core.Keyword(null,"lon","lon",522068437)),null));
+akiee.datadefinitions.map__GT_global_state = (function map__GT_global_state(G__16338){
+return (new akiee.datadefinitions.global_state(new cljs.core.Keyword(null,"editor?","editor?",1562728713).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"search?","search?",785472524).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"entry?","entry?",2007901397).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"changed?","changed?",-437828330).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"ss","ss",-1463049578).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"selected","selected",574897764).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"editable","editable",1930280326).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"ls","ls",1195788590).cljs$core$IFn$_invoke$arity$1(G__16338),new cljs.core.Keyword(null,"lon","lon",522068437).cljs$core$IFn$_invoke$arity$1(G__16338),null,cljs.core.dissoc.call(null,G__16338,new cljs.core.Keyword(null,"editor?","editor?",1562728713),new cljs.core.Keyword(null,"search?","search?",785472524),new cljs.core.Keyword(null,"entry?","entry?",2007901397),new cljs.core.Keyword(null,"changed?","changed?",-437828330),new cljs.core.Keyword(null,"ss","ss",-1463049578),new cljs.core.Keyword(null,"selected","selected",574897764),new cljs.core.Keyword(null,"editable","editable",1930280326),new cljs.core.Keyword(null,"ls","ls",1195788590),new cljs.core.Keyword(null,"lon","lon",522068437)),null));
 });
 
 akiee.datadefinitions.GS1 = (new akiee.datadefinitions.global_state(false,false,false,false,"",null,null,akiee.datadefinitions.LS_3,akiee.datadefinitions.LON_2,null,null,null));

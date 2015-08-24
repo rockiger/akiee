@@ -1,6 +1,7 @@
 (ns akiee.style
   (:require [garden.core :refer [css]]
-            [garden.units :as u :refer [px pt percent]]))
+            [garden.units :as u :refer [px pt percent]]
+            [garden.selectors :refer [nth-of-type]]))
 
 ;; Basic stylesheet for akiee
 
@@ -79,7 +80,7 @@
      [:.todo [:td {:background-color "#d9edf7 !important" :color "#31708f"}]]
      [:.doing [:td {:background-color "#dff0d8 !important" :color "#3c763d"}]]
      [:.done [:td {:color "#777 !important" :text-decoration "line-through"}]]
-     [:.selected :.selected>td>span.hover-button {:background-color "#729FCF" :color "white"}]
+     [:.selected :tr.selected :.selected>td>span.hover-button   {:background-color "#729FCF" :color "white"}]
      [(keyword "tr:nth-child(2)") {:width (percent 100)}]
      [:tr {:background-color "white"}]
      [:tr:hover {:background-color "#f2f2f2"}]
@@ -110,6 +111,7 @@
      [:.empty-list-image {:overflow "hidden" :height (percent 100)}]
      [:.empty-list {:vertical-align "middle" :text-align "center" :position "fixed"
                     :top (percent 30) :width (percent 100)}]
+     [:.kanban-row ["td.kanban-column:nth-child(2)" :td.kanban-column:last-child [:.empty-list {:display "none"}]]]
 
      [:.project-tag {:font-weight "normal" :color "#4281c3" :padding-left 0}]
      [:.deadline {:font-weight "normal" :float "right" :color "#ccc" :padding-top (px 7)}]
