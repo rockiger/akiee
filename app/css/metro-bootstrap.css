@@ -6610,12 +6610,8 @@ a.fa-links:focus {
   border-color: #adadad;
 }
 
-.selected, .selected>td>span.hover-button,tr.selected:hover, .selected:hover>td>span.hover-button {
+.selected, tr.selected:hover, .selected:hover>td>span.hover-button {
   background-color: #2e8bcc;
-}
-
-tr.selected .project-tag {
-  color: #729FCF;
 }
 
 #task-sidebar {
