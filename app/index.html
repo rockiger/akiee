@@ -38,90 +38,89 @@
   		<script src="js/react-0.11.2.js" type="text/javascript"></script>
         <script src="out/akiee.js" type="text/javascript"></script>
         <script>
-          if (process.platform === 'linux') {
-            var path = './out/akiee.js';
-            var fs = require('fs');
-            var gui = require('nw.gui');
-            var win = gui.Window.get();
+        var gui = require('nw.gui');
+        var win = gui.Window.get();
 
-            win.on('maximize', function () {
-                $( "#root" ).addClass( "maximized" )
-                $( "#root" ).removeClass( "unmaximized" )
-            });
+        if (process.platform === 'linux') {
 
-            win.on('unmaximize', function () {
-                $( "#root" ).addClass( "unmaximized" )
-                $( "#root" ).removeClass( "maximized" )
-            });
+          win.on('maximize', function () {
+              $( "#root" ).addClass( "maximized" )
+              $( "#root" ).removeClass( "unmaximized" )
+          });
 
-            win.on('blur', function () {
-                $( "body" ).addClass( "blur");
-            });
+          win.on('unmaximize', function () {
+              $( "#root" ).addClass( "unmaximized" )
+              $( "#root" ).removeClass( "maximized" )
+          });
 
-            win.on('focus', function () {
-               $( "body" ).removeClass( "blur" )
-            });
+          win.on('blur', function () {
+              $( "body" ).addClass( "blur");
+          });
 
-            $(function() {
-              function Menu(minLabel, maxLabel, unmaxLabel,closeLabel) {
-                var gui = require('nw.gui')
-                  , menu = new gui.Menu()
+          win.on('focus', function () {
+             $( "body" ).removeClass( "blur" )
+          });
 
-                  , min = new gui.MenuItem({
-                    label: minLabel || "Minimize"
-                    , click: function() {
-                      win.minimize();
-                      console.log('Menu:', 'minimized window');
-                    }
-                  })
+          $(function() {
+            function Menu(minLabel, maxLabel, unmaxLabel,closeLabel) {
+              var gui = require('nw.gui')
+                , menu = new gui.Menu()
 
-                  , max = new gui.MenuItem({
-                    label: maxLabel || "Maximize"
-                    , click: function() {
-                      win.maximize();
-                      console.log('Menu:', 'maximized window');
-                    }
-                  })
-
-                  , unmax = new gui.MenuItem({
-                    label: unmaxLabel || "Unmaximize"
-                    , click: function() {
-                      win.unmaximize();
-                      console.log('Menu:', 'unmaximized window');
-                    }
-                  })
-                  , close = new gui.MenuItem({
-                    label: closeLabel || "Close"
-                    , click: function() {
-                      win.close();
-                      console.log('Menu:', 'closed window');
-                    }
-                  });
-
-                menu.append(min);
-                menu.append(max);
-                menu.append(unmax);
-                menu.append(close);
-
-                return menu;
-              }
-
-              var menu = new Menu(/* pass cut, copy, paste labels if you need i18n*/);
-              $("#toolbar").on("contextmenu", function(e) {
-                  if(e.toElement.id === 'toolbar-inside' || e.toElement.id === 'toolbar-spacer' || e.toElement.id === 'toolbar-fluid' || e.toElement.id === 'taskbuttons' || e.toElement.id === 'close' || e.toElement.id === 'close-app'){
-                    e.preventDefault();
-                    menu.popup(e.originalEvent.x, e.originalEvent.y);
+                , min = new gui.MenuItem({
+                  label: minLabel || "Minimize"
+                  , click: function() {
+                    win.minimize();
+                    console.log('Menu:', 'minimized window');
                   }
-              });
-            });
+                })
 
-            win.height = 675;
-          }
+                , max = new gui.MenuItem({
+                  label: maxLabel || "Maximize"
+                  , click: function() {
+                    win.maximize();
+                    console.log('Menu:', 'maximized window');
+                  }
+                })
 
-            // Show the app
-            onload = function() {
-                win.show();
+                , unmax = new gui.MenuItem({
+                  label: unmaxLabel || "Unmaximize"
+                  , click: function() {
+                    win.unmaximize();
+                    console.log('Menu:', 'unmaximized window');
+                  }
+                })
+                , close = new gui.MenuItem({
+                  label: closeLabel || "Close"
+                  , click: function() {
+                    win.close();
+                    console.log('Menu:', 'closed window');
+                  }
+                });
+
+              menu.append(min);
+              menu.append(max);
+              menu.append(unmax);
+              menu.append(close);
+
+              return menu;
             }
+
+            var menu = new Menu(/* pass cut, copy, paste labels if you need i18n*/);
+            $("#toolbar").on("contextmenu", function(e) {
+                if(e.toElement.id === 'toolbar-inside' || e.toElement.id === 'toolbar-spacer' || e.toElement.id === 'toolbar-fluid' || e.toElement.id === 'taskbuttons' || e.toElement.id === 'close' || e.toElement.id === 'close-app'){
+                  e.preventDefault();
+                  menu.popup(e.originalEvent.x, e.originalEvent.y);
+                }
+            });
+          });
+
+          win.height = 675;
+        }
+
+        // Show the app
+        onload = function() {
+            win.show();
+        }
         </script>
     </body>
 </html>
