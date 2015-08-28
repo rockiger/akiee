@@ -21,10 +21,6 @@ Akiee is heavily inspired by the great [Org-Mode](http://orgmode.org/ "Org-Mode 
 
 # How to install and use Akiee
 
-Download your binarys:
+Download your binarys: http://rockiger.com/en/akiee
 
-* Linux: [32bit](http://rockiger.com/static/akiee-0.0.1-linux32.tar.gz "Akiee Linux 32bit Download") / [64bit](http://rockiger.com/static/akiee-0.0.1-linux64.tar.gz "Akiee Linux 64bit Download")
-* [Windows](http://rockiger.com/static/akiee-0.0.1-win.zip "Akiee Windows Download")
-* [OS X](http://rockiger.com/static/akiee-0.0.1-osx.zip "Akiee OS X Download")
-
-Unpack the content and click on the `akiee` (Linux) or `Akiee` file.
+Unpack the content and click on the `Akiee` file.
