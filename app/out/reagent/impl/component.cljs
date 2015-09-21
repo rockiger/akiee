@@ -1,12 +1,13 @@
-
 (ns reagent.impl.component
   (:require [reagent.impl.util :as util]
             [reagent.impl.batching :as batch]
             [reagent.ratom :as ratom]
             [reagent.interop :refer-macros [.' .!]]
-            [reagent.debug :refer-macros [dbg prn]]))
+            [reagent.debug :refer-macros [dbg prn dev? warn]]))
 
 (declare ^:dynamic *current-component*)
+
+(declare ^:dynamic *non-reactive*)
 
 ;;; State
 
@@ -16,46 +17,68 @@
       sa
       (.! this :cljsState (ratom/atom nil)))))
 
-(defn state [this]
-  (deref (state-atom this)))
-
-(defn replace-state [this new-state]
-  ;; Don't use React's replaceState, since it doesn't play well
-  ;; with clojure maps
-  (reset! (state-atom this) new-state))
-
-(defn set-state [this new-state]
-  (swap! (state-atom this) merge new-state))
-
+;; ugly circular dependency
+(defn as-element [x]
+  (js/reagent.impl.template.as-element x))
 
 ;;; Rendering
 
+(defn reagent-class? [c]
+  (and (fn? c)
+       (some? (.' c :cljsReactClass))))
+
+(defn do-render-sub [c]
+  (let [f (.' c :cljsRender)
+        _ (assert (ifn? f))
+        p (.' c :props)
+        res (if (nil? (.' c :reagentRender))
+              (f c)
+              (let [argv (.' p :argv)
+                    n (count argv)]
+                (case n
+                  1 (f)
+                  2 (f (nth argv 1))
+                  3 (f (nth argv 1) (nth argv 2))
+                  4 (f (nth argv 1) (nth argv 2) (nth argv 3))
+                  5 (f (nth argv 1) (nth argv 2) (nth argv 3) (nth argv 4))
+                  (apply f (subvec argv 1)))))]
+    (if (vector? res)
+      (as-element res)
+      (if (ifn? res)
+        (let [f (if (reagent-class? res)
+                  (fn [& args]
+                    (as-element (apply vector res args)))
+                  res)]
+          (.! c :cljsRender f)
+          (recur c))
+        res))))
+
+(declare comp-name)
+
 (defn do-render [c]
   (binding [*current-component* c]
-    (let [f (.' c :cljsRender)
-          _ (assert (util/clj-ifn? f))
-          p (.' c :props)
-          res (if (nil? (.' c :componentFunction))
-                (f c)
-                (let [argv (.' p :argv)
-                      n (count argv)]
-                  (case n
-                    1 (f)
-                    2 (f (nth argv 1))
-                    3 (f (nth argv 1) (nth argv 2))
-                    4 (f (nth argv 1) (nth argv 2) (nth argv 3))
-                    5 (f (nth argv 1) (nth argv 2) (nth argv 3) (nth argv 4))
-                    (apply f (subvec argv 1)))))]
-      (if (vector? res)
-        (.' c asComponent res (.' p :level))
-        (if (ifn? res)
-          (do
-            (.! c :cljsRender res)
-            (do-render c))
-          res)))))
+    (if (dev?)
+      ;; Log errors, without using try/catch (and mess up call stack)
+      (let [ok (array false)]
+        (try
+          (let [res (do-render-sub c)]
+            (aset ok 0 true)
+            res)
+          (finally
+            (when-not (aget ok 0)
+              (js/console.error (str "Error rendering component "
+                                     (comp-name)))))))
+      (do-render-sub c))))
 
 
 ;;; Method wrapping
+
+(def static-fns {:render
+                 (fn []
+                   (this-as c
+                            (if-not *non-reactive*
+                              (batch/run-reactively c #(do-render c))
+                              (do-render c))))})
 
 (defn custom-wrapper [key f]
   (case key
@@ -65,7 +88,7 @@
     :getInitialState
     (fn []
       (this-as c
-               (set-state c (f c))))
+               (reset! (state-atom c) (f c))))
 
     :componentWillReceiveProps
     (fn [props]
@@ -81,7 +104,9 @@
                    (let [old-argv (.' c :props.argv)
                          new-argv (.' nextprops :argv)]
                      (if (nil? f)
-                       (not (util/equal-args old-argv new-argv))
+                       (or (nil? old-argv)
+                           (nil? new-argv)
+                           (not= old-argv new-argv))
                        (f c old-argv new-argv))))))
 
     :componentWillUpdate
@@ -93,6 +118,13 @@
     (fn [oldprops]
       (this-as c
                (f c (.' oldprops :argv))))
+
+    :componentWillMount
+    (fn []
+      (this-as c
+               (.! c :cljsMountOrder (batch/next-mount-count))
+               (when-not (nil? f)
+                 (f c))))
 
     :componentWillUnmount
     (fn []
@@ -109,10 +141,10 @@
       (this-as c (apply f c args)))
     f))
 
-(def dont-wrap #{:cljsRender :render :componentFunction})
+(def dont-wrap #{:cljsRender :render :reagentRender :cljsName})
 
 (defn dont-bind [f]
-  (if (ifn? f)
+  (if (fn? f)
     (doto f
       (.! :__reactDontBind true))
     f))
@@ -127,6 +159,7 @@
       (or wrap (default-wrapper f)))))
 
 (def obligatory {:shouldComponentUpdate nil
+                 :componentWillMount nil
                  :componentWillUnmount nil})
 
 (def dash-to-camel (util/memoize-1 util/dash-to-camel))
@@ -139,28 +172,43 @@
 (defn add-obligatory [fun-map]
   (merge obligatory fun-map))
 
-(defn add-render [fun-map render-f]
-  (assoc fun-map
-    :cljsRender render-f
-    :render (if util/is-client
-              (fn []
-                (this-as c
-                         (batch/run-reactively c #(do-render c))))
-              (fn [] (this-as c (do-render c))))))
+(defn add-render [fun-map render-f name]
+  (let [fm (assoc fun-map
+                  :cljsRender render-f
+                  :render (:render static-fns))]
+    (if (dev?)
+      (assoc fm :cljsName (fn [] name))
+      fm)))
 
-(defn wrap-funs [fun-map]
-  (let [render-fun (or (:componentFunction fun-map)
+(defn fun-name [f]
+  (or (and (fn? f)
+           (or (.' f :displayName)
+               (.' f :name)))
+      (and (implements? INamed f)
+           (name f))
+      (let [m (meta f)]
+        (if (map? m)
+          (:name m)))))
+
+(defn wrap-funs [fmap]
+  (let [fun-map (if-some [cf (:componentFunction fmap)]
+                  (-> fmap
+                      (assoc :reagentRender cf)
+                      (dissoc :componentFunction))
+                  fmap)
+        render-fun (or (:reagentRender fun-map)
                        (:render fun-map))
-        _ (assert (util/clj-ifn? render-fun)
+        _ (assert (ifn? render-fun)
                   (str "Render must be a function, not "
                        (pr-str render-fun)))
-        name (or (:displayName fun-map)
-                 (.' render-fun :displayName)
-                 (.' render-fun :name))
-        name' (if (empty? name) (str (gensym "reagent")) name)
+        name (str (or (:displayName fun-map)
+                      (fun-name render-fun)))
+        name' (if (empty? name)
+                (str (gensym "reagent"))
+                (clojure.string/replace name #"\$" "."))
         fmap (-> fun-map
                  (assoc :displayName name')
-                 (add-render render-fun))]
+                 (add-render render-fun name'))]
     (reduce-kv (fn [m k v]
                  (assoc m k (get-wrapper k v name')))
                {} fmap)))
@@ -179,13 +227,61 @@
       map-to-js))
 
 (defn create-class
-  [body as-component]
+  [body]
   (assert (map? body))
   (let [spec (cljsify body)
-        _ (.! spec :asComponent (dont-bind as-component))
         res (.' js/React createClass spec)
         f (fn [& args]
-            (as-component (apply vector res args)))]
+            (warn "Calling the result of create-class as a function is "
+                  "deprecated in " (.' res :displayName) ". Use a vector "
+                  "instead.")
+            (as-element (apply vector res args)))]
     (util/cache-react-class f res)
     (util/cache-react-class res res)
     f))
+
+(defn component-path [c]
+  (let [elem (some-> (or (some-> c
+                                 (.' :_reactInternalInstance))
+                          c)
+                     (.' :_currentElement))
+        name (some-> elem
+                     (.' :type)
+                     (.' :displayName))
+        path (some-> elem
+                     (.' :_owner)
+                     component-path
+                     (str " > "))
+        res (str path name)]
+    (when-not (empty? res) res)))
+
+(defn comp-name []
+  (if (dev?)
+    (let [c *current-component*
+          n (or (component-path c)
+                (some-> c (.' cljsName)))]
+      (if-not (empty? n)
+        (str " (in " n ")")
+        ""))
+    ""))
+
+(defn shallow-obj-to-map [o]
+  (into {} (for [k (js-keys o)]
+             [(keyword k) (aget o k)])))
+
+(def elem-counter 0)
+
+(defn reactify-component [comp]
+  (.' js/React createClass
+      #js{:displayName "react-wrapper"
+          :render
+          (fn []
+            (this-as this
+                     (as-element
+                      [comp
+                       (-> (.' this :props)
+                           shallow-obj-to-map
+                           ;; ensure re-render, might get mutable js data
+                           (assoc :-elem-count
+                                  (set! elem-counter
+                                        (inc elem-counter))))])))}))

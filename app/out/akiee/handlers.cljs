@@ -4,7 +4,9 @@
             [akiee.node :as no]
             [akiee.dom-helpers :as dom :refer [get-element]]
             [akiee.fileoperations :as fo]
-            [akiee.rank :as r]))
+            [akiee.rank :as r]
+            [clojure.string :as s]
+            [jayq.core :refer [$ on attr html]]))
 
 ;; Nodejs modules
 (def gui (js/require "nw.gui"))
@@ -210,7 +212,7 @@
     (do
       (db/set-editable! nil)
       (when (not= content (:body (db/sidebar-content)))
-        (db/change-body content (db/sidebar-content))))))
+        (db/change-body (s/replace content #"#" "") (db/sidebar-content))))))
 
 (defn onblur-sidebar-state
   "Event -> GlobalState
@@ -310,6 +312,15 @@
                                          (db/set-editable! nil)
                                          (db/change-deadline date (db/sidebar-content))))))
 
+(defn handle-details-link-click
+  "Event -> Void
+  Handles the event when the user clicks on a link in the details area"
+  [ev]
+  (let [target (.-target ev)]
+    (.preventDefault ev)
+    (.stopPropagation ev)
+    (.openExternal (.-Shell gui) target)))
+
 (defn handle-keyup
   "KeyEvent -> GlobalState
   Handles the keyevents that are created by js/document"
@@ -348,3 +359,9 @@
     (.ready (js/$ js/document)
             (fn [] (.on (.datepicker (js/$ "#sidebar-deadline-form"))
                         "hide" handle-change-date)))))
+
+(defn register-click-links
+  "Register the click events on links in the details area"
+  []
+  (let [$body ($ :body)]
+    (on $body "click" :a "data" handle-details-link-click)))

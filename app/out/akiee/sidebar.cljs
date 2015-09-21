@@ -21,6 +21,10 @@
             (:headline node))
       [:span.fa.fa-pencil-square-o]])
 
+(defn markdown-body [node]
+  [:div {:id "details" :dangerouslySetInnerHTML
+          {:__html (js/marked (str (:body node)))}}])
+
 (defn body [node]
      [:div#sidebar-body {:on-click h/onclick-body}
       [:span.details-left "Details:"] [:span.fa.fa-file-text-o]
@@ -28,7 +32,8 @@
               [:div
                [:textarea#sidebar-body-ta.sidebar-input.form-control {:default-value (:body node) :on-blur h/onblur-sidebar-body :on-submit h/onblur-sidebar-body}]
                [:button#sidebar-body-submit.btn.btn-default {:type "button" :title "Tab" :style {:float "right" :margin-top "5px"}} "Save"]]
-            [:div [:pre (:body node)]])])
+        (do
+          (markdown-body node)))])
 
 (defn state [node]
      [:div#sidebar-state {:on-click h/onclick-state}

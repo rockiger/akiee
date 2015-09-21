@@ -1,33 +1,75 @@
 
 (ns reagent.core
   (:refer-clojure :exclude [partial atom flush])
-  (:require [reagent.impl.template :as tmpl]
+  (:require [cljsjs.react]
+            [reagent.impl.template :as tmpl]
             [reagent.impl.component :as comp]
             [reagent.impl.util :as util]
             [reagent.impl.batching :as batch]
             [reagent.ratom :as ratom]
-            [reagent.debug :refer-macros [dbg prn]]
+            [reagent.debug :as deb :refer-macros [dbg prn]]
             [reagent.interop :refer-macros [.' .!]]))
 
 (def is-client util/is-client)
 
-(defn as-component
-  "Turns a vector of Hiccup syntax into a React component. Returns form unchanged if it is not a vector."
-  [form]
-  (tmpl/as-component form))
+(defn create-element
+  "Create a native React element, by calling React.createElement directly.
 
-(defn render-component
-  "Render a Reagent component into the DOM. The first argument may be either a
-vector (using Reagent's Hiccup syntax), or a React component. The second argument should be a DOM node.
+That means the second argument must be a javascript object (or nil), and
+that any Reagent hiccup forms must be processed with as-element. For example
+like this:
+
+   (r/create-element \"div\" #js{:className \"foo\"}
+      \"Hi \" (r/as-element [:strong \"world!\"])
+
+which is equivalent to
+
+   [:div.foo \"Hi\" [:strong \"world!\"]]
+"
+  ([type]
+   (create-element type nil))
+  ([type props]
+   (assert (not (map? props)))
+   (js/React.createElement type props))
+  ([type props child]
+   (assert (not (map? props)))
+   (js/React.createElement type props child))
+  ([type props child & children]
+   (assert (not (map? props)))
+   (apply js/React.createElement type props child children)))
+
+(defn as-element
+  "Turns a vector of Hiccup syntax into a React element. Returns form unchanged if it is not a vector."
+  [form]
+  (tmpl/as-element form))
+
+(defn adapt-react-class
+  "Returns an adapter for a native React class, that may be used
+just like a Reagent component function or class in Hiccup forms."
+  [c]
+  (assert c)
+  (tmpl/adapt-react-class c))
+
+(defn reactify-component
+  "Returns an adapter for a Reagent component, that may be used from
+  React, for example in JSX. A single argument, props, is passed to
+  the component, converted to a map."
+  [c]
+  (assert c)
+  (comp/reactify-component c))
+
+(defn render
+  "Render a Reagent component into the DOM. The first argument may be 
+either a vector (using Reagent's Hiccup syntax), or a React element. The second argument should be a DOM node.
 
 Optionally takes a callback that is called when the component is in place.
 
 Returns the mounted component instance."
   ([comp container]
-     (render-component comp container nil))
+   (render comp container nil))
   ([comp container callback]
    (let [f (fn []
-             (as-component (if (fn? comp) (comp) comp)))]
+             (as-element (if (fn? comp) (comp) comp)))]
      (util/render-component f container callback))))
 
 (defn unmount-component-at-node
@@ -35,12 +77,34 @@ Returns the mounted component instance."
   [container]
   (util/unmount-component-at-node container))
 
-(defn render-component-to-string
+(defn render-to-string
   "Turns a component into an HTML string."
   ([component]
-     (.' js/React renderComponentToString (as-component component))))
+     (binding [comp/*non-reactive* true]
+       (.' js/React renderToString (as-element component)))))
 
-(defn ^:export force-update-all []
+;; For backward compatibility
+(def as-component as-element)
+(def render-component render)
+(def render-component-to-string render-to-string)
+
+(defn render-to-static-markup
+  "Turns a component into an HTML string, without data-react-id attributes, etc."
+  ([component]
+     (binding [comp/*non-reactive* true]
+       (.' js/React renderToStaticMarkup (as-element component)))))
+
+(defn ^:export force-update-all
+  "Force re-rendering of all mounted Reagent components. This is
+  probably only useful in a development environment, when you want to
+  update components in response to some dynamic changes to code.
+
+  Note that force-update-all may not update root components. This
+  happens if a component 'foo' is mounted with `(render [foo])` (since
+  functions are passed by value, and not by reference, in
+  ClojureScript). To get around this you'll have to introduce a layer
+  of indirection, for example by using `(render [#'foo])` instead."
+  []
   (util/force-update-all))
 
 (defn create-class
@@ -54,12 +118,13 @@ looking like this:
 :component-will-update (fn [this new-argv])
 :component-did-update (fn [this old-argv])
 :component-will-unmount (fn [this])
-:render (fn [this])}
+:reagent-render (fn [args....])   ;; or :render (fn [this])
+}
 
-Everything is optional, except :render.
+Everything is optional, except either :reagent-render or :render.
 "
   [spec]
-  (tmpl/create-class spec))
+  (comp/create-class spec))
 
 
 (defn current-component
@@ -68,27 +133,44 @@ Everything is optional, except :render.
   []
   comp/*current-component*)
 
-
-(defn state
-  "Returns the state of a component, as set with replace-state or set-state."
+(defn state-atom
+  "Returns an atom containing a components state."
   [this]
   (assert (util/reagent-component? this))
-  ;; TODO: Warn if top-level component
-  (comp/state this))
+  (comp/state-atom this))
+
+(defn state
+  "Returns the state of a component, as set with replace-state or set-state.
+Equivalent to (deref (r/state-atom this))"
+  [this]
+  (assert (util/reagent-component? this))
+  (deref (state-atom this)))
 
 (defn replace-state
-  "Set state of a component."
+  "Set state of a component.
+Equivalent to (reset! (state-atom this) new-state)"
   [this new-state]
   (assert (util/reagent-component? this))
   (assert (or (nil? new-state) (map? new-state)))
-  (comp/replace-state this new-state))
+  (reset! (state-atom this) new-state))
 
 (defn set-state
-  "Merge component state with new-state."
+  "Merge component state with new-state.
+Equivalent to (swap! (state-atom this) merge new-state)"
   [this new-state]
   (assert (util/reagent-component? this))
   (assert (or (nil? new-state) (map? new-state)))
-  (comp/set-state this new-state))
+  (swap! (state-atom this) merge new-state))
+
+(defn force-update
+  "Force a component to re-render immediately.
+
+  If the second argument is true, child components will also be
+  re-rendered, even is their arguments have not changed."
+  ([this]
+   (force-update this false))
+  ([this deep]
+   (util/force-update this deep)))
 
 
 (defn props
@@ -139,6 +221,28 @@ re-rendered."
   ([x] (ratom/atom x))
   ([x & rest] (apply ratom/atom x rest)))
 
+
+(defn wrap
+  "Provide a combination of value and callback, that looks like an atom.
+
+  The first argument can be any value, that will be returned when the
+  result is deref'ed.
+
+  The second argument should be a function, that is called with the
+  optional extra arguments provided to wrap, and the new value of the
+  resulting 'atom'.
+
+  Use for example like this:
+
+  (wrap (:foo @state)
+        swap! state assoc :foo)
+
+  Probably useful only for passing to child components."
+  [value reset-fn & args]
+  (assert (ifn? reset-fn))
+  (ratom/make-wrapper value reset-fn args))
+
+
 ;; RCursor
 
 (defn cursor
@@ -146,13 +250,30 @@ re-rendered."
 
 Behaves like a Reagent atom but focuses updates and derefs to
 the specified path within the wrapped Reagent atom. e.g.,
-  (let [c (cursor [:nested :content] ra)]
+  (let [c (cursor ra [:nested :content])]
     ... @c ;; equivalent to (get-in @ra [:nested :content])
     ... (reset! c 42) ;; equivalent to (swap! ra assoc-in [:nested :content] 42)
     ... (swap! c inc) ;; equivalence to (swap! ra update-in [:nested :content] inc)
-    )"
-  ([path] (fn [ra] (cursor path ra)))
-  ([path ra] (ratom/cursor path ra)))
+    )
+
+The first parameter can also be a function, that should look something
+like this:
+
+(defn set-get
+  ([k] (get-in @state k))
+  ([k v] (swap! state assoc-in k v)))
+
+The function will be called with one argument – the path passed to
+cursor – when the cursor is deref'ed, and two arguments (path and new
+value) when the cursor is modified.
+
+Given that set-get function, (and that state is a Reagent atom, or
+another cursor) these cursors are equivalent:
+(cursor state [:foo]) and (cursor set-get [:foo]).
+"
+  ([src path]
+   (ratom/cursor src path)))
+
 
 ;; Utilities
 
@@ -167,3 +288,9 @@ the result can be compared with ="
   [f & args]
   (util/partial-ifn. f args nil))
 
+(defn component-path
+  ;; Try to return the path of component c as a string.
+  ;; Maybe useful for debugging and error reporting, but may break
+  ;; with future versions of React (and return nil). 
+  [c]
+  (comp/component-path c))

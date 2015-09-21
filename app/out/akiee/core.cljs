@@ -204,6 +204,7 @@
     [app]
     (.getElementById js/document "root"))
   (sb/datepicker-config)
-  (h/register-datepicker-events))
+  (h/register-datepicker-events)
+  (h/register-click-links))
 
 (big-bang)

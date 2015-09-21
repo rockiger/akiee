@@ -1,4 +1,2 @@
-(ns reagent.interop)
-
-(def fvars #js {})
-
+(ns reagent.interop
+  (:require-macros [reagent.interop]))
