@@ -144,7 +144,7 @@
   (let [class (if (= (db/selected) (:key t))
                 "selected"
                 "")]
-  [:tr {:data-key (:key t) :on-click h/onclick-task :class class}
+  [:tr {:key (:key t) :on-click h/onclick-task :class class}
    [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
    [:td [:span.project-tag.label (:project t)] (:headline t)]
    [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
@@ -167,7 +167,7 @@
 (defn task-table [tb]
   (if (empty? tb)
     (empty-message)
-    [:table.table
+    [:table.table {:key (:todo (first tb))}
      [:tbody
       (for [t tb]
         [task t])]]))
@@ -180,9 +180,12 @@
                    {:class ""}
                    {:class "closed"})]
     [:div#tasks show? [:div#list (if (= (db/list-state) ALL)
-                       [:table.table [:tbody [:tr.kanban-row
-                       (for [tb (db/tasks)]
-                         [:td.kanban-column (task-table tb)])]]]
+                                   (let [states ["TODO" "DOING" "DONE"]]
+                                     [:table.table [:tbody [:tr.kanban-row
+                                     (for [tb (db/tasks)]
+                                       [:td.kanban-column
+                                        {:key (str "kb-" (:todo (first tb)))}
+                                        (task-table tb)])]]])
                        (task-table (db/tasks)))]
      [:aside#task-sidebar sidebar? (sb/sidebar)]]))
 
