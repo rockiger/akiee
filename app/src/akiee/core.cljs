@@ -88,7 +88,7 @@
   [loa n]
   [:select#enter-task-status.form-control {:name n :defaultValue "Inbox"}
    (for [a loa]
-     [:option a])])
+     [:option {:key (str "loa" a)} a])])
 
 (defn enter-task-status
   "ListOfTaskState -> Component
