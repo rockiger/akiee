@@ -21,6 +21,12 @@
             cssUrl = ubuntuExternalCss;
         } else if (process.platform === 'darwin') {
             cssUrl = osxExternalCss;
+            var gui = require('nw.gui');
+            var mb = new gui.Menu({type: 'menubar'});
+            mb.createMacBuiltin('Akiee', {
+                hideEdit: false,
+            });
+            gui.Window.get().menu = mb;
         } else if (process.platform === 'win32') {
             cssUrl = winExternalCss;
         }
