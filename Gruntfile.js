@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2014 macco
  *
  * This program is free software; you can redistribute it and/or
@@ -20,9 +20,10 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        nodewebkit: {
+        nwjs: {
             options: {
                 build_dir: './dist',
+                version: "0.12.3",
                 // choose what platforms to compile for here
                 mac: true,
                 win: true,
@@ -33,6 +34,6 @@ module.exports = function(grunt) {
         }
     })
 
-    grunt.loadNpmTasks('grunt-node-webkit-builder');
-    grunt.registerTask('default', ['nodewebkit']);
+    grunt.loadNpmTasks('grunt-nw-builder');
+    grunt.registerTask('default', ['nwjs']);
 };
