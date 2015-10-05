@@ -47,7 +47,7 @@
       (when (not= hdln "")
         (db/add-task! tast hdln tapr))
       (cancel-enter-task)
-      false)))
+      (.stopPropagation ev))))
 
 (defn handle-close
   "Event ->
@@ -69,7 +69,7 @@
   []
   (do
     (events/listen js/window "blur" handle-blur)
-    (.on WIN "close" handle-close))) ;; can't use google closure here, because of nw.js
+    (.on WIN "close" handle-close))) ;; can not use google closure here, because of nw.js
 
 (defn handle-onchange-search
   "Event -> GlobalState
@@ -83,9 +83,11 @@
   Consumes the onblur Event ev and changes global lon ;
   returns the app-state"
   [ev]
-  (let [lon (map no/jsnode->node (no/array->vec [] (no/parse-file (.-value (.-target ev)))))]
+  (let [md (.-value (.-target ev))
+        lon (no/->nodes-from-md md)]
     (do
       (db/reset-lon! db/app-state lon)
+      (println lon)
       (db/set-changed! true))))
 
 (defn handle-onclick-taskstate

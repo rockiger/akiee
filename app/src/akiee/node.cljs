@@ -175,14 +175,21 @@
 (is (project lon (get lon 6)) "head 2")
 (is (project lon (get lon 7)) "head 2")
 
+(defn ->nodes-from-md
+"String -> ListOfNodes
+consumes a task file markdown string and produces a list of nodes
+  TODO find way to test, without :key"
+[md]
+(let [nodes-array (parse-file md)
+      lon-sin-pro (map jsnode->node (array->vec [] nodes-array))]
+  (map (fn [x] (assoc x :project (project lon-sin-pro x))) lon-sin-pro)))
+
 (defn ->nodes
   "String -> ListOfNodes
   consumes the path p to the task file and produces a list of nodes
   TODO find way to test, without :key"
   [p]
-  (let [nodes-array (parse-file (fo/load-task-file p))
-        lon-sin-pro (map jsnode->node (array->vec [] nodes-array))]
-    (map (fn [x] (assoc x :project (project lon-sin-pro x))) lon-sin-pro)))
+  (->nodes-from-md (fo/load-task-file p)))
 
 (defn ->timestamp
   "Date -> String
