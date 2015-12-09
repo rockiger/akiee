@@ -31,14 +31,14 @@
   (global-state. false false false false "" nil nil DOING (no/->nodes p)))
 
 #_(is (= (:lon (load-app-state fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
-                                            :body "" :tag nil :tags {}  :todo "DOING"
-                                            :priority nil :scheduled nil :deadline nil
-                                            :properties {} :drawer {} :rank nil  :style nil}
-                                           {:key "orgode_33.##" :level 2  :headline "Test"
-                                            :body ""  :tag nil :tags {} :todo "TODO"
-                                            :priority nil :scheduled nil :deadline nil
-                                            :properties {} :drawer {} :rank "9"
-                                            :style nil}])))
+                                              :body "" :tag nil :tags {}  :todo "DOING"
+                                              :priority nil :scheduled nil :deadline nil
+                                              :properties {} :drawer {} :rank nil  :style nil}
+                                             {:key "orgode_33.##" :level 2  :headline "Test"
+                                              :body ""  :tag nil :tags {} :todo "TODO"
+                                              :priority nil :scheduled nil :deadline nil
+                                              :properties {} :drawer {} :rank "9"
+                                              :style nil}])))
 
 
 (def app-state  (rc/atom (load-app-state FP)))
@@ -96,50 +96,50 @@
   "GlobalState ListState -> lon
   consumes an GlobalState gs , a ListState ls and  returns the tasks, according to the current ListState"
   [gs ls]
-    (let [filter-tasks (fn [x] (if (= (:level x) 2) true false ))
-          filter-state (fn [x] (cond
-                                (= ls ALL) true
-                                (= ls (:todo x)) true
-                                :else false))
-          filter-search (fn [x] (if (not (empty? (:ss @gs)))
-                                  (if (or (re-find (re-pattern
-                                                (str "(?i)"(:ss @gs))) (:headline x))
-                                          (re-find (re-pattern
-                                                (str "(?i)"(:ss @gs))) (no/tags-string x))
-                                          (re-find (re-pattern
-                                                (str "(?i)"(:ss @gs))) (:project x)))
-                                    true
-                                    false)
-                                  true))]
-      (vec (sort-by :rank no/higher-rank?
-                    (filter filter-search
-                    (filter filter-state
+  (let [filter-tasks (fn [x] (if (= (:level x) 2) true false))
+        filter-state (fn [x] (cond
+                              (= ls ALL) true
+                              (= ls (:todo x)) true
+                              :else false))
+        filter-search (fn [x] (if (not (empty? (:ss @gs)))
+                                (if (or (re-find (re-pattern
+                                                  (str "(?i)"(:ss @gs))) (:headline x))
+                                        (re-find (re-pattern
+                                                  (str "(?i)"(:ss @gs))) (no/tags-string x))
+                                        (re-find (re-pattern
+                                                  (str "(?i)"(:ss @gs))) (:project x)))
+                                  true
+                                  false)
+                                true))]
+    (vec (sort-by :rank no/higher-rank?
+                  (filter filter-search
+                   (filter filter-state
                     (filter filter-tasks (:lon @gs))))))))
 
 ;; ==========================================================
 ;; TEST
-#_(let [filter-tasks (fn [x] (if (= (:level x) 2) true false ))
-      filter-state (fn [x] (cond
-                                (= (:ls @app-state) ALL) true
-                                (= (:ls @app-state) (:todo x)) true
-                                :else false))
-      filter-search (fn [x] (if (:ss @app-state)
+#_(let [filter-tasks (fn [x] (if (= (:level x) 2) true false))
+        filter-state (fn [x] (cond
+                                  (= (:ls @app-state) ALL) true
+                                  (= (:ls @app-state) (:todo x)) true
+                                  :else false))
+        filter-search (fn [x] (if (:ss @app-state)
                                   (if (or
                                        (re-find (re-pattern (:ss @app-state)) (:headline x))
                                        (re-find (re-pattern
-                                                (str "(?i)"(:ss @app-state))) (no/tags-string x))
+                                                 (str "(?i)"(:ss @app-state))) (no/tags-string x))
                                        (re-find (re-pattern (:ss @app-state)) (:project x)))
                                     true
                                     false)
                                   true))]
-  (filter filter-search (filter filter-state (filter filter-tasks (:lon @app-state)))))
+   (filter filter-search (filter filter-state (filter filter-tasks (:lon @app-state)))))
 ;; END TEST
 
 ;; Test fails becaus of :body one seems to have an "\n"
 #_(is (no/node= (nth (tasks-helper test-state) 0) {:key "orgode_33.##" :level 2  :headline "Test"
-                                              :body ""  :tag nil :tags {} :todo "TODO"
-                                              :priority nil :scheduled nil :deadline nil
-                                              :properties {} :drawer {} :rank nil :style nil}))
+                                                   :body ""  :tag nil :tags {} :todo "TODO"
+                                                   :priority nil :scheduled nil :deadline nil
+                                                   :properties {} :drawer {} :rank nil :style nil}))
 
 
 (defn tasks
@@ -161,7 +161,7 @@
   "-> ListOfString
   returns a List of Strings with the projects in the app-state"
   []
-  (let [filter-nodes (fn [x] (if (= (:level x) 1) true false ))]
+  (let [filter-nodes (fn [x] (if (= (:level x) 1) true false))]
     (vec (sort (map :headline (filter filter-nodes (:lon @app-state)))))))
 
 (defn set-changed!
@@ -267,9 +267,9 @@
   "GlobalState -> Int
   produces a new rank based on the tasks in the GlobalState gs"
   [gs]
-  (let [filter-tasks (fn [x] (if (not= (:rank x) nil) true false ))]
+  (let [filter-tasks (fn [x] (if (not= (:rank x) nil) true false))]
     (inc (int (:rank (last (vec (sort-by :rank no/higher-rank? (filter filter-tasks
-                                                               (:lon @gs))))))))))
+                                                                (:lon @gs))))))))))
 ;(is (= (->rank-helper test-state) 10))
 
 (defn ->rank
@@ -289,7 +289,7 @@
   Consumes a Collection coll and a healine hl;
   produces the position of the element with the headline hl and level 1"
   [coll hl]
-    (index-of-node-helper coll hl 0))
+  (index-of-node-helper coll hl 0))
 ;(is (= (index-of-node (:lon @test-state) "Inbox") 0))
 ;(is (= (index-of-node (:lon @test-state) "XXXXX") nil))
 ;(is (= (index-of-node (:lon @test-state) "Test") nil))
@@ -453,7 +453,7 @@
   consumes content commma seperated String c and Node n;
   changes the project in n and safes to app-state"
   [c n]
-  (let [tags (map trim (s/split c "," ))]
+  (let [tags (map trim (s/split c ","))]
     (change-sidebar-element tags n :tags)))
 
 (defn change-reps

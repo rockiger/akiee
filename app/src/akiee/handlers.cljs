@@ -146,7 +146,7 @@
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the global state editable"
   [ev]
-    (onclick-sidebar-element "hdln" "sidebar-headline"))
+  (onclick-sidebar-element "hdln" "sidebar-headline"))
 
 (defn onclick-body
   "Event -> GlobalState
@@ -344,8 +344,8 @@
      (and (= (ky ev) 27) (db/editable)) (db/set-editable! nil)             ;; ESC - editable
      (and (= (ky ev) 13) (= (db/editable) "hdln")) (submit-sidebar-hdln)     ;; Enter - hdln
      (and (= (ky ev) 13) (= (db/editable) "tags")) (submit-sidebar-tags)     ;; Enter - tags
-     (and (= (ky ev) 13) (= (db/editable) "reps")) (submit-sidebar-reps)     ;; Enter - reps
-     )))
+     (and (= (ky ev) 13) (= (db/editable) "reps")) (submit-sidebar-reps))))     ;; Enter - reps
+
 
 (defn register-keyevents
   "Register the keyhandlers"

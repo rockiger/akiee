@@ -5,8 +5,8 @@
    [akiee.constants :refer [TODO DOING DONE ALL]]
    [cljs.test :refer-macros [is deftest]]
    [cljs.nodejs :as nj]
-   [clojure.string :as s :refer [trim join]]
-   ))
+   [clojure.string :as s :refer [trim join]]))
+
 
 ;; Nodejs modules
 (def org (nj/require "./lib/markdown-org-mode-parser"))
@@ -75,13 +75,13 @@
     nil
     (letfn [(->rate [s] (if-not (js/isNaN (js/parseInt s)) (js/parseInt s) 1)) ;; wenn nicht NaN
             (->unit [s]
-            (cond
-             (.includes s "weekdaily") "weekdaily"
-             (.includes s "daily")   "daily"
-             (.includes s "weekly")  "weekly"
-             (.includes s "monthly") "monthly"
-             (.includes s "yearly")  "yearly"
-             :else ""))]
+             (cond
+              (.includes s "weekdaily") "weekdaily"
+              (.includes s "daily")   "daily"
+              (.includes s "weekly")  "weekly"
+              (.includes s "monthly") "monthly"
+              (.includes s "yearly")  "yearly"
+              :else ""))]
       (if (empty? (->unit s))
         nil
         {:rate (->rate s) :unit (->unit s)}))))
@@ -103,7 +103,7 @@
      :level (aget jn "level")
      :headline (str (aget jn "headline"))
      :body (if (and (> (count (trim (aget jn "body"))) 0) (not= (aget jn "body") "\n"))
-                 (trim (aget jn "body")) nil)
+               (trim (aget jn "body")) nil)
      :tag (aget jn "tag")
      :tags (js->clj (js-keys (aget jn "tags")))
      :todo (aget jn "todo")
@@ -176,13 +176,13 @@
 (is (project lon (get lon 7)) "head 2")
 
 (defn ->nodes-from-md
-"String -> ListOfNodes
+ "String -> ListOfNodes
 consumes a task file markdown string and produces a list of nodes
   TODO find way to test, without :key"
-[md]
-(let [nodes-array (parse-file md)
-      lon-sin-pro (map jsnode->node (array->vec [] nodes-array))]
-  (map (fn [x] (assoc x :project (project lon-sin-pro x))) lon-sin-pro)))
+ [md]
+ (let [nodes-array (parse-file md)
+       lon-sin-pro (map jsnode->node (array->vec [] nodes-array))]
+   (map (fn [x] (assoc x :project (project lon-sin-pro x))) lon-sin-pro)))
 
 (defn ->nodes
   "String -> ListOfNodes
@@ -246,9 +246,9 @@ consumes a task file markdown string and produces a list of nodes
   "Node -> String
   Consumes a Node n and produces the Repeat String based on the n's RepeatInfo"
   [n]
-    (if (:unit (:repeat n))
-      (str (:rate (:repeat n)) " " (:unit (:repeat n)))
-      ""))
+  (if (:unit (:repeat n))
+    (str (:rate (:repeat n)) " " (:unit (:repeat n)))
+    ""))
 
 ;; (is (= (reps-string {:headline "node 1" :repeat nil})) "")
 ;; (is (= (reps-string {:headline "node 2" :repeat {:rate 1 :unit "daily"}})) "daily")

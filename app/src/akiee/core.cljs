@@ -55,8 +55,8 @@
   [in id t tfn? onfn]
   (let [icon-name (str "fa-" in)
         active? (if (tfn?) "active" "")]
-  [:button.btn.btn-default.navbar-btn.btn-square.toolbar-button {:id id :title t :class active? :on-click onfn}
-   [:span.fa.fa-fw {:class icon-name}]]))
+   [:button.btn.btn-default.navbar-btn.btn-square.toolbar-button {:id id :title t :class active? :on-click onfn}
+    [:span.fa.fa-fw {:class icon-name}]]))
 
 (def editor-switch [switch-button "code" "show-editor" (str modifier "+E / " modifier "+Space") db/editor? db/switch-editor!])
 (def search-switch [switch-button "search" "show-searchbox" (str modifier "+F") db/search? db/switch-search!])
@@ -110,15 +110,15 @@
   (let [show? (if (db/entry?)
                 {:class "open"}
                 {:class "closed"})]
-  [:div#enter-task-div.container-fluid.slider show?
-   [:form#enter-task {:on-submit h/handle-enter-task}
-    [:input#enter-headline.form-control {:type "text" :placeholder "Enter Headline"
-                                         :name "headline"}]
-    [enter-task-status ["TODO", "DOING", "DONE"]]
-    [enter-task-project (db/projects)]
-    [:button.btn.btn-default.btn-on-grey {:type "submit"} "Create"]
-    [:button#cancel-enter-task.btn.btn-link
-     {:type "button" :on-click h/cancel-enter-task} "Cancel"]]]))
+   [:div#enter-task-div.container-fluid.slider show?
+    [:form#enter-task {:on-submit h/handle-enter-task}
+     [:input#enter-headline.form-control {:type "text" :placeholder "Enter Headline"
+                                          :name "headline"}]
+     [enter-task-status ["TODO", "DOING", "DONE"]]
+     [enter-task-project (db/projects)]
+     [:button.btn.btn-default.btn-on-grey {:type "submit"} "Create"]
+     [:button#cancel-enter-task.btn.btn-link
+      {:type "button" :on-click h/cancel-enter-task} "Cancel"]]]))
 
 (defn search
   "-> Component
@@ -127,8 +127,8 @@
   (let [show? (if (db/search?)
                 {:class "open"}
                 {:class "closed"})]
-  [:div#search-form.slider show?
-    [:input#search-input.form-control.mvx-search {:type "text" :on-change h/handle-onchange-search}]]))
+   [:div#search-form.slider show?
+     [:input#search-input.form-control.mvx-search {:type "text" :on-change h/handle-onchange-search}]]))
 
 (defn editor
   "-> Component
@@ -137,18 +137,18 @@
   (let [show? (if (db/editor?)
                 {:style {:display "inline-block"}}
                 {:style {:display "none"}})]
-  [:div#editor show?
-   [:textarea#editor-area {:rows 3 :on-blur h/handle-blur-editor}]]))
+   [:div#editor show?
+    [:textarea#editor-area {:rows 3 :on-blur h/handle-blur-editor}]]))
 
 (defn task [t]
   (let [class (if (= (db/selected) (:key t))
                 "selected"
                 "")]
-  [:tr {:data-key (:key t) :on-click h/onclick-task :class class}
-   [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
-   [:td [:span.project-tag.label (:project t)] (:headline t)]
-   [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
-   [:td.rank [:span.fa.fa-chevron-down.hover-button {:on-click h/handle-onclick-down}]]]))
+   [:tr {:data-key (:key t) :on-click h/onclick-task :class class}
+    [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
+    [:td [:span.project-tag.label (:project t)] (:headline t)]
+    [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
+    [:td.rank [:span.fa.fa-chevron-down.hover-button {:on-click h/handle-onclick-down}]]]))
 
 (defn empty-message []
   (cond
@@ -182,11 +182,11 @@
     [:div#tasks show? [:div#list (if (= (db/list-state) ALL)
                                    (let [states ["TODO" "DOING" "DONE"]]
                                      [:table.table [:tbody [:tr.kanban-row
-                                     (for [tb (db/tasks)]
-                                       [:td.kanban-column
-                                        {:key (str "kb-" (:todo (first tb)))}
-                                        (task-table tb)])]]])
-                       (task-table (db/tasks)))]
+                                                            (for [tb (db/tasks)]
+                                                              [:td.kanban-column
+                                                               {:key (str "kb-" (:todo (first tb)))}
+                                                               (task-table tb)])]]])
+                                  (task-table (db/tasks)))]
      [:aside#task-sidebar sidebar? (sb/sidebar)]]))
 
 (defn app
