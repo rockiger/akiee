@@ -1,5 +1,4 @@
-<img alt="Akiee the task managen for hackers, wookie icon" src="./app/logo.png" width="100px"/> 
-[![Stories in Ready](https://badge.waffle.io/rockiger/akiee.png?label=done&title=Ready)](https://waffle.io/rockiger/akiee)
+<img alt="Akiee the task managen for hackers, wookie icon" src="./app/logo.png" width="100px"/>
 # Welcome to Akiee
 
 Akiee is a task manager that allows you to organize your task in a new way. It is build with Node-Webkit, Clojurescript and React. It is available for Linux, Mac and Windows.
