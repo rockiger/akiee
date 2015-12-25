@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/rockiger/akiee.png?label=ready&title=Ready)](https://waffle.io/rockiger/akiee)
 <img alt="Akiee the task managen for hackers, wookie icon" src="./app/logo.png" width="100px"/>
 # Welcome to Akiee
 
