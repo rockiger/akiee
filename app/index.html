@@ -16,7 +16,7 @@
             cssUrl = gnomeExternalCss;
             var gui = require('nw.gui');
             var win = gui.Window.get();
-            win.setTransparent(true);
+            //win.setTransparent(true);
         } else if (process.env.DESKTOP_SESSION === "ubuntu" || process.env.DESKTOP_SESSION === 'ubuntu-2d') {
             cssUrl = ubuntuExternalCss;
         } else if (process.platform === 'darwin') {

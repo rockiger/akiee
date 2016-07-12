@@ -1,6 +1,5 @@
 (ns akiee.core
   (:require [clojure.browser.repl :as repl]
-            [clojure.string :as string]
             [reagent.core :as r]
             [akiee.constants :as c :refer [TODO DOING DONE ALL]]
             [akiee.app-db :as db]
@@ -167,7 +166,7 @@
 (defn task-table [tb]
   (if (empty? tb)
     (empty-message)
-    [:table.table {:key (:todo (first tb))}
+    [:table.table ^{:key (:todo (first tb))}
      [:tbody
       (for [t tb]
         [task t])]]))

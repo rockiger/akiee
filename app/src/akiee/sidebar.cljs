@@ -3,8 +3,7 @@
             [akiee.constants :as c :refer [TODO DOING DONE ALL]]
             [akiee.app-db :as db]
             [akiee.handlers :as h]
-            [akiee.node :as n]
-            [clojure.string :as s]))
+            [akiee.node :as n]))
 
 (enable-console-print!)
 
@@ -17,21 +16,21 @@
 (defn headline [node]
      [:h4 {:on-click h/onclick-hdln}
       (if (and (db/selected) (= (db/editable) "hdln"))
-            [:input#sidebar-headline.sidebar-input.form-control {:type "text" :default-value (:headline node) :on-blur h/onblur-sidebar-input :on-submit h/onblur-sidebar-input}]
-            (:headline node))
+          [:input#sidebar-headline.sidebar-input.form-control {:type "text" :default-value (:headline node) :on-blur h/onblur-sidebar-input :on-submit h/onblur-sidebar-input}]
+          (:headline node))
       [:span.fa.fa-pencil-square-o]])
 
-(defn markdown-body [node]
+(defn markdown-body [node] ;; am 21.06. im Zug bearbeitet, leider kein nw installiert
   [:div {:id "details" :dangerouslySetInnerHTML
-          {:__html (js/marked (str (:body node)))}}])
+                         {:__html (js/marked (str (:body node)))}}])
 
 (defn body [node]
      [:div#sidebar-body {:on-click h/onclick-body}
       [:span.details-left "Details:"] [:span.fa.fa-file-text-o]
       (if (and (db/selected) (= (db/editable) "body"))
-              [:div
-               [:textarea#sidebar-body-ta.sidebar-input.form-control {:default-value (:body node) :on-blur h/onblur-sidebar-body :on-submit h/onblur-sidebar-body}]
-               [:button#sidebar-body-submit.btn.btn-default {:type "button" :title "Tab" :style {:float "right" :margin-top "5px"}} "Save"]]
+          [:div
+           [:textarea#sidebar-body-ta.sidebar-input.form-control {:default-value (:body node) :on-blur h/onblur-sidebar-body :on-submit h/onblur-sidebar-body}]
+           [:button#sidebar-body-submit.btn.btn-default {:type "button" :title "Tab" :style {:float "right" :margin-top "5px"}} "Save"]]
         (do
           (markdown-body node)))])
 
@@ -66,8 +65,8 @@
          span-style (if (and (db/selected) (= (db/editable) "scheduled")) {:display "none"} {:display "inline"})]
      [:div#sidebar-scheduled {:on-click h/onclick-scheduled}
        [:span.details-left "Planned:"]
-        [:input#sidebar-scheduled-form.sidebar-input.form-control {:type "text" :value (input-date (:scheduled node)) :data-provide "datepicker" :style style}]
-        [:span {:style span-style} (if (:scheduled node) (.toLocaleDateString (:scheduled node)) "Never")]
+       [:input#sidebar-scheduled-form.sidebar-input.form-control {:type "text" :value (input-date (:scheduled node)) :data-provide "datepicker" :style style}]
+       [:span {:style span-style} (if (:scheduled node) (.toLocaleDateString (:scheduled node)) "Never")]
       [:span.fa.fa-calendar]]))
 
 (defn deadline [node]
@@ -75,8 +74,8 @@
          span-style (if (and (db/selected) (= (db/editable) "deadline")) {:display "none"} {:display "inline"})]
      [:div#sidebar-deadline {:on-click h/onclick-deadline}
        [:span.details-left "Due:"]
-        [:input#sidebar-deadline-form.sidebar-input.form-control {:type "text" :value (input-date (:deadline node)) :data-provide "datepicker" :style style}]
-        [:span {:style span-style} (if (:deadline node) (.toLocaleDateString (:deadline node)) "Never")]
+       [:input#sidebar-deadline-form.sidebar-input.form-control {:type "text" :value (input-date (:deadline node)) :data-provide "datepicker" :style style}]
+       [:span {:style span-style} (if (:deadline node) (.toLocaleDateString (:deadline node)) "Never")]
       [:span.fa.fa-calendar]]))
 
 (defn tags [node]
@@ -85,7 +84,7 @@
    (if (and (db/selected) (= (db/editable) "tags"))
      [:input#sidebar-tags-form.form-control {:type "text" :default-value (n/tags-string node) :on-blur h/onblur-sidebar-tags :on-submit h/onblur-sidebar-tags}]
      [:span (if (n/tags-string node) (n/tags-string node) "None")])
-    [:span.fa.fa-tags]])
+   [:span.fa.fa-tags]])
 
 (defn reps [node]
   [:div#sidebar-reps {:on-click h/onclick-reps}
@@ -93,7 +92,7 @@
    (if (and (db/selected) (= (db/editable) "reps"))
      [:input#sidebar-reps-form.form-control {:type "text" :default-value (n/reps-string node) :on-blur h/onblur-sidebar-reps :on-submit h/onblur-sidebar-reps}]
      [:span (n/reps-string node)])
-    [:span.fa.fa-repeat]])
+   [:span.fa.fa-repeat]])
 
 (defn sidebar []
   (let [node (db/sidebar-content)]
@@ -113,4 +112,3 @@
             (set! (.-autoclose (.-defaults (.-datepicker (.-fn js/$)))) true)
             (set! (.-toggleActive (.-defaults (.-datepicker (.-fn js/$)))) true)
             (set! (.-todayHighlight (.-defaults (.-datepicker (.-fn js/$)))) true))))
-

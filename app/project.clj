@@ -4,7 +4,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2725"]
-                 [reagent "0.5.1"]
+                 [reagent "0.6.0-rc"]
                  [garden "1.2.5"]
                  [jayq "2.5.4"]]
 
@@ -19,20 +19,20 @@
   :clean-targets ["out" "out-adv"]
 
   :cljsbuild {
-    :builds [{:id "dev"
-    :source-paths ["src"]
-    :compiler {
-      :main akiee.core
-      :output-to "out/akiee.js"
-      :output-dir "out"
-      :optimizations :none
-      :cache-analysis true
-      :source-map true}}
-      {:id "release"
-      :source-paths ["src"]
-      :compiler {
-        :main akiee-sample.core
-        :output-to "out-adv/akiee.min.js"
-        :output-dir "out-adv"
-        :optimizations :advanced
-        :pretty-print false}}]})
+              :builds [{:id "dev"
+                        :source-paths ["src"]
+                        :compiler {
+                                   :main akiee.core
+                                   :output-to "out/akiee.js"
+                                   :output-dir "out"
+                                   :optimizations :none
+                                   :cache-analysis true
+                                   :source-map true}}
+                       {:id "release"
+                        :source-paths ["src"]
+                        :compiler {
+                                   :main akiee-sample.core
+                                   :output-to "out-adv/akiee.min.js"
+                                   :output-dir "out-adv"
+                                   :optimizations :advanced
+                                   :pretty-print false}}]})

@@ -3,7 +3,6 @@
     "nodejs": true,
     "additional_trust_anchors": "",
     "inject-js-end": "",
-    "node-remote": "",
     "keywords": [
         "task",
         "management",

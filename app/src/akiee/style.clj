@@ -51,7 +51,7 @@
      [:.details-left {:margin-right "5px"}]
      [:.sidebar-input {:height "32px" :width "80%" :display "inline"}]
      [:#sidebar-body
-      [:pre {:font-family "inherit" :font-size "inherit" :padding 0 :color "inherit" :border "none" :background-color "inherit" :white-space "pre-wrap"  :word-wrap "break-word"  :tab-size 4 }]
+      [:pre {:font-family "inherit" :font-size "inherit" :padding 0 :color "inherit" :border "none" :background-color "inherit" :white-space "pre-wrap"  :word-wrap "break-word"  :tab-size 4}]
       [:textarea {:width "100%" :height "225px" :border-radius 0 :background-color "white" :font-size "inherit" :resize "none"}]]
      [:#sidebar-task-state :#sidebar-task-project {:width "auto" :display "inline-block"}]
 
@@ -96,7 +96,7 @@
      [:#enter-headline {:width (percent 45) :flex 1}]
      [:#enter-task-status {:width (px 116)}]
      [:#enter-task-div :#search-form {:background-color "#d6d6d6"
-                                      :border-bottom "1px solid #a1a1a1" }]
+                                      :border-bottom "1px solid #a1a1a1"}]
      [:#search-form :#enter-task-div :enter-task {:align-items "center" :justify-content "center" :margin-top "-1px"}]
      [:#enterTask :#search-form.row {:margin-top (px 20)}]
      [:#enterTask [:div {:padding-right 0}]]
@@ -125,8 +125,8 @@
        :margin-left (px 3) :font-size (px 16)  :line-height (px 14)}]
      [:.btn:focus :.btn:focus:active :.btn.active:focus :.btn-group>.btn:focus
       :.btn-group-vertical>.btn:focus :select.form-control:focus {:outline-color "rgba(46,52,52,0.3)"
-                                       :outline-offset (px -4) :outline-style "dashed"
-                                       :outline-width (px 1)}]
+                                                                  :outline-offset (px -4) :outline-style "dashed"
+                                                                  :outline-width (px 1)}]
      [:.btn.active :.btn.active:hover :.btn:hover:active :select.form-control:hover:active
       {:background-image "linear-gradient(#d6d6d6, #e0e0e0)" :border-radius "3px"
        :color "#2e3436" :box-shadow "none" :font-size "16px"}]
@@ -149,8 +149,8 @@
      {:padding "8px 7px !important" :font-size "13px !important"
       :margin-left "6px !important"}]
 
-     [:select.form-control {:padding "4px 16px"}]
-     [:select.form-control:focus {:border-color "#a1a1a1"}]
+    [:select.form-control {:padding "4px 16px"}]
+    [:select.form-control:focus {:border-color "#a1a1a1"}]
 
     [:.btn-link :.btn-link:focus :btn-link:active
      {:text-decoration "underline" :background "none" :color "#2a76c6"
@@ -161,53 +161,48 @@
     [:*:before {:font-size (px 13)}]
 
     [:table [:td [:.glyphicon-chevron-up {:border "1px solid transparent"
-                                         :padding (px 8) :padding-left (px 9)
-                                         :color dark-grey}]]]
+                                          :padding (px 8) :padding-left (px 9)
+                                          :color dark-grey}]]]
     [:.glyphicon-chevron-down :.hover-button {:border "1px solid transparent"
                                               :padding (px 8) :padding-left (px 9)
                                               :color dark-grey}]
     [:table [:td [:.glyphicon-chevron-down {:padding-left (px 8) :color dark-grey}]]]
-     (let [st {:border (str "1px solid " medium-grey) :border-radius (px 3)
-                   :background-image
-                   "linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%)"}]
-      [[:table [:td [:.glyphicon-chevron-up:hover :.glyphicon-chevron-down:hover st]]]
+    (let [st {:border (str "1px solid " medium-grey) :border-radius (px 3)
+                  :background-image
+                  "linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%)"}]
+     [[:table [:td [:.glyphicon-chevron-up:hover :.glyphicon-chevron-down:hover st]]]
       [:.hover-button:hover st]])
 
-     [:.selected>td>span.hover-button:hover
-      {:border (str "1px solid " medium-grey) :border-radius (px 3)
-       :background-image
-       "linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%)"
-       :color dark-grey}]
+    [:.selected>td>span.hover-button:hover
+     {:border (str "1px solid " medium-grey) :border-radius (px 3)
+      :background-image
+      "linear-gradient(to bottom, white 0%, #f7f7f7 40%, #ededed 100%)"
+      :color dark-grey}]
 
     [:btn-group>.btn:first-child :.btn-group>.btn:last-child {:width (px 100)}]
     [:.btn-group>.btn {:width (px 98) :height (px 32) :padding-top "7px !important"}]
 
-     [:.todo :.doing :.done :.selected :tr:hover [:td [:glyphicon-chevron-up :glyphicon-chevron-down {:border-color "transparent"}]]]
+    [:.todo :.doing :.done :.selected :tr:hover [:td [:glyphicon-chevron-up :glyphicon-chevron-down {:border-color "transparent"}]]]
 
-     [:table [:td [:.glyphicon-chevron-up:focus :.glyphicon-chevron-down:focus
-                   {:outline "rgba(46, 52, 54, 0.3) 1px dashed !important"
-                    :outline-offset (px -4)}]]]
+    [:table [:td [:.glyphicon-chevron-up:focus :.glyphicon-chevron-down:focus
+                  {:outline "rgba(46, 52, 54, 0.3) 1px dashed !important"
+                   :outline-offset (px -4)}]]]
 
-     [:.form-control {:border "1px solid #a1a1a1" :border-radius (px 3)
-                      :box-shadow "inset 0 3px transparent" :background-color "transparent"
-                      :background-image "linear-gradient(#f7f7f7, #ffffff 90%)"
-                      :transition "all 200ms ease-out"}]
-     [:.form-control:focus {:border-color light-blue
-                            :box-shadow "inset 0 3px rgba(0, 0, 0, 0.02)"}]
-     [:#show-enter-task [:span:before {:content "\"+\"" :font-weight "bold"}]]
-     [:#editor-area :.datepicker.dropdown-menu {:font-family "'Source Code Pro', Consolas, 'Ubuntu Mono', 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace"}]
+    [:.form-control {:border "1px solid #a1a1a1" :border-radius (px 3)
+                     :box-shadow "inset 0 3px transparent" :background-color "transparent"
+                     :background-image "linear-gradient(#f7f7f7, #ffffff 90%)"
+                     :transition "all 200ms ease-out"}]
+    [:.form-control:focus {:border-color light-blue
+                           :box-shadow "inset 0 3px rgba(0, 0, 0, 0.02)"}]
+    [:#show-enter-task [:span:before {:content "\"+\"" :font-weight "bold"}]]
+    [:#editor-area :.datepicker.dropdown-menu {:font-family "'Source Code Pro', Consolas, 'Ubuntu Mono', 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace"}]
 
-     [:.datepicker
-      [:table {:font-size "12px" :font-weight "normal"}
-       [:tr [:td.active.active {:background-color selected-blue :border-color selected-blue}]]]
-      [:th {:font-weight "normal"}]
-      [:thead [:tr:first-child {:border-bottom "1px solid #ddd"}]]
-      [:tr:hover {:background-color "inherit"}]
-      [:td:hover {:background-color hover-grey}]]
+    [:.datepicker
+     [:table {:font-size "12px" :font-weight "normal"}
+      [:tr [:td.active.active {:background-color selected-blue :border-color selected-blue}]]]
+     [:th {:font-weight "normal"}]
+     [:thead [:tr:first-child {:border-bottom "1px solid #ddd"}]]
+     [:tr:hover {:background-color "inherit"}]
+     [:td:hover {:background-color hover-grey}]]
 
-     [:#close {:display "none"}]
-
-
-
-     )
-
+    [:#close {:display "none"}])
