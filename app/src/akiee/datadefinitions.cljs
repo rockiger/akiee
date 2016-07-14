@@ -50,8 +50,9 @@
 ;; - tags default []
 ;; - todo: task state, default null
 ;; - priority, default null
-;; - scheduled, defa ult null
+;; - scheduled, default null
 ;; - deadline, default null
+;; - fin, default null - when task was done
 ;; - drawer, default {}
 ;; - rank: unique Ranking in File, default null
 ;; - rank: string with repeat informatien, default null
@@ -70,6 +71,7 @@
          :priority nil
          :scheduled nil
          :deadline nil
+         :fin nil
          :properties {}
          :drawer {}
          :rank nil
@@ -87,6 +89,7 @@
                     :priority nil
                     :scheduled nil
                     :deadline nil
+                    :fin nil
                     :properties {}
                     :drawer {}
                     :rank nil
@@ -104,6 +107,7 @@
           :priority nil
           :scheduled nil
           :deadline nil
+          :fin nil
           :properties {}
           :drawer {}
           :rank nil
@@ -121,6 +125,7 @@
          :priority nil
          :scheduled nil
          :deadline nil
+         :fin nil ;; the date when the task was finished
          :properties {}
          :drawer {}
          :rank nil

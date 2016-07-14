@@ -44,6 +44,7 @@
    (= (:priority n1)   (:priority n2))
    (= (:scheduled n1)  (:scheduled n2))
    (= (:deadline n1)   (:deadline n2))
+   (= (:fin n1)        (:fin n2))
    (= (:properties n1) (:properties n2))
    (= (:drawer n1)     (:drawer n2))
    (= (:rank n1)       (:rank n2))
@@ -110,6 +111,7 @@
      :priority nil
      :scheduled (aget jn "scheduled")
      :deadline (aget jn "deadline")
+     :fin (aget jn "fin")
      :properties {}
      :drawer {}
      :rank (if (not= rank nil) (int rank) nil)
@@ -135,6 +137,7 @@
    :priority nil
    :scheduled nil
    :deadline nil
+   :fin nil
    :properties {}
    :drawer {}
    :rank r
@@ -146,7 +149,7 @@
        {:key nil
         :level 2 :headline "Test Headline" :body ""  :tag nil
         :tags [] :todo TODO :priority nil :scheduled nil
-        :deadline nil :properties {} :drawer {} :rank 10 :repeat nil
+        :deadline nil :fin nil :properties {} :drawer {} :rank 10 :repeat nil
         :style nil :project "Inbox"}))
 
 (defn project
