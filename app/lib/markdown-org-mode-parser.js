@@ -137,6 +137,7 @@ var Orgnode=(function ()
       this.priority = null;            // empty of A, B or C
       this.scheduled = null;       // Scheduled date
       this.deadline =  null;       // Deadline date
+      this.fin = null;          // the date a task is finished
       this.properties = {};
 	    this.rank = null;
       this.repeat = null;
@@ -224,6 +225,7 @@ var parseBigString=function (data){
     //
     var scheduledRE=/SCHEDULED:\s+<([0-9]+)\-([0-9]+)\-([0-9]+)/;
     var deadlineRE=/DEADLINE:\s*<(\d+)\-(\d+)\-(\d+)/;
+    var finRE=/FIN:\s*<(\d+)\-(\d+)\-(\d+)/;
     var drawerFinderRE=/\s*:([a-zA-Z_0-9]+):/;
     var property_startRE=/\s*:PROPERTIES:/;
     var drawerENDRE=/\s*:END:/;
@@ -295,6 +297,7 @@ var parseBigString=function (data){
     var     alltags       = []      ; // list of all tags in headline
     var     sched_date    = '';
     var     deadline_date = '';
+    var     fin_date      = '';
     var     nodelist      = [];
     var     propdict      = {};
     var     rank          = null;
@@ -328,6 +331,11 @@ var parseBigString=function (data){
         if(deadline_date){
           thisNode.deadline=deadline_date;
           deadline_date = '';
+        }
+        //
+        if(fin_date){
+          thisNode.fin=fin_date;
+          fin_date = '';
         }
         thisNode.properties=propdict;
 
@@ -377,10 +385,11 @@ var parseBigString=function (data){
 	    var startProp=line.match(property_startRE);
 	    var endDrawer=line.match(drawerENDRE);
 	    var isAScheduledOrDeadlineLine=line.match(scheduledRE) || line.match(deadlineRE);
+      var isAFinLine=line.match(finRE);
 	    var isAClockLine=line.match(clockLineDetectionRE);
 	    var isARankLine=line.match(rankRE);
       var isARepeatLine=line.match(repeatRE);
-	    var isSpecial=isAScheduledOrDeadlineLine || isAClockLine || isARankLine || isARepeatLine;
+	    var isSpecial=isAScheduledOrDeadlineLine || isAClockLine || isARankLine || isARepeatLine || isAFinLine;
 	    var isDrawerStart=line.match(drawerFinderRE);
 
 	    var isSimpleText=
@@ -410,6 +419,11 @@ var parseBigString=function (data){
 		    var deadlineStuff=line.match(deadlineRE);
 		    if(deadlineStuff){
 			deadline_date= new Date(deadlineStuff[1], deadlineStuff[2] - 1,deadlineStuff[3],
+			0,0,0,0);
+		    }
+		    var finStuff=line.match(finRE);
+		    if(finStuff){
+			fin_date= new Date(finStuff[1], finStuff[2] - 1,finStuff[3],
 			0,0,0,0);
 		    }
 		    if(isAClockLine){
@@ -493,6 +507,8 @@ var parseBigString=function (data){
       thisNode.scheduled=sched_date;
     if (deadline_date)
       thisNode.deadline=deadline_date;
+    if (fin_date)
+      thisNode.fin=fin_date;
     if (rank) {
 	//console.log(rank);
 	thisNode.rank=rank;
