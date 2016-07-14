@@ -302,6 +302,11 @@ tr.selected:hover, .selected:hover>td>span.hover-button {
   color: #4281c3;
 }
 
+.fin {
+  font-weight: normal;
+  color: #f27835;
+}
+
 .deadline {
   padding-top: 7px;
   color: #ccc;

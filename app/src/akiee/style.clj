@@ -114,6 +114,7 @@
      [:.kanban-row ["td.kanban-column:nth-child(2)" :td.kanban-column:last-child [:.empty-list {:display "none"}]]]
 
      [:.project-tag {:font-weight "normal" :color "#4281c3" :padding-left 0}]
+     [:.fin {:font-weight "normal" :color "#f27835"}]
      [:.deadline {:font-weight "normal" :float "right" :color "#ccc" :padding-top (px 7)}]
      [:tr.selected:hover [:.project-tag {:color "#729FCF"}]]
 

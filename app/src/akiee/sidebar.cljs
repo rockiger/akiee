@@ -43,7 +43,8 @@
          [:option "DOING"]
          [:option "DONE"]]
         [:span (:todo node)])
-      [:span.fa.fa-check-square-o]])
+      [:span.fa.fa-check-square-o]
+      (if (:fin node) [:span.fin.label (.toLocaleDateString (:fin node))])])
 
 (defn project [node]
   [:div#sidebar-project {:on-click h/onclick-project}
