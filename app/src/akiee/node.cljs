@@ -220,6 +220,7 @@ consumes a task file markdown string and produces a list of nodes
        (cond (:repeat n) (str "REPEAT: " (:rate (:repeat n)) " " (:unit (:repeat n)) "\n"))
        (cond (:scheduled n) (str "SCHEDULED: " (->timestamp (:scheduled n)) "\n"))
        (cond (:deadline n) (str "DEADLINE: " (->timestamp (:deadline n)) "\n"))
+       (cond (:fin n) (str "FIN: " (->timestamp (:fin n)) "\n"))
        (lon->md (rest lon))))))
 (is (= (lon->md [(->node TODO "Ueberschrift" "Inbox" 1)]) "## TODO Ueberschrift\nRANK: 1\n"))
 
