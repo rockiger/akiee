@@ -374,7 +374,9 @@
                     (cond
                      (= ts TODO)  DOING
                      (= ts DOING) DONE
-                     (= ts DONE)  TODO))))))
+                     (= ts DONE)  TODO)
+                    (if (= ts DOING) :fin)
+                    (if (= ts DOING) (js/Date.)))))))
 
 (defn node-by-pos
   "Integer -> Node
