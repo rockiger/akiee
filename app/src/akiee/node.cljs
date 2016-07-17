@@ -234,6 +234,16 @@ consumes a task file markdown string and produces a list of nodes
    (< n2 n1) false
    :else true))
 
+(defn newer-date?
+   "Date Date -> Boolean
+   Determens if Node n1 has a higher Rank than Node n2"
+   [n1 n2]
+   (cond
+    (nil? n2) true
+    (and (not (nil? n2)) (nil? n1)) false
+    (< n2 n1) true
+    :else false))
+
 (defn tags-string
   "Node -> String
   Consumes a Node n and produces the comma seperated String based on the n's tags"

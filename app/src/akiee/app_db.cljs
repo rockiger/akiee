@@ -111,10 +111,16 @@
                                   true
                                   false)
                                 true))]
-    (vec (sort-by :rank no/higher-rank?
+    (if (= ls DONE)
+        (vec (sort-by :fin no/newer-date?
+                (sort-by :rank no/higher-rank?
                   (filter filter-search
                    (filter filter-state
-                    (filter filter-tasks (:lon @gs))))))))
+                    (filter filter-tasks (:lon @gs)))))))
+        (vec (sort-by :rank no/higher-rank?
+                  (filter filter-search
+                   (filter filter-state
+                    (filter filter-tasks (:lon @gs)))))))))
 
 ;; ==========================================================
 ;; TEST
