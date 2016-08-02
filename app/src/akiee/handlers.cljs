@@ -99,9 +99,12 @@
   returns the app-state"
   [ev]
   (let [row  (.-parentNode (.-currentTarget ev))
+        shift? (.-shiftKey ev)
         ky (.-key (.-dataset row))]
     (do
-      (db/next-ts! ky)
+      (if shift?
+        (db/prev-ts! ky)
+        (db/next-ts! ky))
       (.stopPropagation ev))))
 
 (defn rank-helper
@@ -344,7 +347,7 @@
      (and (= (ky ev) 13) (ctrl? ev)) (db/switch-entry!)                       ;; Ctrl + Enter
      (and (= (ky ev) 70) (ctrl? ev)) (db/switch-search!)                      ;; Ctrl + F
      (and (= (ky ev) 89) (ctrl? ev)) (hist/redo!)                             ;; Ctrl + Y
-     (and (= (ky ev) 90) (ctrl? ev) (shift? ev)) (hist/redo!)             ;; Ctrl + Shift + Z
+     (and (= (ky ev) 90) (ctrl? ev) (shift? ev)) (hist/redo!)                 ;; Ctrl + Shift + Z
      (and (= (ky ev) 90) (ctrl? ev)) (hist/undo!)                             ;; Ctrl + Z
      (and (= (ky ev) 27) (db/entry?)) (cancel-enter-task)                     ;; ESC - entry?
      (and (= (ky ev) 27) (db/search?)) (cancel-search)                        ;; ESC - search?

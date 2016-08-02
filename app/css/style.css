@@ -5,6 +5,7 @@ body {
   color: #54595a;
   background-color: #fff;
   overflow-y: hidden;
+  -webkit-user-select: none;
 }
 
 #toolbar {
@@ -135,6 +136,7 @@ table, tbody, tr {
 
 #list table {
   margin: 0;
+  cursor: default;
 }
 
 #list, #task-sidebar {

@@ -372,7 +372,7 @@
 
 (defn next-ts!
   "String -> GlobalState
-  Consumes a key ky and changes the task-state of that task in :lon;
+  Consumes a key ky and changes the task-state to the next of that task in task-list;
   returns the app-state"
   [ky]
   (let [lon (vec @task-list)
@@ -388,6 +388,23 @@
                      (= ts DONE)  TODO)
                     (if (= ts DOING) :fin)
                     (if (= ts DOING) (js/Date.)))))))
+
+(defn prev-ts!
+  "String -> GlobalState
+  Consumes a key ky and changes the task-state to the previous of that task in task-list;
+  returns the app-state"
+  [ky]
+  (let [lon (vec @task-list)
+        pos (node-pos-by-key ky lon)
+        nd  (get lon pos)
+        ts  (:todo nd)]
+    (reset-lon! app-state
+                (assoc lon pos
+                  (assoc nd :todo
+                    (cond
+                     (= ts TODO)  DONE
+                     (= ts DOING) TODO
+                     (= ts DONE)  DOING))))))
 
 (defn node-by-pos
   "Integer -> Node

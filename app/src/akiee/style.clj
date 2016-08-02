@@ -26,7 +26,8 @@
              :font-size (px 16)
              :color fc
              :background-color bc
-             :overflow-y "hidden"}]
+             :overflow-y "hidden"
+             :-webkit-user-select :none}]
 
      [:#toolbar {:border-radius 0 :border-width "0 0 1px 0" :margin-bottom 0}]
      [:navbar-header {:width (percent 100) :height (px 52)}]
@@ -58,7 +59,7 @@
      [:#task-sidebar [:span.fa {:margin-left "5px"}]]
      [:#list {:flex 1}]
      [:table :tbody :tr {:width (percent 100)}]
-     [:#list [:table {:margin 0}]]
+     [:#list [:table {:margin 0 :cursor :default}]]
      [:#list :#task-sidebar {:overflow-y "auto" :height "calc(100vh - 50px)"}]
      [:#list:hover {:outline "none"}]
 
