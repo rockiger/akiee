@@ -5,4 +5,5 @@
 /nbproject/*
 /cache/*
 /dist/*
+/app/target/*
 app/out/*

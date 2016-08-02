@@ -7,7 +7,8 @@
             [cljs.test :refer-macros [is deftest]]
             [cljs.nodejs :as nj]
             [reagent.core :as rc]
-            [clojure.string :as s :refer [trim]]))
+            [clojure.string :as s :refer [trim]]
+            [historian.core :as hist]))
 
 
 (enable-console-print!)
@@ -23,14 +24,14 @@
 ;; =================
 ;; Functions:
 
-(defn load-app-state
+(defn load-task-list
   "String -> GS
   consumes the path p to the task file and produces the initial app-state
   TODO find way to test, without :key"
   [p]
-  (global-state. false false false false "" nil nil DOING (no/->nodes p)))
+  (no/->nodes p))
 
-#_(is (= (:lon (load-app-state fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
+#_(is (= (:lon (load-task-list fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
                                               :body "" :tag nil :tags {}  :todo "DOING"
                                               :priority nil :scheduled nil :deadline nil
                                               :properties {} :drawer {} :rank nil  :style nil}
@@ -41,7 +42,9 @@
                                               :style nil}])))
 
 
-(def app-state  (rc/atom (load-app-state FP)))
+(def app-state  (rc/atom (global-state. false false false false "" nil nil DOING)))
+(def task-list (rc/atom (load-task-list FP)))
+(hist/record! task-list :task-list)
 ;(def test-state (rc/atom (load-app-state fo/testfile)))
 
 
@@ -49,7 +52,7 @@
   "-> ListOfNode
   returns the nodes of the app-state"
   []
-  (:lon @app-state))
+  @task-list)
 
 (defn editor?
   "-> Boolean
@@ -116,11 +119,11 @@
                 (sort-by :rank no/higher-rank?
                   (filter filter-search
                    (filter filter-state
-                    (filter filter-tasks (:lon @gs)))))))
+                    (filter filter-tasks @task-list))))))
         (vec (sort-by :rank no/higher-rank?
                   (filter filter-search
                    (filter filter-state
-                    (filter filter-tasks (:lon @gs)))))))))
+                    (filter filter-tasks @task-list))))))))
 
 ;; ==========================================================
 ;; TEST
@@ -138,7 +141,7 @@
                                     true
                                     false)
                                   true))]
-   (filter filter-search (filter filter-state (filter filter-tasks (:lon @app-state)))))
+   (filter filter-search (filter filter-state (filter filter-tasks @task-list))))
 ;; END TEST
 
 ;; Test fails becaus of :body one seems to have an "\n"
@@ -168,7 +171,7 @@
   returns a List of Strings with the projects in the app-state"
   []
   (let [filter-nodes (fn [x] (if (= (:level x) 1) true false))]
-    (vec (sort (map :headline (filter filter-nodes (:lon @app-state)))))))
+    (vec (sort (map :headline (filter filter-nodes @task-list))))))
 
 (defn set-changed!
   "Bool -> GlobalState
@@ -232,17 +235,17 @@
   switches the search? state and the new app-state"
   []
   (if (entry?)
-    (swap! app-state assoc :entry? false :ss "")
-    (let [entry (dom/get-element "enter-headline")]
-      (do
-        (swap! app-state assoc :editor? false :search? false :entry? true :ss "")
-        (.focus entry)))))
+      (swap! app-state assoc :entry? false :ss "")
+      (let [entry (dom/get-element "enter-headline")]
+        (do
+          (swap! app-state assoc :editor? false :search? false :entry? true :ss "")
+          (.focus entry)))))
 
 (defn switch-list-state!
   "ListState -> GlobalState
   Consumes a Liststate ls switches the ls variable and editor? search? search? accordingly"
   [ls]
-  (let [lon (:lon @app-state)]
+  (let []
       (swap! app-state assoc :editor? false :search? false :entry? false :ss "" :ls ls)))
 
 (defn switch-todo!
@@ -275,14 +278,14 @@
   [gs]
   (let [filter-tasks (fn [x] (if (not= (:rank x) nil) true false))]
     (inc (int (:rank (last (vec (sort-by :rank no/higher-rank? (filter filter-tasks
-                                                                (:lon @gs))))))))))
+                                                                @gs)))))))));;!! rank helper
 ;(is (= (->rank-helper test-state) 10))
 
 (defn ->rank
   "-> Int
   produces a new rank based on the app-state"
   []
-  (->rank-helper app-state))
+  (->rank-helper task-list))
 
 
 (defn index-of-node-helper [coll hl i]
@@ -303,8 +306,10 @@
 (defn reset-lon!
   "Global-State ListOfNode -> GlobalState
   Resets the ListOfNode lon in the app-state; produces a new GlobalState"
-  [gs lon]
-  (swap! gs assoc :changed? true :lon lon))
+  [gs1 lon]
+  (do
+    (swap! gs1 assoc :changed? true)
+    (reset! task-list lon)))
 
 (defn positions
   "Function Collection -> Integer
@@ -340,11 +345,11 @@
   (is (= (node-pos-by-headline "orgode_33.##" lon) 2)))
 
 (defn insert-node-helper!
-  "Node String GlobalState -> GlobalState
+  "Node String Lon(atom) -> GlobalState
   Inserts a node n at the right position in project pro and returns GlobalState gs;
   returns a ListOfNode"
   [n pro gs]
-  (let [lon (vec (:lon @gs))
+  (let [lon (vec (@task-list))
         i (inc (node-pos-by-headline pro lon))
         new-lon (vec (concat (subvec lon 0 i) [n] (subvec lon i)))]
    (reset-lon! gs new-lon)))
@@ -370,7 +375,7 @@
   Consumes a key ky and changes the task-state of that task in :lon;
   returns the app-state"
   [ky]
-  (let [lon (vec (:lon @app-state))
+  (let [lon (vec @task-list)
         pos (node-pos-by-key ky lon)
         nd  (get lon pos)
         ts  (:todo nd)]
@@ -388,7 +393,7 @@
   "Integer -> Node
   Returns node at pos"
   [pos]
-  (nth (:lon @app-state) pos))
+  (nth @task-list pos))
 
 (defn node-by-key
   "String -> Node

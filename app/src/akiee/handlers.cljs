@@ -6,7 +6,8 @@
             [akiee.fileoperations :as fo]
             [akiee.rank :as r]
             [clojure.string :as s]
-            [jayq.core :refer [$ on attr html]]))
+            [jayq.core :refer [$ on attr html]]
+            [historian.core :as hist]))
 
 ;; Nodejs modules
 (def gui (js/require "nw.gui"))
@@ -329,9 +330,10 @@
   "KeyEvent -> GlobalState
   Handles the keyevents that are created by js/document"
   [ev]
-  (let [mac? (if (= (.-platform js/process) "darwin") true false)
-        ky  #(.-keyCode %)
-        ctrl? (if mac? #(.-metaKey %) #(.-ctrlKey %))]
+  (let [mac?   (if (= (.-platform js/process) "darwin") true false)
+        ky     #(.-keyCode %)
+        ctrl?  (if mac? #(.-metaKey %) #(.-ctrlKey %))
+        shift? #(.-shiftKey %)]
     (cond
      (and (= (ky ev) 32) (ctrl? ev)) (db/switch-editor!)                      ;; Ctrl + Space
      (and (or (= (ky ev) 49) (= (ky ev) 97)) (ctrl? ev)) (db/switch-todo!)    ;; Ctrl + 1
@@ -341,12 +343,15 @@
      (and (or (= (ky ev) 69) (= (ky ev) 101)) (ctrl? ev)) (db/switch-editor!) ;; Ctrl + E
      (and (= (ky ev) 13) (ctrl? ev)) (db/switch-entry!)                       ;; Ctrl + Enter
      (and (= (ky ev) 70) (ctrl? ev)) (db/switch-search!)                      ;; Ctrl + F
+     (and (= (ky ev) 89) (ctrl? ev)) (hist/redo!)                             ;; Ctrl + Y
+     (and (= (ky ev) 90) (ctrl? ev) (shift? ev)) (hist/redo!)             ;; Ctrl + Shift + Z
+     (and (= (ky ev) 90) (ctrl? ev)) (hist/undo!)                             ;; Ctrl + Z
      (and (= (ky ev) 27) (db/entry?)) (cancel-enter-task)                     ;; ESC - entry?
      (and (= (ky ev) 27) (db/search?)) (cancel-search)                        ;; ESC - search?
-     (and (= (ky ev) 27) (db/editable)) (db/set-editable! nil)             ;; ESC - editable
-     (and (= (ky ev) 13) (= (db/editable) "hdln")) (submit-sidebar-hdln)     ;; Enter - hdln
-     (and (= (ky ev) 13) (= (db/editable) "tags")) (submit-sidebar-tags)     ;; Enter - tags
-     (and (= (ky ev) 13) (= (db/editable) "reps")) (submit-sidebar-reps))))     ;; Enter - reps
+     (and (= (ky ev) 27) (db/editable)) (db/set-editable! nil)                ;; ESC - editable
+     (and (= (ky ev) 13) (= (db/editable) "hdln")) (submit-sidebar-hdln)      ;; Enter - hdln
+     (and (= (ky ev) 13) (= (db/editable) "tags")) (submit-sidebar-tags)      ;; Enter - tags
+     (and (= (ky ev) 13) (= (db/editable) "reps")) (submit-sidebar-reps))))   ;; Enter - reps
 
 
 (defn register-keyevents

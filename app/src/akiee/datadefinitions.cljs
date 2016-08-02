@@ -243,7 +243,7 @@
 (def sel1 nil)
 (def sel2 "orgode_33.##")
 
-(defrecord global-state [editor? search? entry? changed? ss selected editable ls lon])
+(defrecord global-state [editor? search? entry? changed? ss selected editable ls])
 ;; GlobalState is (global-state. false false false LS-3 LON-2) of:
 ;; - SwitchState editor
 ;; - SwitchState search
@@ -253,15 +253,14 @@
 ;; - String or nil Editable - the attribute of the selected task to edit
 ;; - String or nil Selected - the selected task
 ;; - ListState
-;; - ListOfNode
+;; - ~~ListOfNode~~ gets it own atom
 
-(def GS1 (global-state. false false false false "" nil nil LS-3 LON-2))
-(def GS2 (global-state. false false false false "" nil nil LS-3 (conj LON-2 N1)))
+(def GS1 (global-state. false false false false "" nil nil LS-3))
+(def GS2 (global-state. false false false false "" nil nil LS-3))
 
 #_
 (defn fn-for-game [gs]
   (ddd (fn-for-switchstate (:editor? gs))
        (fn-for-switchstate (:search? gs))
        (fn-for-switchstate (:entry? gs))
-       (fn-for-liskstate (:ls gs))
-       (fn-for-lon (:lon gs))))
+       (fn-for-liskstate (:ls gs))))

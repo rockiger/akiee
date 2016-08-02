@@ -168,6 +168,7 @@
     (empty-message)
     [:table.table ^{:key (:todo (first tb))}
      [:tbody
+      (println (count tb))
       (for [t tb]
         [task t])]]))
 
@@ -185,7 +186,8 @@
                                                               [:td.kanban-column
                                                                {:key (str "kb-" (:todo (first tb)))}
                                                                (task-table tb)])]]])
-                                  (task-table (db/tasks)))]
+                                  (task-table (db/tasks)))
+                                (println (str "TASKS: " (db/tasks)))]
      [:aside#task-sidebar sidebar? (sb/sidebar)]]))
 
 (defn app
