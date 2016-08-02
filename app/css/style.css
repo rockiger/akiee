@@ -70,6 +70,7 @@ navbar-header {
 }
 
 #task-sidebar.closed {
+  border: none;
   overflow-x: hidden;
   width: 0;
   transition: width .1s linear;
