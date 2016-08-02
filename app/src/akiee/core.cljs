@@ -85,7 +85,7 @@
   "ListOf* String -> Component
   Consumes a list of anything loa and a name; produces the component of a select field."
   [loa n]
-  [:select#enter-task-status.form-control {:name n :defaultValue "Inbox"}
+  [:select#enter-task-status.form-control {:name n :default-value "Inbox"}
    (for [a loa]
      [:option {:key (str "loa" a)} a])])
 

@@ -45,9 +45,11 @@
         tapr (.-value (aget els "task-project"))]
     (do
       (when (not= hdln "")
-        (db/add-task! tast hdln tapr))
+        (db/add-task! tast hdln tapr)
+        (.preventDefault ev))
       (cancel-enter-task)
-      (.stopPropagation ev))))
+      (.stopPropagation ev)
+      (println ".stopPropagation"))))
 
 (defn handle-close
   "Event ->
