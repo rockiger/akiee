@@ -199,6 +199,8 @@
     [:#show-enter-task [:span:before {:content "\"+\"" :font-weight "bold"}]]
     [:#editor-area :.datepicker.dropdown-menu {:font-family "'Source Code Pro', Consolas, 'Ubuntu Mono', 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace"}]
 
+    [:.fa-fw:before {:font-size :14px}]
+
     [:.datepicker
      [:table {:font-size "12px" :font-weight "normal"}
       [:tr [:td.active.active {:background-color selected-blue :border-color selected-blue}]]]

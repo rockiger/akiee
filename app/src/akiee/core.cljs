@@ -60,6 +60,7 @@
 (def editor-switch [switch-button "code" "show-editor" (str modifier "+E / " modifier "+Space") db/editor? db/switch-editor!])
 (def search-switch [switch-button "search" "show-searchbox" (str modifier "+F") db/search? db/switch-search!])
 (def entry-switch  [switch-button "plus" "show-enter-task" (str modifier "+Enter") db/entry? db/switch-entry!])
+(def menu-button   [switch-button "ellipsis-v" "show-menu" (str modifier "+M") (fn [] false) h/onclick-menu])
 (def entry-close  [:button.hover-button {:id "close-app" :title "Alt-F4" :on-click h/onclick-close} [:img {:src "./css/img/window-close.svg"}]])
 
 (defn toolbar
@@ -78,6 +79,7 @@
      editor-switch
      search-switch
      entry-switch
+     menu-button
      [:div#close entry-close]]]])
 
 
@@ -204,6 +206,7 @@
 (defn big-bang []
   (h/register-keyevents)
   (h/register-winevents)
+  (h/create-menu)
   (r/render-component
     [app]
     (.getElementById js/document "root"))

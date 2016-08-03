@@ -20,6 +20,10 @@
 (def WIN (.get (.-Window gui)))
 
 ;; =================
+;; Globals
+(def *menu* (new gui.Menu))
+
+;; =================
 ;; Functions:
 
 (defn cancel-enter-task
@@ -202,6 +206,16 @@
   [ev]
   (.close WIN))
 
+(defn onclick-menu
+  "Event -> Void
+  Consumes the onclick Event ev and toggles the menu"
+  [ev]
+  (let [undo (aget (.-items *menu*) 0)
+        redo (aget (.-items *menu*) 1)]
+    (set! (.-enabled undo) (hist/can-undo?))
+    (set! (.-enabled redo) (hist/can-redo?))
+    (.popup *menu* (- (.-width WIN) 94) 39)))
+
 (defn onblur-sidebar-input
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the headline of a task"
@@ -377,3 +391,11 @@
   []
   (let [$body ($ :body)]
     (on $body "click" :a "data" handle-details-link-click)))
+
+(defn create-menu
+  "Create the menus"
+  []
+  (do
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Undo" :click hist/undo! :enabled false})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Redo" :click hist/redo! :enabled false})))
+    (set! js/mn *menu*)))
