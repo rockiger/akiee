@@ -42,8 +42,8 @@
                                               :style nil}])))
 
 
-(def app-state  (rc/atom (global-state. false false false false "" nil nil DOING)))
-(def task-list (rc/atom (load-task-list FP)))
+(defonce app-state  (rc/atom (global-state. false false false false "" nil nil DOING)))
+(defonce task-list (rc/atom (load-task-list FP)))
 (hist/record! task-list :task-list)
 ;(def test-state (rc/atom (load-app-state fo/testfile)))
 
@@ -349,7 +349,8 @@
   Inserts a node n at the right position in project pro and returns GlobalState gs;
   returns a ListOfNode"
   [n pro gs]
-  (let [lon (vec (@task-list))
+  (let [lon (vec @task-list)
+        tmp (println lon)
         i (inc (node-pos-by-headline pro lon))
         new-lon (vec (concat (subvec lon 0 i) [n] (subvec lon i)))]
    (reset-lon! gs new-lon)))

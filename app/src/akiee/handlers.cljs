@@ -49,12 +49,12 @@
         tast (.-value (aget els "task-status"))
         tapr (.-value (aget els "task-project"))]
     (do
-      (when (not= hdln "")
-        (db/add-task! tast hdln tapr)
-        (.preventDefault ev))
-      (cancel-enter-task)
       (.stopPropagation ev)
-      (println ".stopPropagation"))))
+      (.preventDefault ev)
+      (when (not= hdln "")
+        (db/add-task! tast hdln tapr))
+      (cancel-enter-task)
+      false)))
 
 (defn handle-close
   "Event ->
@@ -94,7 +94,6 @@
         lon (no/->nodes-from-md md)]
     (do
       (db/reset-lon! db/app-state lon)
-      (println lon)
       (db/set-changed! true))))
 
 (defn handle-onclick-taskstate
