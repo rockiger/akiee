@@ -115,11 +115,15 @@
                                   false)
                                 true))]
     (if (= ls DONE)
-        (vec (sort-by :fin no/newer-date?
-                (sort-by :rank no/higher-rank?
-                  (filter filter-search
-                   (filter filter-state
-                    (filter filter-tasks @task-list))))))
+        (let [lon
+              (vec (sort-by :fin no/newer-date?
+                      (sort-by :rank no/higher-rank?
+                        (filter filter-search
+                         (filter filter-state
+                          (filter filter-tasks @task-list))))))]
+            (if (< 100 (count lon))
+                (subvec lon 0 100)
+                lon))
         (vec (sort-by :rank no/higher-rank?
                   (filter filter-search
                    (filter filter-state
