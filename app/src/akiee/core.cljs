@@ -145,7 +145,8 @@
   (let [class (if (= (db/selected) (:key t))
                 "selected"
                 "")]
-   [:tr {:data-key (:key t) :on-click h/onclick-task :class class}
+   ^{:key (:key t)}
+   [:tr {:key (:ked t) :data-key (:key t) :on-click h/onclick-task :class class}
     [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
     [:td [:span.project-tag.label (:project t)] (:headline t)]
     [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
@@ -168,7 +169,7 @@
 (defn task-table [tb]
   (if (empty? tb)
     (empty-message)
-    [:table.table ^{:key (:todo (first tb))}
+    [:table.table
      [:tbody
       (println (count tb))
       (for [t tb]

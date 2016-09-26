@@ -815,7 +815,15 @@ Renderer.prototype.list = function(body, ordered) {
 };
 
 Renderer.prototype.listitem = function(text) {
-  return '<li>' + text + '</li>\n';
+  if (/^\s*\[[x ]\]\s*/.test(text)) {
+    text = text
+      .replace(/^\s*\[\]\s*/, '<i class="fa fa-square-o" aria-hidden="true"></i> ')
+      .replace(/^\s*\[ \]\s*/, '<i class="fa fa-square-o" aria-hidden="true"></i> ')
+      .replace(/^\s*\[x\]\s*/, '<i class="fa fa-check-square" aria-hidden="true"></i> ');
+    return '<li style="list-style: none; margin-left: -40px;">' + text + '</li>\n';
+  } else {
+    return '<li>' + text + '</li>\n';
+  }
 };
 
 Renderer.prototype.paragraph = function(text) {
@@ -1094,7 +1102,8 @@ function escape(html, encode) {
 }
 
 function unescape(html) {
-  return html.replace(/&([#\w]+);/g, function(_, n) {
+	// explicitly match decimal, hex, and named HTML entities
+  return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g, function(_, n) {
     n = n.toLowerCase();
     if (n === 'colon') return ':';
     if (n.charAt(0) === '#') {
