@@ -147,10 +147,10 @@
                 "")]
    ^{:key (:key t)}
    [:tr {:key (:ked t) :data-key (:key t) :on-click h/onclick-task :class class}
-    [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
-    [:td [:span.project-tag.label (:project t)] (:headline t)]
-    [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
-    [:td.rank [:span.fa.fa-chevron-down.hover-button {:on-click h/handle-onclick-down}]]]))
+    ^{:key 1} [:td.taskstate {:on-click h/handle-onclick-taskstate} [:span {:class "hover-button"} (:todo t)]]
+    ^{:key 2} [:td [:span.project-tag.label (:project t)] (:headline t)]
+    ^{:key 3} [:td.rank [:span.fa.fa-chevron-up.hover-button {:on-click h/handle-onclick-up}]]
+    ^{:key 4} [:td.rank [:span.fa.fa-chevron-down.hover-button {:on-click h/handle-onclick-down}]]]))
 
 (defn empty-message []
   (cond
