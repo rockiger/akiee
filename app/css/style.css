@@ -117,6 +117,11 @@ navbar-header {
   resize: none;
 }
 
+#sidebar-body h2 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
 #sidebar-task-state, #sidebar-task-project {
   width: auto;
   display: inline-block;

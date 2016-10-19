@@ -342,6 +342,13 @@
     (.stopPropagation ev)
     (.openExternal (.-Shell gui) target)))
 
+(defn show-statistics!
+  "Event -> Void
+   Show the Task statistics"
+   []
+   (let [n-o-t (db/no-of-tasks)]
+     (js/alert (str "All Tasks: " (:all n-o-t) "\nTodo: " (:todo n-o-t) "\nDoing: " (:doing n-o-t) "\nDone: " (:done n-o-t)))))
+
 (defn handle-keyup
   "KeyEvent -> GlobalState
   Handles the keyevents that are created by js/document"
@@ -397,4 +404,6 @@
   (do
     (.append *menu* (new gui.MenuItem (clj->js {:label "Undo" :click hist/undo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Redo" :click hist/redo! :enabled false})))
+    (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Statistics" :click show-statistics! :enabled true})))
     (set! js/mn *menu*)))

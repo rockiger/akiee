@@ -170,6 +170,26 @@
     [(tasks-helper app-state TODO) (tasks-helper app-state DOING) (tasks-helper app-state DONE)]
     (tasks-helper app-state ls))))
 
+
+
+(defn no-of-tasks-helper [state]
+  (let [filter-tasks (fn [x] (if (= (:level x) 2) true false))
+        filter-state (fn [x] (cond
+                                  (= state ALL) true
+                                  (= state (:todo x)) true
+                                  :else false))]
+    (count (filter filter-state (filter filter-tasks @task-list)))))
+  
+(defn no-of-tasks
+  "-> {:all NUMBER :todo NUMBER :doing NUMBER :done NUMBER}
+  Produces a dictionary with the number of the corresponding task-states"
+  []
+  {:all (no-of-tasks-helper ALL)
+   :todo (no-of-tasks-helper TODO) 
+   :doing (no-of-tasks-helper DOING) 
+   :done (no-of-tasks-helper DONE)}) 
+  
+
 (defn projects
   "-> ListOfString
   returns a List of Strings with the projects in the app-state"
