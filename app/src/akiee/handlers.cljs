@@ -22,6 +22,7 @@
 ;; =================
 ;; Globals
 (def *menu* (new gui.Menu))
+(def *taskmenu* (new gui.Menu))
 
 ;; =================
 ;; Functions:
@@ -215,6 +216,19 @@
     (set! (.-enabled redo) (hist/can-redo?))
     (.popup *menu* (- (.-width WIN) 94) 39)))
 
+(defn onclick-taskmenu
+  "Event -> Void
+  Consumes the onclick Event ev and toggles the menu"
+  [ev]
+  (let [ky (rank-helper ev)
+        native (.-nativeEvent ev)
+        to-top-entry (aget (.-items *taskmenu*) 0)
+        to-bottom-entry (aget (.-items *taskmenu*) 1)]
+    (set! (.-click to-top-entry) #(r/to-top ky))
+    (set! (.-click to-bottom-entry) #(r/to-bottom ky))
+    (.popup *taskmenu* (.-pageX native) (.-pageY native))
+    (.stopPropagation ev)))
+
 (defn onblur-sidebar-input
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the headline of a task"
@@ -407,3 +421,11 @@
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Statistics" :click show-statistics! :enabled true})))
     (set! js/mn *menu*)))
+
+(defn create-taskmenu
+  "Create the task menu"
+  []
+  (do
+    (.append *taskmenu* (new gui.MenuItem (clj->js {:label "Top" :click #() :enabled true})))
+    (.append *taskmenu* (new gui.MenuItem (clj->js {:label "Bottom" :click #() :enabled true})))
+    (set! js/mn *taskmenu*)))

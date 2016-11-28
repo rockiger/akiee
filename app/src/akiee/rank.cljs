@@ -48,7 +48,6 @@
       (db/reset-lon! db/app-state newer-lon)
       (println "No target task"))))
 
-
 (defn up-rank
   "String ->
   Consumes a key-String ky;
@@ -62,3 +61,50 @@
   changes the rank of the corresponding node to rank lower"
   [ky]
   (move-rank! ky "down"))
+
+
+(defn jump-rank!
+  "String Integer Integer -> ?"
+  [ky direction]
+  (let [ls (:todo (db/node-by-pos (db/node-pos-by-key ky (db/nodes))))
+        sp (db/node-pos-by-key ky (db/tasks ls))
+        tp (if (= direction "up")
+             (dec (db/node-pos-by-key ky (db/tasks ls)))
+             (inc (db/node-pos-by-key ky (db/tasks ls))))
+        source-task (task-by-pos sp ls)
+        target-task (if (= direction "up")
+                      (first (db/tasks ls))
+                      (last  (db/tasks ls)))
+        source-rank (:rank source-task)
+        target-rank (:rank target-task)
+        pred? (if (= direction "up")
+                (fn [x] (if (and (>= (:rank x) target-rank)(< (:rank x) source-rank))
+                          (assoc x :rank (inc (:rank x)))
+                          x))
+                (fn [x] (if (and (<= (:rank x) target-rank) (> (:rank x) source-rank))
+                          (assoc x :rank (dec (:rank x)))
+                          x)))
+        new-lon (vec (map pred? (db/nodes)))
+        new-task (assoc source-task :rank target-rank)
+        np (db/node-pos-by-key ky (db/nodes))
+        newer-lon (assoc new-lon np new-task)]
+
+    (if target-rank
+      (db/reset-lon! db/app-state newer-lon)
+      (println "No target task"))))
+
+(defn to-top
+  "String ->
+  Consumes a key-String ky;
+  changes the rank of the highest of the current :todo"
+  [ky]
+  (jump-rank! ky "up")
+  (println (str "to-top:"  ky)))
+
+(defn to-bottom
+  "String ->
+  Consumes a key-String ky;
+  changes the rank of the lowest of the current :todo"
+  [ky]
+  (jump-rank! ky "down")
+  (println (str "to-bottom: " ky)))
