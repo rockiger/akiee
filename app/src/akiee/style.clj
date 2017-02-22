@@ -111,7 +111,7 @@
 
      [:.empty-list-image {:overflow "hidden" :height (percent 100)}]
      [:.empty-list {:vertical-align "middle" :text-align "center" :position "fixed"
-                    :top (percent 30) :width (percent 100)}]
+                    :top (percent 20) :width (percent 100)}]
      [:.kanban-row ["td.kanban-column:nth-child(2)" :td.kanban-column:last-child [:.empty-list {:display "none"}]]]
 
      [:.project-tag {:font-weight "normal" :color "#4281c3" :padding-left 0}]

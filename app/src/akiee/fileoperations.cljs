@@ -16,7 +16,7 @@
 ;; Constants:
 
 (def dirname ".akiee")
-(def filename "liveflow.md")
+(def filename "emptyflow.md")
 (def testfile "/home/macco/Listings/rakiee/test-load-file.md")
 
 ;; =================

@@ -363,6 +363,36 @@
    (let [n-o-t (db/no-of-tasks)]
      (js/alert (str "All Tasks: " (:all n-o-t) "\nTodo: " (:todo n-o-t) "\nDoing: " (:doing n-o-t) "\nDone: " (:done n-o-t)))))
 
+(defn show-preferences!
+ "Event -> Void
+  Show the Task statistics"
+  []
+  false)
+
+(defn show-about!
+  "Event -> Void
+   Show the Task statistics"
+   []
+   (let [n-o-t (db/no-of-tasks)]
+     (js/alert (str "AKIEE\n"
+                    "=============\n\n"
+                    "About\n"
+                    "--------------\n"
+                    "Akiee - a Markdown-based task manager\n"
+                    "Version 0.0.3\n"
+                    "(c) 2017 Marco Laspe <marco@rockiger.com>\n"
+                    "Licence: GNU General Public License\n\n"
+                    "Librarys\n"
+                    "--------------\n"
+                    "* Clojure/Clojurescript\n"
+                    "* Reagent\n"
+                    "* Garden\n"
+                    "* Jayq\n"
+                    "* Historian\n"
+                    "* Nwjs\n"
+                    "* Marked\n"
+                    "* Org-Mode-Parser"))))
+
 (defn handle-keyup
   "KeyEvent -> GlobalState
   Handles the keyevents that are created by js/document"
@@ -420,6 +450,10 @@
     (.append *menu* (new gui.MenuItem (clj->js {:label "Redo" :click hist/redo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Statistics" :click show-statistics! :enabled true})))
+    (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Preferences" :click show-preferences! :enabled true})))
+    (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "About" :click show-about! :enabled true})))
     (set! js/mn *menu*)))
 
 (defn create-taskmenu
