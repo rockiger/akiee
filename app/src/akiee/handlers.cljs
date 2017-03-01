@@ -31,6 +31,8 @@
 ;; Globals
 (def *menu* (new gui.Menu))
 (def *taskmenu* (new gui.Menu))
+(def *open-file-chooser* (get-element "open-location-dialog"))
+(def *save-file-chooser* (get-element "save-location-dialog"))
 
 ;; =================
 ;; Functions:
@@ -380,23 +382,28 @@
   Sets the the tasks-location to the value attribute of the given Event ev"
   [ev]
   (let [pth (.-value (.-target ev))
-        fpth (.join path pth fo/filename)
-        stats (.statSync fs pth)
-        ;; Transform stats.mode to octal:
-        ;; github.com/nodejs/node-v0.x-archive/issues/3045#issuecomment-4865547
-        tmp (bit-and (.-mode stats) (js/parseInt 777 8))
-        perm (str (.toString tmp 8))]
-    (.log js/console stats)
-    (.log js/console perm)
-    (if (.openSync fs (str pth "/.writetest") "w")
+        fpth (.join path pth fo/filename)]
+    (if (.existsSync fs fpth)
+      (let [confirmation (js/confirm "There is already a tasklist in this location.\nDo you really want to overwrite it?")]
+        (if (not confirmation)
+          (println "Do not Overwrite")
+          (do
+            (println "Overwrite")
+            (.log js/console fpth)
+            (db/set-task-location! pth)
+            (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))))
       (do
-       (println "Path is writable")
-       (if (.existsSync fs fpth)
-         true ;load file
-         false) ;create, and write file)
-       (fo/create-task-list-file pth)
-       (db/set-task-location! pth))
-      (println "No Success"))))
+        (println "Save as new task list")
+        (.log js/console fpth)
+        (.log js/console (db/set-task-location! pth))
+        (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!)))
+    (set! (.-value (.-target ev)) "")))
+
+(defn save-task-location-dialog!
+ "Event -> Void
+  Show the Task statistics"
+  []
+  (.click *save-file-chooser*))
 
 (defn open-task-location!
  "Event -> Void
@@ -427,19 +434,7 @@
  "Event -> Void
   Show the Task statistics"
   []
-  (let [file-chooser (get-element "location-dialog")]
-    (println "set-task-location!")
-    (.addEventListener file-chooser "change" open-task-location!)
-    (.click file-chooser)))
-
-(defn save-task-location-dialog!
- "Event -> Void
-  Show the Task statistics"
-  []
-  (let [file-chooser (get-element "location-dialog")]
-    (println "set-task-location!")
-    (.addEventListener file-chooser "change" save-task-location!)
-    (.click file-chooser)))
+  (.click *open-file-chooser*))
 
 (defn show-about!
   "Event -> Void
@@ -518,6 +513,8 @@
   "Create the menus"
   []
   (do
+    (.addEventListener *open-file-chooser* "change" open-task-location!)
+    (.addEventListener *save-file-chooser* "change" save-task-location!)
     (.append *menu* (new gui.MenuItem (clj->js {:label "Undo" :click hist/undo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Redo" :click hist/redo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))

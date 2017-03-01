@@ -4,10 +4,12 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.89"]
+                 [org.clojure/core.async "0.3.441"]
                  [reagent "0.6.0-rc"]
                  [garden "1.2.5"]
                  [jayq "2.5.4"]
-                 [historian "1.1.0"]]
+                 [historian "1.1.0"]
+                 [alandipert/storage-atom "1.2.4"]]
 
   :node-dependencies [[source-map-support "0.2.8"]]
 
