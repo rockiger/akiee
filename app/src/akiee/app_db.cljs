@@ -8,7 +8,8 @@
             [cljs.nodejs :as nj]
             [reagent.core :as rc]
             [clojure.string :as s :refer [trim]]
-            [historian.core :as hist]))
+            [historian.core :as hist]
+            [alandipert.storage-atom :refer [local-storage]]))
 
 
 (enable-console-print!)
@@ -31,22 +32,33 @@
   [p]
   (no/->nodes p))
 
-#_(is (= (:lon (load-task-list fo/testfile) [{:key "orgode_33.##" :level 1 :headline "Inbox"
-                                              :body "" :tag nil :tags {}  :todo "DOING"
-                                              :priority nil :scheduled nil :deadline nil
-                                              :properties {} :drawer {} :rank nil  :style nil}
-                                             {:key "orgode_33.##" :level 2  :headline "Test"
-                                              :body ""  :tag nil :tags {} :todo "TODO"
-                                              :priority nil :scheduled nil :deadline nil
-                                              :properties {} :drawer {} :rank "9"
-                                              :style nil}])))
 
+;; TODO hier auf änderung des Verzeichnisses reagieren
+;;(alandipert.storage-atom/clear-local-storage!)
+(defonce conf-state (local-storage (rc/atom {:task-location ""}) :conf-state))
+(if (or (empty? (:task-location @conf-state)) nil)
+    (swap! conf-state assoc :task-location (fo/user-home)))
+;(defonce conf-state (rc/atom {:task-location (fo/user-home)}))
+(println "CONF-STATE ######################")
+(println (:task-location @conf-state))
 
-(defonce app-state  (rc/atom (global-state. false false false false "" nil nil DOING)))
-(defonce task-list (rc/atom (load-task-list FP)))
+(defonce app-state (rc/atom (global-state. false false false false "" nil nil DOING)))
+
+(defonce task-list
+  (let [tlf (fo/create-task-list-file (:task-location @conf-state))]
+    (rc/atom
+      (load-task-list tlf))))
+
 (hist/record! task-list :task-list)
 ;(def test-state (rc/atom (load-app-state fo/testfile)))
 
+
+(defn reset-tasklist!
+  "String -> GlobalState
+  Consume a Task-Location directory and produces a new GlobalState with new tasks"
+  [pth]
+  (let [tlf (fo/create-task-list-file pth)]
+    (reset! task-list (load-task-list tlf))))
 
 (defn nodes
   "-> ListOfNode
@@ -179,16 +191,16 @@
                                   (= state (:todo x)) true
                                   :else false))]
     (count (filter filter-state (filter filter-tasks @task-list)))))
-  
+
 (defn no-of-tasks
   "-> {:all NUMBER :todo NUMBER :doing NUMBER :done NUMBER}
   Produces a dictionary with the number of the corresponding task-states"
   []
   {:all (no-of-tasks-helper ALL)
-   :todo (no-of-tasks-helper TODO) 
-   :doing (no-of-tasks-helper DOING) 
-   :done (no-of-tasks-helper DONE)}) 
-  
+   :todo (no-of-tasks-helper TODO)
+   :doing (no-of-tasks-helper DOING)
+   :done (no-of-tasks-helper DONE)})
+
 
 (defn projects
   "-> ListOfString
@@ -196,6 +208,9 @@
   []
   (let [filter-nodes (fn [x] (if (= (:level x) 1) true false))]
     (vec (sort (map :headline (filter filter-nodes @task-list))))))
+
+(defn task-location []
+  (:task-location @conf-state))
 
 (defn set-changed!
   "Bool -> GlobalState
@@ -264,6 +279,12 @@
         (do
           (swap! app-state assoc :editor? false :search? false :entry? true :ss "")
           (.focus entry)))))
+
+(defn set-task-location!
+  "String -> ConfigurationState
+  Consumes a Path directory and return the configuration state"
+  [p]
+  (swap! conf-state assoc :task-location p))
 
 (defn switch-list-state!
   "ListState -> GlobalState
@@ -448,6 +469,9 @@
   []
   (when (selected)
     (node-by-key (selected))))
+
+(defn task-file-path []
+  (fo/task-file-path (:task-location @conf-state)))
 
 (defn change-sidebar-element
   "String Node Keyword -> GlobalState

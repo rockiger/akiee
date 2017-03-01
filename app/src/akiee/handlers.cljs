@@ -1,16 +1,24 @@
 (ns akiee.handlers
+  (:require-macros
+    [cljs.core.async.macros :refer [go]]
+    [akiee.macros :refer [<?]])
   (:require [goog.events :as events]
             [akiee.app-db :as db]
             [akiee.node :as no]
             [akiee.dom-helpers :as dom :refer [get-element]]
             [akiee.fileoperations :as fo]
             [akiee.rank :as r]
+            [akiee.helpers :as h]
             [clojure.string :as s]
             [jayq.core :refer [$ on attr html]]
-            [historian.core :as hist]))
+            [historian.core :as hist]
+            [cljs.nodejs :as nj]
+            [cljs.core.async :refer [>! <! chan close!]]))
 
 ;; Nodejs modules
 (def gui (js/require "nw.gui"))
+(def path (nj/require "path"))
+(def fs (js/require "fs"))
 
 (enable-console-print!)
 ;; Handles events for user interactions
@@ -62,7 +70,7 @@
   Handles the close event of win"
   [ev]
   (do
-    (fo/save-task-file (no/lon->md (db/nodes)) (fo/task-file-path) (db/changed?) db/set-changed!)
+    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?) db/set-changed!)
     (.close WIN true)))
 
 (defn handle-blur
@@ -70,7 +78,7 @@
   Handles the close event of win"
   [ev]
   (do
-    (fo/save-task-file (no/lon->md (db/nodes)) (fo/task-file-path) (db/changed?) db/set-changed!)))
+    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?) db/set-changed!)))
 
 (defn register-winevents
   "Register the window event handlers"
@@ -214,7 +222,7 @@
         redo (aget (.-items *menu*) 1)]
     (set! (.-enabled undo) (hist/can-undo?))
     (set! (.-enabled redo) (hist/can-redo?))
-    (.popup *menu* (- (.-width WIN) 94) 39)))
+    (.popup *menu* (- (.-width WIN) 154) 39)))
 
 (defn onclick-taskmenu
   "Event -> Void
@@ -361,13 +369,77 @@
    Show the Task statistics"
    []
    (let [n-o-t (db/no-of-tasks)]
-     (js/alert (str "All Tasks: " (:all n-o-t) "\nTodo: " (:todo n-o-t) "\nDoing: " (:doing n-o-t) "\nDone: " (:done n-o-t)))))
+     (js/alert (str "All Tasks: " (:all n-o-t)
+                    "\nTodo: " (:todo n-o-t)
+                    "\nDoing: " (:doing n-o-t)
+                    "\nDone: " (:done n-o-t)
+                    "\n\nTask-Location: " (db/task-location)))))
 
-(defn show-preferences!
+(defn save-task-location!
+  "Event -> Void
+  Sets the the tasks-location to the value attribute of the given Event ev"
+  [ev]
+  (let [pth (.-value (.-target ev))
+        fpth (.join path pth fo/filename)
+        stats (.statSync fs pth)
+        ;; Transform stats.mode to octal:
+        ;; github.com/nodejs/node-v0.x-archive/issues/3045#issuecomment-4865547
+        tmp (bit-and (.-mode stats) (js/parseInt 777 8))
+        perm (str (.toString tmp 8))]
+    (.log js/console stats)
+    (.log js/console perm)
+    (if (.openSync fs (str pth "/.writetest") "w")
+      (do
+       (println "Path is writable")
+       (if (.existsSync fs fpth)
+         true ;load file
+         false) ;create, and write file)
+       (fo/create-task-list-file pth)
+       (db/set-task-location! pth))
+      (println "No Success"))))
+
+(defn open-task-location!
+ "Event -> Void
+ Sets the the tasks-location to the value attribute of the given Event ev"
+ [ev]
+ (let [pth (.-value (.-target ev))
+       fpth (.join path pth fo/filename)]
+   (if (.existsSync fs fpth)
+     (do
+      (.log js/console "Fileexists")
+      (.log js/console pth)
+      (.log js/console (db/reset-tasklist! pth))
+      (.log js/console (db/set-task-location! pth)))
+     (do
+      (.log js/console "Abbruch")
+      (js/alert "This is not a valid task location directory!")))))
+  ;  (if (.openSync fs (str pth "/.writetest") "w")
+  ;    (do
+  ;     (println "Path is writable")
+  ;     (if (.existsSync fs fpth)
+  ;       true ;load file
+  ;       false) ;create, and write file)
+  ;     (fo/create-task-list-file pth)
+  ;     (db/set-task-location! pth))
+  ;    (println "No Success"))))
+
+(defn open-task-location-dialog!
  "Event -> Void
   Show the Task statistics"
   []
-  false)
+  (let [file-chooser (get-element "location-dialog")]
+    (println "set-task-location!")
+    (.addEventListener file-chooser "change" open-task-location!)
+    (.click file-chooser)))
+
+(defn save-task-location-dialog!
+ "Event -> Void
+  Show the Task statistics"
+  []
+  (let [file-chooser (get-element "location-dialog")]
+    (println "set-task-location!")
+    (.addEventListener file-chooser "change" save-task-location!)
+    (.click file-chooser)))
 
 (defn show-about!
   "Event -> Void
@@ -451,7 +523,8 @@
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Statistics" :click show-statistics! :enabled true})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
-    (.append *menu* (new gui.MenuItem (clj->js {:label "Preferences" :click show-preferences! :enabled true})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Open tasks...        " :click open-task-location-dialog! :enabled true})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Save tasks...        " :click save-task-location-dialog! :enabled true})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "About" :click show-about! :enabled true})))
     (set! js/mn *menu*)))

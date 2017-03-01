@@ -26,20 +26,23 @@
   "nil -> String
   produce the home directory of the user according to plattform"
   []
-  (if (= (.-platform process) "win32")
-    (aget (.-env process) "USERPROFILE")
-    (aget (.-env process) "HOME")))
+  (.join
+    path
+    (if (= (.-platform process) "win32")
+      (aget (.-env process) "USERPROFILE")
+      (aget (.-env process) "HOME"))
+    dirname "/"))
 
 (is (string? (user-home)))
-(is (= (user-home) "/home/macco"))
+(is (not= -1 (.indexOf (user-home) dirname)))
 
 
 (defn create-task-list-file
   "String -> String
-  consumes the home directory of the user and return the file path of task list,
+  consumes the directory of the task file and return the file path of task list,
   if file is not present, it get's created"
   [h]
-  (let [dir-path (.join path h dirname "/")
+  (let [dir-path (.join path h "/")
         file-path (.join path dir-path filename)]
     (if (.existsSync fs dir-path)
       (if (.existsSync fs file-path)
@@ -52,16 +55,16 @@
         (.writeFileSync fs file-path "# Inbox")
         file-path))))
 
-(is (= (create-task-list-file "/home/macco") (str "/home/macco/" dirname "/" filename)))
+(is (= (create-task-list-file "/home/macco") (str "/home/macco/" filename)))
 
 
 (defn task-file-path
-  "nil -> String
-  produce the path of the task file"
-  []
-  (create-task-list-file (user-home)))
+  "String -> String
+  Consumes a directory path d and produce the path of the task file"
+  [d]
+  (create-task-list-file d))
 
-(is (string? (task-file-path)))
+;(is (string? (task-file-path "Test")))
 
 (defn load-task-file
   "String -> String

@@ -255,8 +255,8 @@
 ;; - ListState
 ;; - ~~ListOfNode~~ gets it own atom
 
-(def GS1 (global-state. false false false false "" nil nil LS-3))
-(def GS2 (global-state. false false false false "" nil nil LS-3))
+(def GS1 (global-state. false false false false false "" nil nil ""))
+(def GS2 (global-state. false false false false false "" nil nil ""))
 
 #_
 (defn fn-for-game [gs]
@@ -264,3 +264,9 @@
        (fn-for-switchstate (:search? gs))
        (fn-for-switchstate (:entry? gs))
        (fn-for-liskstate (:ls gs))))
+
+;; ConfState is a map
+;; interp. as the persistant configuration, that can be set by the user-home
+;; - TaskLocation "String that holds the path to the directory of liveflow.md"
+
+(def conf-state {:task-location ""})
