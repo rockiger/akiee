@@ -6,7 +6,8 @@
             [akiee.handlers :as h]
             [akiee.node :as nd]
             [akiee.sidebar :as sb]
-            [akiee.dialogs :as dialogs]))
+            [akiee.dialogs :as dialogs]
+            [cljs.nodejs :as node]))
 
 (enable-console-print!)
 
@@ -17,7 +18,7 @@
 ;; Constants: in akiee.constants
 
 (def modifier (if (= (.-platform js/process) "darwin") "Cmd" "Ctrl"))
-
+(def path (node/require "path"))
 
 ;; =================
 ;; Data definitions:
@@ -26,6 +27,13 @@
 
 ;; =================
 ;; Functions:
+
+(defn set-title! []
+  (let [title-txt (if (= (.basename path (db/task-location)) ".akiee")
+                    "Akiee"
+                    (str (.basename path (db/task-location)) " — Akiee"))]
+    (set! (.-title js/Window) title-txt)
+    (set! (.-title js/document) title-txt)))
 
 (defn list-state-button
   "String String String -> Component
@@ -201,6 +209,7 @@
     (.getElementById js/document "root"))
   (sb/datepicker-config)
   (h/register-datepicker-events)
-  (h/register-click-links))
+  (h/register-click-links)
+  (r/track! set-title!))
 
 (big-bang)
