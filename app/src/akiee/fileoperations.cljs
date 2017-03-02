@@ -98,7 +98,8 @@
       (.unwatchFile fs p) ; don't watch file during write
       (.writeFileSync fs p c)
       (chfn! false)
-      (.watchFile fs p on-file-change)) ; watch file again
+      (.watchFile fs p on-file-change) ; watch file again
+      (println "Saved: " p))
     (println "not changed")))
 
 (defn change-watch-file!

@@ -225,6 +225,10 @@
   [s]
   (swap! app-state assoc :ss s))
 
+(defn set-unselected! []
+  "Void -> GlobalState"
+  (swap! app-state assoc :selected nil))
+
 (defn set-selected!
   "String -> GlobalState
   consumes a String ky and changes the :selected GlobalState accordingly;
@@ -236,7 +240,7 @@
 
 (defn set-editable!
   "String -> GlobalState
-  consumes a String ky and changes the :selected GlobalState accordingly;
+  consumes a String attr and changes the :selected GlobalState accordingly;
   retruns the new GlobalState"
   [attr]
   (swap! app-state assoc :editable attr))

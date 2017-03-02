@@ -377,29 +377,31 @@
                     "\nDone: " (:done n-o-t)
                     "\n\nTask-Location: " (db/task-location)))))
 
+(defn save-task-helper [pth fpth]
+  (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
+  (db/set-task-location! pth)
+  (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))
+
 (defn save-task-location!
   "Event -> Void
   Sets the the tasks-location to the value attribute of the given Event ev"
   [ev]
   (let [pth (.-value (.-target ev))
         fpth (.join path pth fo/filename)]
-    (if (.existsSync fs fpth)
-      (let [confirmation (js/confirm "There is already a tasklist in this location.\nDo you really want to overwrite it?")]
-        (if (not confirmation)
-          (println "Do not Overwrite")
-          (do
-            (println "Overwrite")
-            (.log js/console fpth)
-            (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
-            (db/set-task-location! pth)
-            (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))))
-      (do
-        (println "Save as new task list")
-        (.log js/console fpth)
-        (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
-        (.log js/console (db/set-task-location! pth))
-        (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!)))
-    (set! (.-value (.-target ev)) "")))
+    (when (not (empty? pth))
+      (if (.existsSync fs fpth)
+        (let [confirmation (js/confirm "There is already a tasklist in this location.\nDo you really want to overwrite it?")]
+          (if (not confirmation)
+            (println "Do not Overwrite")
+            (do
+              (println "Overwrite")
+              (.log js/console fpth)
+              (save-task-helper pth fpth))))
+        (do
+          (println "Save as new task list")
+          (.log js/console fpth)
+          (save-task-helper pth fpth)))
+      (set! (.-value (.-target ev)) ""))))
 
 (defn save-task-location-dialog!
  "Event -> Void
@@ -407,31 +409,36 @@
   []
   (.click *save-file-chooser*))
 
+(defn open-task-helper [pth fpth]
+  (db/set-unselected!)
+  (hist/clear-history!)
+  (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
+  (db/reset-tasklist! pth)
+  (db/set-task-location! pth))
+
 (defn open-task-location!
  "Event -> Void
  Sets the the tasks-location to the value attribute of the given Event ev"
  [ev]
  (let [pth (.-value (.-target ev))
        fpth (.join path pth fo/filename)]
-   (if (.existsSync fs fpth)
-     (do
-      (.log js/console "Fileexists")
-      (.log js/console pth)
-      (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
-      (.log js/console (db/reset-tasklist! pth))
-      (.log js/console (db/set-task-location! pth)))
-     (do
-      (.log js/console "Abbruch")
-      (js/alert "This is not a valid task location directory!")))))
-  ;  (if (.openSync fs (str pth "/.writetest") "w")
-  ;    (do
-  ;     (println "Path is writable")
-  ;     (if (.existsSync fs fpth)
-  ;       true ;load file
-  ;       false) ;create, and write file)
-  ;     (fo/create-task-list-file pth)
-  ;     (db/set-task-location! pth))
-  ;    (println "No Success"))))
+    (when (not (empty? pth))
+     (if (.existsSync fs fpth)
+       (do
+        (.log js/console "Fileexists")
+        (.log js/console pth)
+        (open-task-helper pth fpth))
+       (do
+        (js/alert "This is not a valid task location directory!"))))))
+    ;  (if (.openSync fs (str pth "/.writetest") "w")
+    ;    (do
+    ;     (println "Path is writable")
+    ;     (if (.existsSync fs fpth)
+    ;       true ;load file
+    ;       false) ;create, and write file)
+    ;     (fo/create-task-list-file pth)
+    ;     (db/set-task-location! pth))
+    ;    (println "No Success"))))
 
 (defn open-task-location-dialog!
  "Event -> Void
