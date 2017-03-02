@@ -8,7 +8,7 @@
             [akiee.dom-helpers :as dom :refer [get-element]]
             [akiee.fileoperations :as fo]
             [akiee.rank :as r]
-            [akiee.helpers :as h]
+            [akiee.helpers :as h :refer [log]]
             [clojure.string :as s]
             [jayq.core :refer [$ on attr html]]
             [historian.core :as hist]
@@ -390,11 +390,13 @@
           (do
             (println "Overwrite")
             (.log js/console fpth)
+            (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
             (db/set-task-location! pth)
             (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))))
       (do
         (println "Save as new task list")
         (.log js/console fpth)
+        (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
         (.log js/console (db/set-task-location! pth))
         (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!)))
     (set! (.-value (.-target ev)) "")))
@@ -415,6 +417,7 @@
      (do
       (.log js/console "Fileexists")
       (.log js/console pth)
+      (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
       (.log js/console (db/reset-tasklist! pth))
       (.log js/console (db/set-task-location! pth)))
      (do
@@ -487,7 +490,6 @@
      (and (= (ky ev) 13) (= (db/editable) "tags")) (submit-sidebar-tags)      ;; Enter - tags
      (and (= (ky ev) 13) (= (db/editable) "reps")) (submit-sidebar-reps))))   ;; Enter - reps
 
-
 (defn register-keyevents
   "Register the keyhandlers"
   []
@@ -509,6 +511,11 @@
   (let [$body ($ :body)]
     (on $body "click" :a "data" handle-details-link-click)))
 
+(defn register-file-watcher []
+  (let [fpth (db/task-file-path)]
+    (when (.existsSync fs fpth)
+      (.watchFile fs fpth fo/on-file-change))))
+
 (defn create-menu
   "Create the menus"
   []
@@ -518,7 +525,7 @@
     (.append *menu* (new gui.MenuItem (clj->js {:label "Undo" :click hist/undo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Redo" :click hist/redo! :enabled false})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
-    (.append *menu* (new gui.MenuItem (clj->js {:label "Statistics" :click show-statistics! :enabled true})))
+    (.append *menu* (new gui.MenuItem (clj->js {:label "Task statistics" :click show-statistics! :enabled true})))
     (.append *menu* (new gui.MenuItem (clj->js {:type "separator"})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Open tasks...        " :click open-task-location-dialog! :enabled true})))
     (.append *menu* (new gui.MenuItem (clj->js {:label "Save tasks...        " :click save-task-location-dialog! :enabled true})))
@@ -533,3 +540,8 @@
     (.append *taskmenu* (new gui.MenuItem (clj->js {:label "Top" :click #() :enabled true})))
     (.append *taskmenu* (new gui.MenuItem (clj->js {:label "Bottom" :click #() :enabled true})))
     (set! js/mn *taskmenu*)))
+
+(defn register-events []
+  (register-datepicker-events)
+  (register-click-links)
+  (register-file-watcher))

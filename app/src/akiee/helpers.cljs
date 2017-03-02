@@ -20,3 +20,6 @@
                 (close! out)))]
     (apply f (concat args [cb]))
     out))
+
+(defn log [params]
+  (.log js/console params))

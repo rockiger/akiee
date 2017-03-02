@@ -207,9 +207,8 @@
   (r/render-component
     [app]
     (.getElementById js/document "root"))
+  (r/track! set-title!)
   (sb/datepicker-config)
-  (h/register-datepicker-events)
-  (h/register-click-links)
-  (r/track! set-title!))
+  (h/register-events))
 
 (big-bang)

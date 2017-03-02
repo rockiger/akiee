@@ -83,6 +83,7 @@
   "snapshot": "",
   "node-main": "",
   "dependencies": {
+    "chokidar": "^1.6.1",
     "dropbox": "^2.5.1"
   }
 }
