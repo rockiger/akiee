@@ -1,6 +1,7 @@
 (ns akiee.fileoperations
   "All file operations for Akiee"
   (:require [akiee.filewatcher :as fw]
+            [akiee.constants :refer [dirname filename]]
             [cljs.test :refer-macros [is deftest]]
             [cljs.nodejs :as nj]
             [akiee.helpers :refer [log]]))
@@ -19,8 +20,6 @@
 ;; =================
 ;; Constants:
 
-(def dirname ".akiee")
-(def filename "liveflow.md")
 (def testfile "/home/macco/Listings/rakiee/test-load-file.md")
 
 ;; =================
@@ -81,14 +80,16 @@
 (is (= (load-task-file "eurniate") ""))
 ;(is (= (load-task-file testfile) "# Inbox\n## TODO Test\nRANK: 9\n"))
 
-(defn save-task-file [c p changed? chfn!]
-  "String String ListOfNode Function -> Nil
-  Consume the content c, the path of the target-file p; returns nil"
+(defn save-task-file [c p changed? chfn! wffn]
+  "String String Bool Function Function -> Nil
+  Consume the content c, the path of the target-file p,
+  a Boolean changed? if ListState has changed; a Function chfn! for setting
+  ListState to unchanged, a Function wffn as callbach to watch-file, returns nil"
   (if changed?
     (do
       (fw/unwatch-file p) ; don't watch file during write
       (.writeFileSync fs p c)
       (chfn! false)
-      (fw/watch-file p fw/on-file-change) ; watch file again
+      (fw/watch-file p wffn) ; watch file again
       (println "Saved: " p))
     (println "not changed")))

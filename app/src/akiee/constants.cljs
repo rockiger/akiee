@@ -9,3 +9,6 @@
 (def DONE "DONE")
 (def DOING "DOING")
 (def ALL "ALL")
+
+(def dirname ".akiee")
+(def filename "liveflow.md")

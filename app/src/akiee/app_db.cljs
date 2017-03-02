@@ -57,6 +57,7 @@
   "String -> GlobalState
   Consume a Task-Location directory and produces a new GlobalState with new tasks"
   [pth]
+  (println "RESET-TASKLIST " pth)
   (let [tlf (fo/create-task-list-file pth)]
     (reset! task-list (load-task-list tlf))))
 

@@ -9,6 +9,7 @@
             [akiee.fileoperations :as fo]
             [akiee.filewatcher :as fw]
             [akiee.rank :as r]
+            [akiee.constants :refer [filename]]
             [akiee.helpers :as h :refer [log]]
             [clojure.string :as s]
             [jayq.core :refer [$ on attr html]]
@@ -37,6 +38,10 @@
 
 ;; =================
 ;; Functions:
+(defn on-file-change-reload [pth]
+  (fn []
+    (db/set-unselected!)
+    (db/reset-tasklist! pth)))
 
 (defn cancel-enter-task
   "closes the entry box and hides it"
@@ -73,7 +78,9 @@
   Handles the close event of win"
   [ev]
   (do
-    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?) db/set-changed!)
+    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?)
+                       db/set-changed!
+                       #(fw/on-file-change %1 %2 (on-file-change-reload (db/task-file-path))))
     (.close WIN true)))
 
 (defn handle-blur
@@ -81,7 +88,9 @@
   Handles the close event of win"
   [ev]
   (do
-    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?) db/set-changed!)))
+    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?)
+                       db/set-changed!
+                       #(fw/on-file-change %1 %2 (on-file-change-reload (db/task-file-path))))))
 
 (defn register-winevents
   "Register the window event handlers"
@@ -379,16 +388,20 @@
                     "\n\nTask-Location: " (db/task-location)))))
 
 (defn save-task-helper [pth fpth]
-  (fw/change-watch-file! fpth (.join path (db/task-location) fo/filename) fw/on-file-change)
+  (println "SAVENTASTHELPER")
+  (fw/unwatch-file (db/task-file-path))
   (db/set-task-location! pth)
-  (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))
+  (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed! #(fw/on-file-change %1 %2 (on-file-change-reload pth))))
+  ;; for whatever reason the anonymous function doesn't get transfered to fw/on-file-change
+  ;; what's even more strange, the exact same code works for open-task-helper!!!
+  ;(fw/watch-file fpth #(fw/on-file-change %1 %2 (on-file-change-reload pth)))) ; to escape circular dependency
 
 (defn save-task-location!
   "Event -> Void
   Sets the the tasks-location to the value attribute of the given Event ev"
   [ev]
   (let [pth (.-value (.-target ev))
-        fpth (.join path pth fo/filename)]
+        fpth (.join path pth filename)]
     (when (not (empty? pth))
       (if (.existsSync fs fpth)
         (let [confirmation (js/confirm "There is already a tasklist in this location.\nDo you really want to overwrite it?")]
@@ -413,7 +426,8 @@
 (defn open-task-helper [pth fpth]
   (db/set-unselected!)
   (hist/clear-history!)
-  (fw/change-watch-file! fpth (.join path (db/task-location) fo/filename) fw/on-file-change)
+  (fw/unwatch-file (db/task-file-path))
+  (fw/watch-file fpth #(fw/on-file-change %1 %2 (on-file-change-reload pth))) ; to escape circular dependency
   (db/reset-tasklist! pth)
   (db/set-task-location! pth))
 
@@ -422,7 +436,7 @@
  Sets the the tasks-location to the value attribute of the given Event ev"
  [ev]
  (let [pth (.-value (.-target ev))
-       fpth (.join path pth fo/filename)]
+       fpth (.join path pth filename)]
     (when (not (empty? pth))
      (if (.existsSync fs fpth)
        (do
@@ -431,15 +445,6 @@
         (open-task-helper pth fpth))
        (do
         (js/alert "This is not a valid task location directory!"))))))
-    ;  (if (.openSync fs (str pth "/.writetest") "w")
-    ;    (do
-    ;     (println "Path is writable")
-    ;     (if (.existsSync fs fpth)
-    ;       true ;load file
-    ;       false) ;create, and write file)
-    ;     (fo/create-task-list-file pth)
-    ;     (db/set-task-location! pth))
-    ;    (println "No Success"))))
 
 (defn open-task-location-dialog!
  "Event -> Void
@@ -520,9 +525,10 @@
     (on $body "click" :a "data" handle-details-link-click)))
 
 (defn register-file-watcher []
-  (let [fpth (db/task-file-path)]
+  (let [fpth (db/task-file-path)
+        pth (db/task-location)]
     (when (.existsSync fs fpth)
-      (.watchFile fs fpth #(fw/on-file-change %1 %2)))))
+      (fw/watch-file fpth #(fw/on-file-change %1 %2 (on-file-change-reload pth))))))
 
 (defn create-menu
   "Create the menus"
