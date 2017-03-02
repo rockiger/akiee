@@ -7,6 +7,7 @@
             [akiee.node :as no]
             [akiee.dom-helpers :as dom :refer [get-element]]
             [akiee.fileoperations :as fo]
+            [akiee.filewatcher :as fw]
             [akiee.rank :as r]
             [akiee.helpers :as h :refer [log]]
             [clojure.string :as s]
@@ -378,7 +379,7 @@
                     "\n\nTask-Location: " (db/task-location)))))
 
 (defn save-task-helper [pth fpth]
-  (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
+  (fw/change-watch-file! fpth (.join path (db/task-location) fo/filename) fw/on-file-change)
   (db/set-task-location! pth)
   (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed!))
 
@@ -412,7 +413,7 @@
 (defn open-task-helper [pth fpth]
   (db/set-unselected!)
   (hist/clear-history!)
-  (fo/change-watch-file! fpth (.join path (db/task-location) fo/filename) fo/on-file-change)
+  (fw/change-watch-file! fpth (.join path (db/task-location) fo/filename) fw/on-file-change)
   (db/reset-tasklist! pth)
   (db/set-task-location! pth))
 
@@ -521,7 +522,7 @@
 (defn register-file-watcher []
   (let [fpth (db/task-file-path)]
     (when (.existsSync fs fpth)
-      (.watchFile fs fpth fo/on-file-change))))
+      (.watchFile fs fpth #(fw/on-file-change %1 %2)))))
 
 (defn create-menu
   "Create the menus"

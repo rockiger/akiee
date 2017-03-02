@@ -1,5 +1,7 @@
 (ns akiee.fileoperations
-  (:require [cljs.test :refer-macros [is deftest]]
+  "All file operations for Akiee"
+  (:require [akiee.filewatcher :as fw]
+            [cljs.test :refer-macros [is deftest]]
             [cljs.nodejs :as nj]
             [akiee.helpers :refer [log]]))
 
@@ -79,32 +81,14 @@
 (is (= (load-task-file "eurniate") ""))
 ;(is (= (load-task-file testfile) "# Inbox\n## TODO Test\nRANK: 9\n"))
 
-(defn on-file-change
-  "Consume two fs.Stat objects curr(ent) prev(ious), compares if the file was modified and reload the file"
-  [curr prev]
-  (let [c-time (.-mtime curr)
-        p-time (.-mtime prev)]
-    (log c-time)
-    (log p-time)
-    (if (> c-time p-time)
-      (println "File changed reload")
-      (println "File not changed "))))
-
 (defn save-task-file [c p changed? chfn!]
-  "String String ListOfNode -> Nil
+  "String String ListOfNode Function -> Nil
   Consume the content c, the path of the target-file p; returns nil"
   (if changed?
     (do
-      (.unwatchFile fs p) ; don't watch file during write
+      (fw/unwatch-file p) ; don't watch file during write
       (.writeFileSync fs p c)
       (chfn! false)
-      (.watchFile fs p on-file-change) ; watch file again
+      (fw/watch-file p fw/on-file-change) ; watch file again
       (println "Saved: " p))
     (println "not changed")))
-
-(defn change-watch-file!
-  "String String Function -> Void
-  Consumes 2 Strings cpath (current) and ppath (previous), unwatches watches and watches the new file and triggers the Function func."
-  [cpth ppath func]
-  (.unwatchFile fs ppath)
-  (.watchFile fs cpth func))
