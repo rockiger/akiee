@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Source Sans Pro', Cantarell, Ubuntu, 'Helvetica Neue', Helvetica, Calibri, Verdana, Arial, sans-serif;
+  font-family: 'Source Sans Pro','Oxygen-Sans', Cantarell, Ubuntu, 'Helvetica Neue', Helvetica, Calibri, Verdana, Arial, sans-serif;
   font-size: 16px;
   color: #54595a;
   background-color: #fff;
@@ -290,8 +290,7 @@ tr.selected:hover, .selected:hover>td>span.hover-button {
 .empty-list {
   vertical-align: middle;
   text-align: center;
-  position: fixed;
-  top: 20%;
+  margin-top: 13%;
   width: 100%;
 }
 

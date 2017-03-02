@@ -21,7 +21,7 @@
     [:p "Search for tasks by clicking on " [:span.fa.fa-fw.fa-search] " or press " [:code "Ctrl+F"] "."]
     [:p "Edit your tasks directly in markdown by clicking on "  [:span.fa.fa-fw.fa-code] " or press " [:code "Ctrl+E"] "."]
     [:p {:dangerouslySetInnerHTML {:__html "&nbsp;"}}] ; because react dosn't allw &nbsp;
-    [:p "If you want to save your tasks tasks to your Dropbox"[:span.fa.fa-fw.fa-dropbox {:style {:color :blue}}]" folder,"[:br] "you can set a different location" [:span.fa.fa-fw.fa-folder-open] " in the menu"[:span.fa.fa-fw.fa-ellipsis-v]"."]]
+    [:p "If you want to save your tasks to your Dropbox"[:span.fa.fa-fw.fa-dropbox {:style {:color :blue}}]" folder,"[:br] "you can set a different location" [:span.fa.fa-fw.fa-folder-open] " in the menu"[:span.fa.fa-fw.fa-ellipsis-v]"."]]
 
    (and (= (db/list-state) TODO)  (empty? (db/tasks)))
    [:div.empty-list [:h1 "No TODOs here"] [:p "Add a new task by clicking on " [:span.glyphicon.glyphicon-plus] "or press " [:code "Ctrl+Enter"] "."]]

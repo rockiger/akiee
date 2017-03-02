@@ -9,17 +9,5 @@
     (throw x)
     x))
 
-;; convert Node.js async function into a something
-;; that returns a value or error on a channel
-(defn run-task [f & args]
-  (let [out (chan)
-        cb  (fn [err & results]
-              (go (if err
-                    (>! out err)
-                    (>! out results))
-                (close! out)))]
-    (apply f (concat args [cb]))
-    out))
-
 (defn log [params]
   (.log js/console params))

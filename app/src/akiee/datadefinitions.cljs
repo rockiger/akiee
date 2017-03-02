@@ -255,8 +255,8 @@
 ;; - ListState
 ;; - ~~ListOfNode~~ gets it own atom
 
-(def GS1 (global-state. false false false false false "" nil nil ""))
-(def GS2 (global-state. false false false false false "" nil nil ""))
+(def GS1 (global-state. false false false false "" nil nil ""))
+(def GS2 (global-state. false false false false "" nil nil ""))
 
 #_
 (defn fn-for-game [gs]

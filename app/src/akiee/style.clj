@@ -22,7 +22,7 @@
 
 (css {:output-to "css/style.css"}
      [:body {:margin 0
-             :font-family "'Source Sans Pro', Cantarell, Ubuntu, 'Helvetica Neue', Helvetica, Calibri, Verdana, Arial, sans-serif"
+             :font-family "'Source Sans Pro','Oxygen-Sans', Cantarell, Ubuntu, 'Helvetica Neue', Helvetica, Calibri, Verdana, Arial, sans-serif"
              :font-size (px 16)
              :color fc
              :background-color bc
@@ -110,8 +110,7 @@
                            :background-color "white"}]
 
      [:.empty-list-image {:overflow "hidden" :height (percent 100)}]
-     [:.empty-list {:vertical-align "middle" :text-align "center" :position "fixed"
-                    :top (percent 20) :width (percent 100)}]
+     [:.empty-list {:vertical-align "middle" :text-align "center" :margin-top (percent 13) :width (percent 100)}]
      [:.kanban-row ["td.kanban-column:nth-child(2)" :td.kanban-column:last-child [:.empty-list {:display "none"}]]]
 
      [:.project-tag {:font-weight "normal" :color "#4281c3" :padding-left 0}]
