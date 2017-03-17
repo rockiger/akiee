@@ -116,7 +116,7 @@
                               (= ls ALL) true
                               (= ls (:todo x)) true
                               :else false))
-        filter-search (fn [x] (if (not (empty? (:ss @gs)))
+        filter-search (fn [x] (if-not (empty? (:ss @gs))
                                 (if (or (re-find (re-pattern
                                                   (str "(?i)"(:ss @gs))) (:headline x))
                                         (re-find (re-pattern
@@ -252,12 +252,11 @@
   (if (editor?)
     (swap! app-state assoc :editor? false :ss "")
     (let [ea (dom/get-element "editor-area")]
-      (do
-        (swap! app-state assoc :editor? true :search? false :entry? false :ss "" :selected nil)
-        (set-changed! true)
-        (set! (.-value ea) (no/lon->md (nodes)))
-        (.focus ea)
-        (.click ea)))))
+      (swap! app-state assoc :editor? true :search? false :entry? false :ss "" :selected nil)
+      (set-changed! true)
+      (set! (.-value ea) (no/lon->md (nodes)))
+      (.focus ea)
+      (.click ea))))
 
 (defn switch-search!
   "-> GlobalState
@@ -268,10 +267,9 @@
       (set! (.-value (dom/get-element "search-input")) "")
       (swap! app-state assoc :search? false :ss ""))
     (let [se (dom/get-element "search-input")]
-      (do
-        (set! (.-value (dom/get-element "search-input")) "")
-        (swap! app-state assoc :editor? false :search? true :entry? false)
-        (.focus se)))))
+      (set! (.-value (dom/get-element "search-input")) "")
+      (swap! app-state assoc :editor? false :search? true :entry? false)
+      (.focus se))))
 
 (defn switch-entry!
   "-> GlobalState
@@ -280,9 +278,8 @@
   (if (entry?)
       (swap! app-state assoc :entry? false :ss "")
       (let [entry (dom/get-element "enter-headline")]
-        (do
-          (swap! app-state assoc :editor? false :search? false :entry? true :ss "")
-          (.focus entry)))))
+        (swap! app-state assoc :editor? false :search? false :entry? true :ss "")
+        (.focus entry))))
 
 (defn set-task-location!
   "String -> ConfigurationState
@@ -377,7 +374,7 @@
           (fn [x] (if (= (:key x) ky) true false))
           lon)))
 (let [lon [{:key "node_2"} {:key "node_1"} {:key "orgode_33.##"}]]
-  (is (= (node-pos-by-key "node_2" lon) 0))
+  (zero? (node-pos-by-key "node_2" lon))
   (is (= (node-pos-by-key "node_1" lon) 1))
   (is (= (node-pos-by-key "orgode_33.##" lon) 2)))
 
@@ -389,7 +386,7 @@
           (fn [x] (if (= (:headline x) hdln) true false))
           lon)))
 (let [lon [{:headline "node_2"} {:headline "node_1"} {:headline "orgode_33.##"}]]
-  (is (= (node-pos-by-headline "node_2" lon) 0))
+  (is (zero? (node-pos-by-headline "node_2" lon)))
   (is (= (node-pos-by-headline "node_1" lon) 1))
   (is (= (node-pos-by-headline "orgode_33.##" lon) 2)))
 

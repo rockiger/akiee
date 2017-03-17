@@ -172,7 +172,7 @@
         [task t])]]))
 
 (defn task-list []
-  (let [show? (if (not (db/editor?))
+  (let [show? (if-not (db/editor?)
                 {:style {:display "flex"}}
                 {:style {:display "none"}})
         sidebar? (if (db/selected)

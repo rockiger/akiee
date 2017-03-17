@@ -59,7 +59,7 @@
   consumes a javascript array a and Vector v and produces a vector
   TODO make this more robust and general"
   [v a]
-  (if (= (.-length a) 0)
+  (if (zero? (.-length a))
     v
     (array->vec
      (conj v (.shift a))
@@ -83,8 +83,7 @@
               (.includes s "monthly") "monthly"
               (.includes s "yearly")  "yearly"
               :else ""))]
-      (if (empty? (->unit s))
-        nil
+      (when (not-empty (->unit s))
         {:rate (->rate s) :unit (->unit s)}))))
 
 (is (= (->repeat "1 daily") {:rate 1 :unit "daily"}))

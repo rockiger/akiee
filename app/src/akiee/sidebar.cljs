@@ -31,8 +31,7 @@
           [:div
            [:textarea#sidebar-body-ta.sidebar-input.form-control {:default-value (:body node) :on-blur h/onblur-sidebar-body :on-submit h/onblur-sidebar-body}]
            [:button#sidebar-body-submit.btn.btn-default {:type "button" :title "Tab" :style {:float "right" :margin-top "5px"}} "Save"]]
-        (do
-          (markdown-body node)))])
+        (markdown-body node))])
 
 (defn state [node]
      [:div#sidebar-state {:on-click h/onclick-state}
@@ -84,7 +83,7 @@
    [:span.details-left "Tags:"]
    (if (and (db/selected) (= (db/editable) "tags"))
      [:input#sidebar-tags-form.form-control {:type "text" :default-value (n/tags-string node) :on-blur h/onblur-sidebar-tags :on-submit h/onblur-sidebar-tags}]
-     [:span (if (n/tags-string node) (n/tags-string node) "None")])
+     [:span (or (n/tags-string node) "None")])
    [:span.fa.fa-tags]])
 
 (defn reps [node]

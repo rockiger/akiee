@@ -47,9 +47,8 @@
   "closes the entry box and hides it"
   []
   (let [hdln (get-element "enter-headline")]
-    (do
-      (set! (.-value hdln) "")
-      (db/switch-entry!))))
+    (set! (.-value hdln) "")
+    (db/switch-entry!)))
 
 (defn cancel-search
   "closes the search box and resets the search-string in the app-state"
@@ -65,13 +64,12 @@
         hdln (.-value (aget els "headline"))
         tast (.-value (aget els "task-status"))
         tapr (.-value (aget els "task-project"))]
-    (do
       (.stopPropagation ev)
       (.preventDefault ev)
       (when (not= hdln "")
         (db/add-task! tast hdln tapr))
       (cancel-enter-task)
-      false)))
+      false))
 
 (defn handle-close
   "Event ->
@@ -87,10 +85,9 @@
   "Event ->
   Handles the close event of win"
   [ev]
-  (do
-    (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?)
-                       db/set-changed!
-                       #(fw/on-file-change %1 %2 (on-file-change-reload (db/task-file-path))))))
+  (fo/save-task-file (no/lon->md (db/nodes)) (db/task-file-path) (db/changed?)
+                     db/set-changed!
+                     #(fw/on-file-change %1 %2 (on-file-change-reload (db/task-file-path)))))
 
 (defn register-winevents
   "Register the window event handlers"
@@ -113,9 +110,8 @@
   [ev]
   (let [md (.-value (.-target ev))
         lon (no/->nodes-from-md md)]
-    (do
-      (db/reset-lon! db/app-state lon)
-      (db/set-changed! true))))
+    (db/reset-lon! db/app-state lon)
+    (db/set-changed! true)))
 
 (defn handle-onclick-taskstate
   "Event -> GlobalState
@@ -125,11 +121,10 @@
   (let [row  (.-parentNode (.-currentTarget ev))
         shift? (.-shiftKey ev)
         ky (.-key (.-dataset row))]
-    (do
-      (if shift?
-        (db/prev-ts! ky)
-        (db/next-ts! ky))
-      (.stopPropagation ev))))
+    (if shift?
+      (db/prev-ts! ky)
+      (db/next-ts! ky))
+    (.stopPropagation ev)))
 
 (defn rank-helper
   "Event -> String
@@ -142,35 +137,31 @@
   Consumes the onclick Event ev and changes the global lon with rank change down-wards"
   [ev]
   (let [ky (rank-helper ev)]
-    (do
-      (r/down-rank ky)
-      (.stopPropagation ev))))
+    (r/down-rank ky)
+    (.stopPropagation ev)))
 
 (defn handle-onclick-up
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the global lon with rank change up-wards"
   [ev]
   (let [ky (rank-helper ev)]
-    (do
-      (r/up-rank ky)
-      (.stopPropagation ev))))
+    (r/up-rank ky)
+    (.stopPropagation ev)))
 
 (defn onclick-task
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the global state selected"
   [ev]
   (let [ky (.-key (.-dataset (.-currentTarget ev)))]
-    (do
-      (db/set-selected! ky)
-      (.stopPropagation ev))))
+    (db/set-selected! ky)
+    (.stopPropagation ev)))
 
 (defn onclick-sidebar-element
   "String String -> GlobalState
   Consumes the name of the sidebar element n and the id and changes the global state editable"
   [n id]
-  (do
-      (db/set-editable! n)
-      (js/setTimeout #(.focus (get-element id)) 100)))
+  (db/set-editable! n)
+  (js/setTimeout #(.focus (get-element id)) 100))
 
 (defn onclick-hdln
   "Event -> GlobalState
@@ -254,70 +245,63 @@
   Consumes the onclick Event ev and changes the headline of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (:headline (db/sidebar-content)))
-        (db/change-headline content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (:headline (db/sidebar-content)))
+      (db/change-headline content (db/sidebar-content)))))
 
 (defn onblur-sidebar-body
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the body of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (:body (db/sidebar-content)))
-        (db/change-body (s/replace content #"#" "") (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (:body (db/sidebar-content)))
+      (db/change-body (s/replace content #"#" "") (db/sidebar-content)))))
 
 (defn onblur-sidebar-state
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the state of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (:todo (db/sidebar-content)))
-        (db/change-state content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (:todo (db/sidebar-content)))
+      (db/change-state content (db/sidebar-content)))))
 
 (defn onblur-sidebar-project
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the project of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (:project (db/sidebar-content)))
-        (db/change-project content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (:project (db/sidebar-content)))
+      (db/change-project content (db/sidebar-content)))))
 
 (defn onblur-sidebar-scheduled
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the scheduled time of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (:scheduled (db/sidebar-content)))
-        (db/change-scheduled content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (:scheduled (db/sidebar-content)))
+      (db/change-scheduled content (db/sidebar-content)))))
 
 (defn onblur-sidebar-tags
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the project of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (no/tags-string (db/sidebar-content)))
-        (db/change-tags content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (no/tags-string (db/sidebar-content)))
+      (db/change-tags content (db/sidebar-content)))))
 
 (defn onblur-sidebar-reps
   "Event -> GlobalState
   Consumes the onclick Event ev and changes the project of a task"
   [ev]
   (let [content (.-value (.-currentTarget ev))]
-    (do
-      (db/set-editable! nil)
-      (when (not= content (no/reps-string (db/sidebar-content)))
-        (db/change-reps content (db/sidebar-content))))))
+    (db/set-editable! nil)
+    (when (not= content (no/reps-string (db/sidebar-content)))
+      (db/change-reps content (db/sidebar-content)))))
 
 (defn submit-sidebar-hdln
   "->
@@ -402,10 +386,10 @@
   [ev]
   (let [pth (.-value (.-target ev))
         fpth (.join path pth filename)]
-    (when (not (empty? pth))
+    (when (not-empty pth)
       (if (.existsSync fs fpth)
         (let [confirmation (js/confirm "There is already a tasklist in this location.\nDo you really want to overwrite it?")]
-          (if (not confirmation)
+          (if-not confirmation
             (println "Do not Overwrite")
             (do
               (println "Overwrite")
@@ -437,14 +421,13 @@
  [ev]
  (let [pth (.-value (.-target ev))
        fpth (.join path pth filename)]
-    (when (not (empty? pth))
+    (when (not-empty pth)
      (if (.existsSync fs fpth)
        (do
         (.log js/console "Fileexists")
         (.log js/console pth)
         (open-task-helper pth fpth))
-       (do
-        (js/alert "This is not a valid task location directory!"))))))
+      (js/alert "This is not a valid task location directory!")))))
 
 (defn open-task-location-dialog!
  "Event -> Void
