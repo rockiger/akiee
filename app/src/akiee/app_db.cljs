@@ -33,7 +33,6 @@
   (no/->nodes p))
 
 
-;; TODO hier auf änderung des Verzeichnisses reagieren
 ;;(alandipert.storage-atom/clear-local-storage!)
 (defonce conf-state (local-storage (rc/atom {:task-location ""}) :conf-state))
 (if (or (empty? (:task-location @conf-state)) nil)

@@ -3,13 +3,13 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.89"]
-                 [org.clojure/core.async "0.3.441"]
-                 [reagent "0.6.0-rc"]
-                 [garden "1.2.5"]
+                 [org.clojure/clojurescript "1.9.495"]
+                 [org.clojure/core.async "0.3.442"]
+                 [reagent "0.6.1"]
+                 [garden "1.3.2"]
                  [jayq "2.5.4"]
-                 [historian "1.1.0"]
-                 [alandipert/storage-atom "1.2.4"]]
+                 [historian "1.1.1"]
+                 [alandipert/storage-atom "2.0.1"]]
 
   :node-dependencies [[source-map-support "0.2.8"]]
 
