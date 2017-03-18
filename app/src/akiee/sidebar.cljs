@@ -51,7 +51,7 @@
    (if (and (db/selected) (= (db/editable) "project"))
      [:select#sidebar-task-project.form-control {:name "task-project" :defaultValue (:project node) :on-blur h/onblur-sidebar-project :on-submit h/onblur-sidebar-project :on-change h/onblur-sidebar-project :on-click h/submit-sidebar-project}
       (for [p (db/projects)]
-         [:option p])]
+         ^{:key p} [:option p])]
      [:span (:project node)])
    [:span.fa.fa-list-alt]])
 
