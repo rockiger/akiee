@@ -186,7 +186,10 @@
                                   (= state ALL) true
                                   (= state (:todo x)) true
                                   :else false))]
-    (count (filter filter-state (filter filter-tasks @task-list)))))
+    (->> @task-list
+         (filter filter-tasks)
+         (filter filter-state)
+         count)))
 
 (defn no-of-tasks
   "-> {:all NUMBER :todo NUMBER :doing NUMBER :done NUMBER}
