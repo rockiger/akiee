@@ -125,21 +125,17 @@
                                                   (str "(?i)"(:ss @gs))) (:project x)))
                                   true
                                   false)
-                                true))]
-    (if (= ls DONE)
-        (let [lon
-              (vec (sort-by :fin no/newer-date?
-                      (sort-by :rank no/higher-rank?
-                        (filter filter-search
-                         (filter filter-state
-                          (filter filter-tasks @task-list))))))]
-            (if (< 100 (count lon))
-                (subvec lon 0 100)
-                lon))
-        (vec (sort-by :rank no/higher-rank?
-                  (filter filter-search
-                   (filter filter-state
-                    (filter filter-tasks @task-list))))))))
+                                true))
+        max-100      (fn [lon] (if (< 100 (count lon)) (subvec lon 0 100) lon))
+        if-done      (fn [lon] (if (= ls DONE)
+                                (max-100 (sort-by :fin no/newer-date? lon))
+                                lon))]
+    (->> @task-list
+         (filter filter-tasks)
+         (filter filter-state)
+         (filter filter-search)
+         (sort-by :rank no/higher-rank?)
+         if-done)))
 
 ;; ==========================================================
 ;; TEST
