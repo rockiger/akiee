@@ -18,7 +18,8 @@
   Integer ListState -> Node
   Returns node at pos"
   ([pos] (get (db/tasks) pos))
-  ([pos ls] (get (db/tasks ls) pos)))
+  ([pos ls]
+   (nth (db/tasks ls) pos)))
 
 (defn move-rank!
   "String Integer Integer -> ?"
@@ -43,7 +44,6 @@
         new-task (assoc source-task :rank target-rank)
         np (db/node-pos-by-key ky (db/nodes))
         newer-lon (assoc new-lon np new-task)]
-
     (if target-rank
       (db/reset-lon! db/app-state newer-lon)
       (println "No target task"))))
