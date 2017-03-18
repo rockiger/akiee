@@ -372,7 +372,6 @@
                     "\n\nTask-Location: " (db/task-location)))))
 
 (defn save-task-helper [pth fpth]
-  (println "SAVENTASTHELPER")
   (fw/unwatch-file (db/task-file-path))
   (db/set-task-location! pth)
   (fo/save-task-file (no/lon->md (db/nodes)) fpth true db/set-changed! #(fw/on-file-change %1 %2 (on-file-change-reload pth))))

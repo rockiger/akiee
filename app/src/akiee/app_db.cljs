@@ -37,9 +37,6 @@
 (defonce conf-state (local-storage (rc/atom {:task-location ""}) :conf-state))
 (if (or (empty? (:task-location @conf-state)) nil)
     (swap! conf-state assoc :task-location (fo/user-home)))
-;(defonce conf-state (rc/atom {:task-location (fo/user-home)}))
-(println "CONF-STATE ######################")
-(println (:task-location @conf-state))
 
 (defonce app-state (rc/atom (global-state. false false false false "" nil nil DOING)))
 
@@ -56,7 +53,6 @@
   "String -> GlobalState
   Consume a Task-Location directory and produces a new GlobalState with new tasks"
   [pth]
-  (println "RESET-TASKLIST " pth)
   (let [tlf (fo/create-task-list-file pth)]
     (reset! task-list (load-task-list tlf))))
 
@@ -395,7 +391,6 @@
   returns a ListOfNode"
   [n pro gs]
   (let [lon (vec @task-list)
-        tmp (println lon)
         i (inc (node-pos-by-headline pro lon))
         new-lon (vec (concat (subvec lon 0 i) [n] (subvec lon i)))]
    (reset-lon! gs new-lon)))

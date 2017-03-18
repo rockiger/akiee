@@ -167,7 +167,6 @@
     (dialogs/empty-message)
     [:table.table
      [:tbody
-      (println (count tb))
       (for [t tb]
         [task t])]]))
 

@@ -1,6 +1,5 @@
 (ns akiee.filewatcher
-  (:require [cljs.nodejs :as nj]
-            [akiee.helpers :refer [log]]))
+  (:require [cljs.nodejs :as nj]))
 ;; Node modules
 (def fs (js/require "fs"))
 (def path (nj/require "path"))
@@ -13,7 +12,6 @@
 (defn watch-file [pth func]
   "String Function -> Void
   Watches the file at the specified String pth and triggers the Function func"
-  (.log js/console func)
   (.watchFile fs pth func)) ; watch file again
 
 (defn unwatch-file [pth]
